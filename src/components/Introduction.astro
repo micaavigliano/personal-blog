@@ -1,0 +1,52 @@
+<section>
+  <h1>Mica Capa</h1>
+</section>
+
+<style>
+  section {
+    padding: 2%;
+  }
+
+  h1 {
+    color: white;
+  }
+</style>
+
+<script>
+  const title = document.querySelector("h1");
+  const content = title?.textContent;
+  let typeWriter = 0;
+
+  const typeWriterFunc = (word: string) => {
+    if (!word) return;
+
+    const addChar = () => {
+      if (typeWriter <= word.length) {
+        title!.textContent = word.substring(0, typeWriter);
+        typeWriter++;
+        setTimeout(addChar, 1000);
+      }
+
+      if (typeWriter === word.length) {
+        let p = document.createElement("p");
+        p.style.color = "white";
+        const node = document.createTextNode("This is a new paragraph.");
+        p.appendChild(node);
+        const sectionElem = document.querySelector("section");
+        sectionElem?.appendChild(p);
+      }
+    };
+
+    addChar();
+  };
+
+  typeWriterFunc(content!);
+
+  // if (content) {
+  //   let p = document.createElement("p");
+  //   const node = document.createTextNode("This is a new paragraph.");
+  //   p.appendChild(node);
+  //   const sectionElem = document.querySelector("section");
+  //   sectionElem?.appendChild(p);
+  // }
+</script>

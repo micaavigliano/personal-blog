@@ -6,7 +6,6 @@ import icon from "@assets/img/cat-web.png";
 const {
   title = "Mica Avigliano",
   description = "Mica blog HELLO HELLO",
-  url,
   image = "/cat-web.png",
   author = "Mica avigliano",
 } = Astro.props;
@@ -29,7 +28,7 @@ const {
   </head>
   <body>
     <Header />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <style lang="scss" is:global>
