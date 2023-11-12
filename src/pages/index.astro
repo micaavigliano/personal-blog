@@ -1,8 +1,9 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import Introduction from "@components/Introduction.astro";
+import i18next from "i18next";
 ---
 
-<MainLayout>
+<MainLayout lang={i18next.language}>
   <Introduction />
 </MainLayout>

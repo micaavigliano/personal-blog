@@ -1,12 +1,10 @@
 <header>
-  <div>
-    <p>mica</p>
-  </div>
   <nav>
     <ul>
       <li>
-        <a href="#">about me</a>
         <a href="/blog/">blog</a>
+      </li>
+      <li>
         <a href="#">contact me</a>
       </li>
     </ul>
@@ -16,7 +14,18 @@
 <style scoped="scss">
   header {
     background-color: pink;
-    width: 100vw;
+  }
+
+  ul {
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2%;
+    flex-direction: row;
+  }
+
+  ul > li {
+    list-style: none;
   }
 
   p {

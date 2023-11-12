@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.3.0",
-    "astro": "^3.4.2",
+    "astro": "^3.5.3",
+    "i18next": "^23.7.3",
+    "i18next-http-backend": "^2.4.1",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "astro-i18next": "^1.0.0-beta.21",
     "astro-icon": "^0.8.1",
     "sass": "^1.69.5"
   }

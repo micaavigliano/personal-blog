@@ -1,12 +1,12 @@
 ---
 import SiteMeta from "@components/SiteMeta.astro";
 import Header from "@components/Header.astro";
-import icon from "@assets/img/cat-web.png";
+import Footer from "@components/Footer.astro";
 
 const {
   title = "Mica Avigliano",
   description = "Mica blog HELLO HELLO",
-  image = "/cat-web.png",
+  image = "✨",
   author = "Mica avigliano",
 } = Astro.props;
 ---
@@ -17,7 +17,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/code.png" />
+    <link rel="icon" type="image/svg+xml" href="/sparkles.png" />
     <meta name="generator" content={Astro.generator} />
     <SiteMeta
       title={title}
@@ -31,28 +31,20 @@ const {
     <main id="main-content">
       <slot />
     </main>
+    <Footer />
     <style lang="scss" is:global>
-      /* :root {
-        --accent: 136, 58, 234;
-        --accent-light: 224, 204, 250;
-        --accent-dark: 49, 10, 101;
-        --accent-gradient: linear-gradient(
-          45deg,
-          rgb(var(--accent)),
-          rgb(var(--accent-light)) 30%,
-          white 60%
-        );
-      } */
       html,
       body {
         font-family: system-ui, sans-serif;
         background: #13151a;
-        height: 100%;
-        margin: 0;
-        padding: 0;
+        margin: auto;
+        width: 85%;
         box-sizing: border-box;
       }
 
+      main {
+        height: 90vh;
+      }
       code {
         font-family:
           Menlo,
