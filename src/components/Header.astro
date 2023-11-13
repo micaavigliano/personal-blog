@@ -1,5 +1,5 @@
 ---
-import logo from "/mica-profile.png";
+import { getRelativeLocaleUrl } from "astro:i18n";
 ---
 
 <header>
@@ -15,16 +15,15 @@ import logo from "/mica-profile.png";
         <a href="#" class="nav-link">contact me</a>
       </li>
     </ul>
-
     <nav>
-      <div role="button" tabindex="0">english</div>
+      <a href={getRelativeLocaleUrl("en", "")}>English</a>
     </nav>
   </nav>
 </header>
 
 <style scoped="scss">
   a,
-  [role="button"] {
+  button {
     color: white;
     text-decoration-color: #eb4888;
     text-decoration-thickness: 3px;
@@ -32,13 +31,19 @@ import logo from "/mica-profile.png";
   }
 
   a:hover,
-  [role="button"]:hover {
+  button:hover {
     color: pink;
     transform: scale(1.1);
   }
 
+  button {
+    border: none;
+    background-color: transparent;
+    font-family: RobotoMono;
+  }
+
   a:focus,
-  [role="button"]:hover {
+  button:focus {
     outline: 3px dotted pink;
     padding: 1%;
     width: auto;
@@ -89,4 +94,6 @@ import logo from "/mica-profile.png";
       }
     });
   });
+
+  console.log(document.URL.includes("en"));
 </script>
