@@ -6,36 +6,48 @@ import logo from "/mica-profile.png";
   <nav id="main-nav">
     <ul>
       <li>
-        <a href="/">✨Mica</a>
+        <a href="/" class="nav-link">✨Mica</a>
       </li>
       <li>
-        <a href="/blog/">blog</a>
+        <a href="/blog/" class="nav-link">blog</a>
       </li>
       <li>
-        <a href="#">contact me</a>
+        <a href="#" class="nav-link">contact me</a>
       </li>
     </ul>
+
+    <nav>
+      <div role="button" tabindex="0">english</div>
+    </nav>
   </nav>
 </header>
 
 <style scoped="scss">
-  a {
+  a,
+  [role="button"] {
     color: white;
     text-decoration-color: #eb4888;
     text-decoration-thickness: 3px;
     transition: transform 0.3s;
   }
 
-  a:hover {
+  a:hover,
+  [role="button"]:hover {
     color: pink;
     transform: scale(1.1);
   }
 
-  a:focus {
+  a:focus,
+  [role="button"]:hover {
     outline: 3px dotted pink;
     padding: 1%;
     width: auto;
   }
+
+  .active {
+    color: #fc5b9a;
+  }
+
   header {
     padding: 3% 0 3% 0;
   }
@@ -45,8 +57,9 @@ import logo from "/mica-profile.png";
     padding: 0;
     display: flex;
     justify-content: flex-start;
-    gap: 2%;
+    gap: 3%;
     flex-direction: row;
+    width: -webkit-fill-available;
   }
 
   ul > li {
@@ -56,4 +69,24 @@ import logo from "/mica-profile.png";
   p {
     margin: 0;
   }
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let currentPage = window.location.pathname;
+    let navLinks = document.querySelectorAll(".nav-link");
+
+    navLinks.forEach((link) => {
+      if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+      }
+    });
+  });
+</script>
