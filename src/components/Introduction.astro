@@ -1,26 +1,73 @@
----
-import { t } from "i18next";
----
-
-<section>
-  <div class="container-title">
-    <h1>{t("title")}</h1>
-  </div>
-
-  <h3>Frontend Developer and Accessibility Analyst</h3>
-</section>
+<div>
+  <section>
+    <div class="header-container">
+      <div class="header-wrapper">
+        <div class="container-title">
+          <h1>Mica Avigliano</h1>
+        </div>
+        <h3>Frontend Developer and Accessibility Analyst</h3>
+      </div>
+      <div class="img-wrapper">
+        <img src="/mica-profile.jpg" width="250" height="250" />
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="info-wrapper">
+      <p>
+        Hello all! My name is Micaela. I'm a frontend developer with 4 years of
+        experience working on modern technologies such as React and a special
+        attention towards accessibility and developing impactful products that
+        reach large target audience. Also, in a personal way, I really enjoy
+        playing video games,
+      </p>
+    </div>
+  </section>
+  <section>
+    <h4>Let's be friends:</h4>
+  </section>
+</div>
 
 <style>
   .container-title {
     height: 5vh;
   }
+
+  .img-wrapper {
+    text-align: center;
+  }
+
+  img {
+    border-radius: 50%;
+    display: inline-block;
+    object-fit: cover;
+  }
   section {
-    padding: 2%;
+    margin-top: 2%;
+    width: 100%;
+  }
+
+  .header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   h1,
-  h3 {
+  h3,
+  .info-wrapper {
     color: white;
+  }
+
+  .info-wrapper {
+    margin: 4% 0;
+  }
+
+  h4 {
+    width: fit-content;
+    background-color: #e9bc3f;
   }
 </style>
 

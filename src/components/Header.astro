@@ -1,6 +1,13 @@
+---
+import logo from "/mica-profile.png";
+---
+
 <header>
-  <nav>
+  <nav id="main-nav">
     <ul>
+      <li>
+        <a href="/">✨Mica</a>
+      </li>
       <li>
         <a href="/blog/">blog</a>
       </li>
@@ -12,14 +19,32 @@
 </header>
 
 <style scoped="scss">
+  a {
+    color: white;
+    text-decoration-color: #eb4888;
+    text-decoration-thickness: 3px;
+    transition: transform 0.3s;
+  }
+
+  a:hover {
+    color: pink;
+    transform: scale(1.1);
+  }
+
+  a:focus {
+    outline: 3px dotted pink;
+    padding: 1%;
+    width: auto;
+  }
   header {
-    background-color: pink;
+    padding: 3% 0 3% 0;
   }
 
   ul {
     margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 2%;
     flex-direction: row;
   }
