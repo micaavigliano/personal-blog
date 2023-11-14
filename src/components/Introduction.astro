@@ -1,5 +1,6 @@
 ---
 import { t } from "i18next";
+console.log(t);
 ---
 
 <div>
@@ -59,12 +60,6 @@ import { t } from "i18next";
     justify-content: space-between;
   }
 
-  h1,
-  h3,
-  .info-wrapper {
-    color: white;
-  }
-
   .info-wrapper {
     margin: 4% 0;
   }
@@ -93,7 +88,7 @@ import { t } from "i18next";
         let p = document.createElement("p");
         title?.setAttribute("aria-live", "polite");
         title?.setAttribute("role", "status");
-        p.style.color = "white";
+        //p.style.color = "white";
       }
     };
 

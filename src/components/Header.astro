@@ -1,22 +1,23 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import ThemeToggler from "./ThemeToggler.astro";
 ---
 
 <header>
   <nav id="main-nav">
     <ul>
       <li>
-        <a href="/es/" class="nav-link">✨Mica</a>
+        <a href="/" class="nav-link">✨Mica</a>
       </li>
       <li>
-        <a href="/blog/" class="nav-link">blog</a>
+        <a href="/blog" class="nav-link">blog</a>
       </li>
       <li>
         <a href="#" class="nav-link">contact me</a>
       </li>
     </ul>
     <nav>
-      <a href={getRelativeLocaleUrl("en", "")}>English</a>
+      <a id="lng-link" href="#">English</a>
+      <ThemeToggler />
     </nav>
   </nav>
 </header>
@@ -24,7 +25,6 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 <style scoped="scss">
   a,
   button {
-    color: white;
     text-decoration-color: #eb4888;
     text-decoration-thickness: 3px;
     transition: transform 0.3s;
@@ -84,6 +84,10 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 </style>
 
 <script>
+  import { getRelativeLocaleUrl } from "astro:i18n";
+
+  const languageLink = document.getElementById("lng-link");
+
   document.addEventListener("DOMContentLoaded", () => {
     let currentPage = window.location.pathname;
     let navLinks = document.querySelectorAll(".nav-link");
@@ -93,5 +97,26 @@ import { getRelativeLocaleUrl } from "astro:i18n";
         link.classList.add("active");
       }
     });
+
+    const currentUrl = window.location.href;
+    const currentLng = currentUrl.includes("/es/") ? "es" : "en";
+    languageLink!.textContent = currentLng === "es" ? "English" : "Español";
+    languageLink?.setAttribute(
+      "aria-label",
+      `change language to ${currentLng === "es" ? "English" : "Español"}`
+    );
+  });
+
+  languageLink?.addEventListener("click", (ev) => {
+    ev.preventDefault();
+
+    const currentUrl = window.location.href;
+
+    const currentLng = currentUrl.includes("/es/") ? "es" : "en";
+    const newLang = currentLng === "en" ? "es" : "en";
+
+    const newUrl = getRelativeLocaleUrl(newLang, "");
+
+    window.location.href = newUrl;
   });
 </script>

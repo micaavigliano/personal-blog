@@ -8,7 +8,8 @@ export default defineConfig({
       fallback: {
         en: "es",
       },
+      routingStrategy: "prefix-always",
+      trailingSlash: "always",
     },
   },
-  trailingSlash: "always",
 });

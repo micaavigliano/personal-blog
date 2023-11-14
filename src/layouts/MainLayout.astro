@@ -2,6 +2,7 @@
 import SiteMeta from "@components/SiteMeta.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import "../styles/global.css";
 
 const {
   title = "Mica Avigliano",
@@ -32,35 +33,5 @@ const {
       <slot />
     </main>
     <Footer />
-    <style lang="scss" is:global>
-      @font-face {
-        font-family: "RobotoMono";
-        src: url("/font/RobotoMono-VariableFont_wght.ttf") format("truetype");
-        /* Add more font formats if necessary */
-        font-weight: normal;
-        font-style: normal;
-      }
-      html,
-      body {
-        font-family: "RobotoMono", system-ui, sans-serif;
-        background: #13151a;
-        margin: auto;
-        width: 85%;
-        box-sizing: border-box;
-      }
-
-      code {
-        font-family:
-          "RobotoMono",
-          Menlo,
-          Monaco,
-          Lucida Console,
-          Liberation Mono,
-          DejaVu Sans Mono,
-          Bitstream Vera Sans Mono,
-          Courier New,
-          monospace;
-      }
-    </style>
   </body>
 </html>
