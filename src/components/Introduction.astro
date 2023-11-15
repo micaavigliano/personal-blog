@@ -81,16 +81,16 @@
   }
 </style>
 
-<script is:inline>
+<script type="module">
   const title = document.getElementById("title-name");
   const content = title?.textContent;
   let typeWriter = 0;
-  const typeWriterFunc = (word) => {
+  const typeWriterFunc = (word: string) => {
     if (!word) return;
 
     const addChar = () => {
       if (typeWriter <= word.length) {
-        title?.textContent = word.substring(0, typeWriter);
+        title!.textContent = word.substring(0, typeWriter);
         typeWriter++;
         setTimeout(addChar, 250);
       }
@@ -105,5 +105,5 @@
     addChar();
   };
 
-  typeWriterFunc(content);
+  typeWriterFunc(content!);
 </script>

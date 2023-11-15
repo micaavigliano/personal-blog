@@ -85,7 +85,7 @@ import { getRelativeLocaleUrl } from "astro:i18n";
   }
 </style>
 
-<script is:inline>
+<script type="module">
   import { getRelativeLocaleUrl } from "astro:i18n";
 
   const languageLink = document.getElementById("lng-link");
@@ -103,7 +103,7 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 
     const currentUrl = window.location.href;
     const currentLng = currentUrl.includes("/es/") ? "es" : "en";
-    languageLink?.textContent = currentLng === "es" ? "English" : "Español";
+    languageLink!.textContent = currentLng === "es" ? "English" : "Español";
     languageLink?.setAttribute(
       "aria-label",
       `change language to ${currentLng === "es" ? "English" : "Español"}`
