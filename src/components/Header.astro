@@ -1,5 +1,6 @@
 ---
 import ThemeToggler from "./ThemeToggler.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
 ---
 
 <header>
@@ -9,7 +10,7 @@ import ThemeToggler from "./ThemeToggler.astro";
         <a href="/" class="nav-link">✨Mica</a>
       </li>
       <li>
-        <a href="/blog/" class="nav-link">blog</a>
+        <a href="#" id="blog-link" class="nav-link">blog</a>
       </li>
       <li>
         <a href="#" class="nav-link">contact me</a>
@@ -63,7 +64,7 @@ import ThemeToggler from "./ThemeToggler.astro";
     padding: 0;
     display: flex;
     justify-content: flex-start;
-    gap: 3%;
+    gap: 4%;
     flex-direction: row;
     width: -webkit-fill-available;
   }
@@ -88,6 +89,7 @@ import ThemeToggler from "./ThemeToggler.astro";
   import { getRelativeLocaleUrl } from "astro:i18n";
 
   const languageLink = document.getElementById("lng-link");
+  const blogLink = document.getElementById("blog-link");
 
   document.addEventListener("DOMContentLoaded", () => {
     let currentPage = window.location.pathname;
@@ -117,6 +119,16 @@ import ThemeToggler from "./ThemeToggler.astro";
     const newLang = currentLng === "en" ? "es" : "en";
 
     const newUrl = getRelativeLocaleUrl(newLang, "");
+
+    window.location.href = newUrl;
+  });
+
+  blogLink?.addEventListener("click", (ev) => {
+    ev.preventDefault();
+
+    const currentUrl = window.location.href;
+    const currentBlog = currentUrl.includes("/es/") ? "es" : "en";
+    const newUrl = getRelativeLocaleUrl(currentBlog, "blog");
 
     window.location.href = newUrl;
   });
