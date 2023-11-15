@@ -26,6 +26,31 @@ const {
       image={image}
       author={author}
     />
+    <script is:inline>
+      const languageLink = document.getElementById("lng-link");
+
+      document.addEventListener("DOMContentLoaded", () => {
+        let currentPage = window.location.pathname;
+        let navLinks = document.querySelectorAll(".nav-link");
+
+        navLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
+        });
+
+        const currentUrl = window.location.href;
+        const currentLng = currentUrl.includes("/es/") ? "es" : "en";
+        if (languageLink) {
+          languageLink.textContent =
+            currentLng === "es" ? "English" : "Español";
+        }
+        languageLink?.setAttribute(
+          "aria-label",
+          `change language to ${currentLng === "es" ? "English" : "Español"}`
+        );
+      });
+    </script>
   </head>
   <body>
     <Header />
