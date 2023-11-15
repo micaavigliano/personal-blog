@@ -1,3 +1,30 @@
+---
+const title = document.getElementById("title-name");
+const content = title?.textContent;
+let typeWriter = 0;
+const typeWriterFunc = (word: string) => {
+  if (!word) return;
+
+  const addChar = () => {
+    if (typeWriter <= word.length) {
+      title!.textContent = word.substring(0, typeWriter);
+      typeWriter++;
+      setTimeout(addChar, 250);
+    }
+
+    if (typeWriter === word.length) {
+      let p = document.createElement("p");
+      title?.setAttribute("aria-live", "polite");
+      title?.setAttribute("role", "status");
+    }
+  };
+
+  addChar();
+};
+
+typeWriterFunc(content!);
+---
+
 <div>
   <section>
     <div class="header-container">
@@ -80,30 +107,3 @@
     }
   }
 </style>
-
-<script type="module">
-  const title = document.getElementById("title-name");
-  const content = title?.textContent;
-  let typeWriter = 0;
-  const typeWriterFunc = (word: string) => {
-    if (!word) return;
-
-    const addChar = () => {
-      if (typeWriter <= word.length) {
-        title!.textContent = word.substring(0, typeWriter);
-        typeWriter++;
-        setTimeout(addChar, 250);
-      }
-
-      if (typeWriter === word.length) {
-        let p = document.createElement("p");
-        title?.setAttribute("aria-live", "polite");
-        title?.setAttribute("role", "status");
-      }
-    };
-
-    addChar();
-  };
-
-  typeWriterFunc(content!);
-</script>
