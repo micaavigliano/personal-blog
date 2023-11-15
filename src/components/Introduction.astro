@@ -1,16 +1,11 @@
----
-import { t } from "i18next";
-console.log(t);
----
-
 <div>
   <section>
     <div class="header-container">
       <div class="header-wrapper">
         <div class="container-title">
-          <h1>Mica Avigliano</h1>
+          <h2 id="title-name">Mica Avigliano</h2>
         </div>
-        <h3>{t("title")}</h3>
+        <h1>Frontend Developer and Accessibility Analyst</h1>
       </div>
       <div class="img-wrapper">
         <img src="/mica-profile.jpg" width="250" height="250" />
@@ -79,7 +74,7 @@ console.log(t);
 </style>
 
 <script>
-  const title = document.querySelector("h1");
+  const title = document.getElementById("title-name");
   const content = title?.textContent;
   let typeWriter = 0;
   const typeWriterFunc = (word: string) => {
@@ -96,7 +91,6 @@ console.log(t);
         let p = document.createElement("p");
         title?.setAttribute("aria-live", "polite");
         title?.setAttribute("role", "status");
-        //p.style.color = "white";
       }
     };
 
