@@ -1,5 +1,11 @@
 ---
 import ThemeToggler from "./ThemeToggler.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const pathname = Astro.url.pathname;
+let currentLng = pathname.includes("/es/") ? "en" : "es";
+let blogLng = pathname.includes("/es/") ? "es" : "en";
+const textLang = currentLng === "es" ? "English" : "Español";
 ---
 
 <header>
@@ -9,14 +15,15 @@ import ThemeToggler from "./ThemeToggler.astro";
         <a href="/" class="nav-link">✨Mica</a>
       </li>
       <li>
-        <a href="#" id="blog-link" class="nav-link">blog</a>
+        <a href={getRelativeLocaleUrl(blogLng, "blog")} class="nav-link">blog</a
+        >
       </li>
       <li>
         <a href="#" class="nav-link">contact me</a>
       </li>
     </ul>
     <nav>
-      <a id="lng-link" href="#">English</a>
+      <a href={getRelativeLocaleUrl(currentLng, "/")}>{textLang}</a>
       <ThemeToggler />
     </nav>
   </nav>
@@ -85,11 +92,6 @@ import ThemeToggler from "./ThemeToggler.astro";
 </style>
 
 <script>
-  import { getRelativeLocaleUrl } from "astro:i18n";
-
-  const languageLink = document.getElementById("lng-link");
-  const blogLink = document.getElementById("blog-link");
-
   document.addEventListener("DOMContentLoaded", () => {
     let currentPage = window.location.pathname;
     let navLinks = document.querySelectorAll(".nav-link");
@@ -99,36 +101,5 @@ import ThemeToggler from "./ThemeToggler.astro";
         link.classList.add("active");
       }
     });
-
-    const currentUrl = window.location.href;
-    const currentLng = currentUrl.includes("/es/") ? "es" : "en";
-    languageLink!.textContent = currentLng === "es" ? "English" : "Español";
-    languageLink?.setAttribute(
-      "aria-label",
-      `change language to ${currentLng === "es" ? "English" : "Español"}`
-    );
-  });
-
-  languageLink?.addEventListener("click", (ev) => {
-    ev.preventDefault();
-
-    const currentUrl = window.location.href;
-
-    const currentLng = currentUrl.includes("/es/") ? "es" : "en";
-    const newLang = currentLng === "en" ? "es" : "en";
-
-    const newUrl = getRelativeLocaleUrl(newLang, "");
-
-    window.location.href = newUrl;
-  });
-
-  blogLink?.addEventListener("click", (ev) => {
-    ev.preventDefault();
-
-    const currentUrl = window.location.href;
-    const currentBlog = currentUrl.includes("/es/") ? "es" : "en";
-    const newUrl = getRelativeLocaleUrl(currentBlog, "blog");
-
-    window.location.href = newUrl;
   });
 </script>
