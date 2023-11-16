@@ -12,7 +12,9 @@ const textLang = currentLng === "es" ? "English" : "Español";
   <nav id="main-nav">
     <ul>
       <li>
-        <a href={pathname} class="nav-link">✨Mica</a>
+        <a href={getRelativeLocaleUrl(currentLng, "/")} class="nav-link"
+          >✨Mica</a
+        >
       </li>
       <li>
         <a href={getRelativeLocaleUrl(blogLng, "blog")} class="nav-link">blog</a
@@ -57,10 +59,6 @@ const textLang = currentLng === "es" ? "English" : "Español";
     width: auto;
   }
 
-  .active {
-    color: #fc5b9a;
-  }
-
   header {
     padding: 3% 0 3% 0;
   }
@@ -90,16 +88,3 @@ const textLang = currentLng === "es" ? "English" : "Español";
     align-items: center;
   }
 </style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    let currentPage = window.location.pathname;
-    let navLinks = document.querySelectorAll(".nav-link");
-
-    navLinks.forEach((link) => {
-      if (link.getAttribute("href") === currentPage) {
-        link.classList.add("active");
-      }
-    });
-  });
-</script>
