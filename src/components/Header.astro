@@ -3,6 +3,8 @@ import ThemeToggler from "./ThemeToggler.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 const pathname = Astro.url.pathname;
+
+console.log(pathname);
 let currentLng = pathname.includes("/es/") ? "en" : "es";
 let blogLng = pathname.includes("/es/") ? "es" : "en";
 const textLang = currentLng === "es" ? "English" : "Español";
@@ -12,10 +14,11 @@ const textLang = currentLng === "es" ? "English" : "Español";
   <nav id="main-nav">
     <ul>
       <li>
-        <a href={getRelativeLocaleUrl(blogLng, "/")} class="nav-link">✨Mica</a>
+        <a href={getRelativeLocaleUrl(blogLng, "")} class="nav-link">✨Mica</a>
       </li>
       <li>
-        <a href={getRelativeLocaleUrl(blogLng, "blog")} class="nav-link">blog</a
+        <a href={getRelativeLocaleUrl(blogLng, "/blog")} class="nav-link"
+          >blog</a
         >
       </li>
       <li>
@@ -23,7 +26,7 @@ const textLang = currentLng === "es" ? "English" : "Español";
       </li>
     </ul>
     <nav>
-      <a href={getRelativeLocaleUrl(currentLng, "/")}>{textLang}</a>
+      <a href={getRelativeLocaleUrl(currentLng, "")}>{textLang}</a>
       <ThemeToggler />
     </nav>
   </nav>
