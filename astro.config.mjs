@@ -12,4 +12,10 @@ export default defineConfig({
       trailingSlash: "always",
     },
   },
+  redirects: {
+    "/": {
+      destination: "/es",
+      status: 308,
+    },
+  },
 });
