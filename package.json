@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "tinacms dev -c \"astro dev\"",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
@@ -15,9 +15,12 @@
     "astro-i18next": "^1.0.0-beta.21",
     "i18next": "^23.7.6",
     "i18next-http-backend": "^2.4.1",
+    "tinacms": "^1.5.24",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@tinacms/cli": "^1.5.33",
+    "@types/node": "^20.9.2",
     "astro-icon": "^0.8.1",
     "sass": "^1.69.5"
   }

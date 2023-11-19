@@ -8,6 +8,9 @@ export default defineConfig({
       fallback: {
         en: "es",
       },
+      redirects: {
+        "/es": "/",
+      },
       routingStrategy: "prefix-always",
       trailingSlash: "always",
     },

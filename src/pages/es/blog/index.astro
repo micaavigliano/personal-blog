@@ -1,5 +1,14 @@
 ---
 import MainLayout from "../../../layouts/MainLayout.astro";
+
+import { client } from '../../../../tina/__generated__/client'
+
+const postsResponse = await client.queries.postConnection()
+const posts = postsResponse.data.postConnection.edges?.map((post) => {
+  return { slug: post!.node?._sys.filename, body: post!.node?._sys.relativePath }
+})
+
+console.log(posts, '123')
 ---
 
 <MainLayout>
