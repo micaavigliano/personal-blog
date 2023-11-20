@@ -2,18 +2,22 @@
 import MainLayout from '@layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
 
-// export async function getStaticPaths() {
-//   const posts = await getCollection('posts');
-//   console.log(posts)
-//   return posts.map((post1) => ({
-// 		params: post1.body,
-// 		props: post1,
-// 	}));}
+export async function getStaticPaths() {
 
-//   const post = Astro.props.body;
+const posts = await Astro.glob('../../../content/posts/*.{md,mdx}')
+
+return posts.map((post) => ({
+  params: {
+    slug: post.file.split('/').pop().replace(/\.md(x)?/,'')
+  },
+  props: { post },
+}));
+}
+
+const { frontmatter,Content } = Astro.props.post
 ---
 <MainLayout>
   <div class="content">
-		<p>post</p>
+		<Content />
 	</div>
 </MainLayout>
