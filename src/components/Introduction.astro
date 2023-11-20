@@ -8,7 +8,7 @@
         <h1>Frontend Developer and Accessibility Analyst</h1>
       </div>
       <div class="img-wrapper">
-        <img src="/mica-profile.jpg" width="250" height="250" />
+        <img src="/mica-profile.jpg" width="250" height="250" class="avatar" />
       </div>
     </div>
   </section>
@@ -25,6 +25,12 @@
   </section>
   <section>
     <h4>Let's be friends:</h4>
+    <div class="social-media-container">
+      <img src="./github-logo.png" width="25" height="25" />
+      <img src="./gmail.png" width="25" height="25" />
+      <img src="./linkedin.png" width="25" height="25" />
+      <img src="./twitter.png" width="25" height="25" />
+    </div>
   </section>
 </div>
 
@@ -41,7 +47,12 @@
     text-align: center;
   }
 
-  img {
+  .social-media-container {
+    display: flex;
+    flex-direction: row
+  }
+
+  img.avatar {
     border-radius: 50%;
     display: inline-block;
     object-fit: cover;
