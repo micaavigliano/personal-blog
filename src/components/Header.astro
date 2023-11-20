@@ -4,7 +4,6 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 
 const pathname = Astro.url.pathname;
 
-console.log(pathname);
 let currentLng = pathname.includes("/es/") ? "en" : "es";
 let blogLng = pathname.includes("/es/") ? "es" : "en";
 const textLang = currentLng === "es" ? "English" : "Español";

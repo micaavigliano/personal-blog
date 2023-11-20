@@ -46,6 +46,12 @@ export default defineConfig({
             label: "Description",
           },
           {
+            label: "Tags",
+            name: "tags",
+            type: "string",
+            list: true,
+          },
+          {
             type: "datetime",
             name: "posted",
             label: "Date Posted",
