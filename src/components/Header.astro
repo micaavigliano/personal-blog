@@ -6,14 +6,15 @@ const pathname = Astro.url.pathname;
 
 let currentLng = pathname.includes("/es/") ? "en" : "es";
 let blogLng = pathname.includes("/es/") ? "es" : "en";
-const textLang = currentLng === "es" ? "English" : "Español";
+const textLang = currentLng === "es" ? "Español" : "English";
+console.log(blogLng)
 ---
 
 <header>
   <nav id="main-nav">
     <ul>
       <li>
-        <a href={getRelativeLocaleUrl(blogLng, "")} class="nav-link">✨Mica</a>
+        <a href={getRelativeLocaleUrl(blogLng, "/")} class="nav-link">✨Mica</a>
       </li>
       <li>
         <a href={getRelativeLocaleUrl(blogLng, "/blog")} class="nav-link"
@@ -88,3 +89,4 @@ const textLang = currentLng === "es" ? "English" : "Español";
     align-items: center;
   }
 </style>
+
