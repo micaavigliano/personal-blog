@@ -6,7 +6,7 @@ const posts = await Astro.glob('../../../content/posts/*.{md,mdx}')
 <MainLayout>
   <h1>Blog</h1>
   <section>
-    <p>here you can find entries about programming and accessibility</p>
+    <p>Acá podrás encontrar entradas sobre accesibilidad</p>
     {posts?.map((post) => (
       <li>
         <a href={`./${post.file.split('/').pop().replace(/\.md(x)?/,'')}`}>{post.frontmatter.title}</a>

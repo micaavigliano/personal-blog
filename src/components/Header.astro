@@ -1,24 +1,24 @@
 ---
 import ThemeToggler from "./ThemeToggler.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { getLangFromUrl, useTranslations, useTranslatedPath, getRouteFromUrl } from '../i18n/utils';
+import { languages } from '../i18n/ui';
 
-const pathname = Astro.url.pathname;
-
-let currentLng = pathname.includes("/es/") ? "en" : "es";
-let blogLng = pathname.includes("/es/") ? "es" : "en";
-const textLang = currentLng === "es" ? "Español" : "English";
-console.log(blogLng)
+const route = getRouteFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <header>
   <nav id="main-nav">
     <ul>
       <li>
-        <a href={getRelativeLocaleUrl(blogLng, "/")} class="nav-link">✨Mica</a>
+        <a href={translatePath('/')} class="nav-link">✨Mica</a>
       </li>
       <li>
-        <a href={getRelativeLocaleUrl(blogLng, "/blog")} class="nav-link"
-          >blog</a
+        <a href={getRelativeLocaleUrl(lang, "/blog")} class="nav-link"
+          >{t('nav.about')}</a
         >
       </li>
       <li>
@@ -26,7 +26,13 @@ console.log(blogLng)
       </li>
     </ul>
     <nav>
-      <a href={getRelativeLocaleUrl(currentLng, "")}>{textLang}</a>
+      <ul>
+        {Object.entries(languages).map(([lang, label]) => (
+          <li>
+            <a href={translatePath(`${route ? route : ''}`, lang)}>{label}</a>
+          </li>
+        ))}
+      </ul>
       <ThemeToggler />
     </nav>
   </nav>

@@ -1,4 +1,4 @@
-<button class="theme-toggler">
+<button class="theme-toggler" data-theme-toggler>
   <svg width="25px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path
       class="sun-btn"
@@ -45,10 +45,15 @@
 
 <script type="module">
   const LIGHT_THEME_CLASS = "light";
-  const toggle = document.querySelector("button");
+  const DARK_THEME_CLASS = 'dark';
+  const COLOR_MODE = 'COLOR_MODE';
+  const toggle = document.querySelector("[data-theme-toggler]");
   const rootElem = document.documentElement;
 
   toggle?.addEventListener("click", () => {
     rootElem.classList.toggle(LIGHT_THEME_CLASS);
+    const colorMode = rootElem.classList.contains(DARK_THEME_CLASS) ? DARK_THEME_CLASS : LIGHT_THEME_CLASS
+
+    window.localStorage.setItem(COLOR_MODE, colorMode)
   });
 </script>

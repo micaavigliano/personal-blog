@@ -15,13 +15,15 @@ html.light {
   font-style: normal;
 }
 
-body {
+body, html {
   font-family: "RobotoMono", system-ui, sans-serif;
   background: var(--background);
   color: var(--font);
   margin: auto;
-  width: 60%;
+  width: 70%;
   box-sizing: border-box;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 @media screen and (max-width: 768px) {
