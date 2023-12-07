@@ -1,12 +1,11 @@
 ---
 import ThemeToggler from "./ThemeToggler.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { getLangFromUrl, useTranslations, useTranslatedPath, getRouteFromUrl } from '../i18n/utils';
+import { getLangFromUrl, useTranslatedPath, getRouteFromUrl } from '../i18n/utils';
 import { languages } from '../i18n/ui';
 
 const route = getRouteFromUrl(Astro.url);
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
@@ -18,7 +17,7 @@ const translatePath = useTranslatedPath(lang);
       </li>
       <li>
         <a href={getRelativeLocaleUrl(lang, "/blog")} class="nav-link"
-          >{t('nav.about')}</a
+          >Blog</a
         >
       </li>
       <li>

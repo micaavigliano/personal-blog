@@ -1,3 +1,9 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
 <div>
   <section>
     <div class="header-container">
@@ -5,7 +11,7 @@
         <div class="container-title">
           <h2 id="title-name">Mica Avigliano</h2>
         </div>
-        <h1>Frontend Developer and Accessibility Analyst</h1>
+        <h1>{t("info.about")}</h1>
       </div>
       <div class="img-wrapper">
         <img src="/mica-profile.jpg" width="250" height="250" class="avatar" />
