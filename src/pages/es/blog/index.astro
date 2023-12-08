@@ -8,18 +8,24 @@ const posts = await Astro.glob("../../../content/posts/*.{md,mdx}");
   <section>
     <p>Acá podrás encontrar entradas sobre accesibilidad</p>
     {
-      posts?.map((post) => (
-        <li>
-          <a
-            href={`./${post.file
-              .split("/")
-              .pop()
-              .replace(/\.md(x)?/, "")}`}
-          >
-            {post.frontmatter.title}
-          </a>
-        </li>
-      ))
+      posts
+        ?.sort((a, b) => {
+          const dateA = new Date(a.frontmatter.posted).getTime();
+          const dateB = new Date(b.frontmatter.posted).getTime();
+          return dateB - dateA;
+        })
+        .map((post) => (
+          <li>
+            <a
+              href={`./${post.file
+                .split("/")
+                .pop()
+                .replace(/\.md(x)?/, "")}`}
+            >
+              {post.frontmatter.title}
+            </a>
+          </li>
+        ))
     }
   </section>
 </MainLayout>
