@@ -1,8 +1,12 @@
 ---
 import ThemeToggler from "./ThemeToggler.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { getLangFromUrl, useTranslatedPath, getRouteFromUrl } from '../i18n/utils';
-import { languages } from '../i18n/ui';
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  getRouteFromUrl,
+} from "../i18n/utils";
+import { languages } from "../i18n/ui";
 
 const route = getRouteFromUrl(Astro.url);
 const lang = getLangFromUrl(Astro.url);
@@ -13,12 +17,10 @@ const translatePath = useTranslatedPath(lang);
   <nav id="main-nav">
     <ul>
       <li>
-        <a href={translatePath('/')} class="nav-link">✨Mica</a>
+        <a href={translatePath("/")} class="nav-link">✨Mica</a>
       </li>
       <li>
-        <a href={getRelativeLocaleUrl(lang, "/blog")} class="nav-link"
-          >Blog</a
-        >
+        <a href={getRelativeLocaleUrl(lang, "/blog")} class="nav-link">Blog</a>
       </li>
       <li>
         <a href="#" class="nav-link">contact me</a>
@@ -26,11 +28,13 @@ const translatePath = useTranslatedPath(lang);
     </ul>
     <nav>
       <ul>
-        {Object.entries(languages).map(([lang, label]) => (
-          <li>
-            <a href={translatePath(`${route ? route : ''}`, lang)}>{label}</a>
-          </li>
-        ))}
+        {
+          Object.entries(languages).map(([lang, label]) => (
+            <li>
+              <a href={translatePath(`${route ? route : ""}`, lang)}>{label}</a>
+            </li>
+          ))
+        }
       </ul>
       <ThemeToggler />
     </nav>
@@ -38,33 +42,6 @@ const translatePath = useTranslatedPath(lang);
 </header>
 
 <style scoped="scss">
-  a,
-  button {
-    color: var(--font);
-    text-decoration-color: #eb4888;
-    text-decoration-thickness: 3px;
-    transition: transform 0.3s;
-  }
-
-  a:hover,
-  button:hover {
-    color: pink;
-    transform: scale(1.1);
-  }
-
-  button {
-    border: none;
-    background-color: transparent;
-    font-family: RobotoMono;
-  }
-
-  a:focus,
-  button:focus {
-    outline: 3px dotted pink;
-    padding: 1%;
-    width: auto;
-  }
-
   header {
     padding: 3% 0 3% 0;
   }
@@ -94,4 +71,3 @@ const translatePath = useTranslatedPath(lang);
     align-items: center;
   }
 </style>
-

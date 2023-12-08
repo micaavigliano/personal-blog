@@ -23,3 +23,12 @@ const { Content } = Astro.props.post;
     <Content />
   </div>
 </MainLayout>
+
+<script>
+  const img = document.getElementsByTagName("img");
+
+  for (let i = 0; i < img.length; i++) {
+    img[i].style.width = "100%";
+    img[i].style.height = "auto";
+  }
+</script>

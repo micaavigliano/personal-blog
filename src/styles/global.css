@@ -44,3 +44,30 @@ code {
     Courier New,
     monospace;
 }
+
+a,
+button {
+  color: var(--font);
+  text-decoration-color: #eb4888;
+  text-decoration-thickness: 3px;
+  transition: transform 0.3s;
+}
+
+a:hover,
+button:hover {
+  color: pink;
+  transform: scale(1.1);
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  font-family: RobotoMono;
+}
+
+a:focus,
+button:focus {
+  outline: 3px dotted pink;
+  padding: 1%;
+  width: auto;
+} 
