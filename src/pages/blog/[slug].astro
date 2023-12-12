@@ -1,5 +1,9 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
 
 export async function getStaticPaths() {
   const posts = await Astro.glob("../../content/posts/*.{md,mdx}");
@@ -15,7 +19,12 @@ export async function getStaticPaths() {
   }));
 }
 
-const { Content } = Astro.props.post;
+const { Content, remarkPluginFrontmatter } = Astro.props.post;
+const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
+  .utc()
+  .format("HH:mm:ss DD MMMM YYYY UTC");
+
+console.log(lastModified)
 ---
 
 <MainLayout>

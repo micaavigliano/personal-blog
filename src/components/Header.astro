@@ -43,7 +43,11 @@ const translatePath = useTranslatedPath(lang);
 
 <style scoped="scss">
   header {
-    padding: 3% 0 3% 0;
+    margin: auto;
+    position: fixed;
+    background-color: var(--background);
+    width: -webkit-fill-available;
+    left: 0;
   }
 
   ul {
@@ -69,5 +73,12 @@ const translatePath = useTranslatedPath(lang);
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0 10% 0 18%;
+  }
+
+  @media screen and (max-width: 798px) {
+    nav {
+    padding: 0;
+    }
   }
 </style>

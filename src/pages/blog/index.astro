@@ -25,21 +25,7 @@ const posts = await Astro.glob("../../content/posts/*.{md,mdx}");
 </MainLayout>
 
 <style>
-  a {
-    color: var(--font);
-    text-decoration-color: #eb4888;
-    text-decoration-thickness: 3px;
-    transition: transform 0.3s;
-  }
-
-  a:hover {
-    color: pink;
-    transform: scale(1.1);
-  }
-
-  a:focus {
-    outline: 3px dotted pink;
-    padding: 1%;
-    width: auto;
+  ul {
+    list-style: none;
   }
 </style>

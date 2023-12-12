@@ -1,51 +1,66 @@
 ---
 import MainLayout from "../../../layouts/MainLayout.astro";
+import { getLangFromUrl } from "src/i18n/utils";
 const posts = await Astro.glob("../../../content/posts/*.{md,mdx}");
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+const lang = getLangFromUrl(Astro.url);
+
+dayjs.extend(utc);
 ---
 
 <MainLayout>
   <h1>Blog</h1>
   <section>
     <p>Acá podrás encontrar entradas sobre accesibilidad</p>
-    {
-      posts
-        ?.sort((a, b) => {
-          const dateA = new Date(a.frontmatter.posted).getTime();
-          const dateB = new Date(b.frontmatter.posted).getTime();
-          return dateB - dateA;
-        })
-        .map((post) => (
-          <li>
-            <a
-              href={`./${post.file
-                .split("/")
-                .pop()
-                .replace(/\.md(x)?/, "")}`}
-            >
-              {post.frontmatter.title}
-            </a>
-          </li>
-        ))
-    }
+    <ul>
+      {
+        posts
+          ?.sort((a, b) => {
+            const dateA = new Date(a.frontmatter.posted).getTime();
+            const dateB = new Date(b.frontmatter.posted).getTime();
+            return dateB - dateA;
+          })
+          .map((post) => {
+            const lastModified = dayjs(post.frontmatter.posted).locale(lang).format("DD MMMM YYYY");
+            return (
+              <li>
+                <a
+                  href={`./${post.file
+                    .split("/")
+                    .pop()
+                    .replace(/\.md(x)?/, "")}`}
+                >
+                  {post.frontmatter.title}
+                  {lastModified}
+                </a>
+              </li>
+            );
+          })
+      }
+    </ul>
   </section>
 </MainLayout>
 
 <style>
-  a {
-    color: var(--font);
-    text-decoration-color: #eb4888;
-    text-decoration-thickness: 3px;
-    transition: transform 0.3s;
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0
   }
 
-  a:hover {
-    color: pink;
-    transform: scale(1.1);
+  li {
+    background-color: green;
+    width: 100%;
+    padding: 2%;
+    height: auto;
   }
 
-  a:focus {
-    outline: 3px dotted pink;
-    padding: 1%;
-    width: auto;
+  @media screen and (max-width: 768px) {
+    ul {
+      flex-direction: column;
+    }
   }
 </style>
