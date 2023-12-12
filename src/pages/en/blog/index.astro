@@ -1,11 +1,7 @@
 ---
 import MainLayout from "../../../layouts/MainLayout.astro";
-import { getLangFromUrl } from "src/i18n/utils";
 const posts = await Astro.glob("../../../content/blog/en/*.{md,mdx}");
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-
-const lang = getLangFromUrl(Astro.url);
 ---
 
 <MainLayout>
@@ -36,7 +32,7 @@ const lang = getLangFromUrl(Astro.url);
             </li>)
           })
       }
-    </ul>
+     </ul>
   </section>
 </MainLayout>
 
