@@ -1,7 +1,14 @@
 ---
+import { Image } from 'astro:assets'
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import profileImg from '../assets/img/mica-profile.jpg'
+import linkedin from '../assets/img/linkedin.png';
+import gmail from '../assets/img/gmail.png';
+import github from '../assets/img/github-logo.png';
+import twitter from '../assets/img/twitter.png'
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
 ---
 
 <div>
@@ -14,7 +21,7 @@ const t = useTranslations(lang);
         <h1>{t("info.about")}</h1>
       </div>
       <div class="img-wrapper">
-        <img src="/mica-profile.jpg" width="250" height="250" class="avatar" />
+        <Image src={profileImg} width="250" height="250" class="avatar" alt="" />
       </div>
     </div>
   </section>
@@ -32,10 +39,10 @@ const t = useTranslations(lang);
   <section>
     <h4>Let's be friends:</h4>
     <div class="social-media-container">
-      <img src="./github-logo.png" width="25" />
-      <img src="./gmail.png" width="25" height="25" />
-      <img src="./linkedin.png" width="25" height="25" />
-      <img src="./twitter.png" width="25" height="25" />
+      <Image src={github} width="25" alt=""/>
+      <Image src={gmail} width="25" height="25" alt=""/>
+      <Image src={linkedin} width="25" height="25" alt=""/>
+      <Image src={twitter} width="25" height="25" alt=""/>
     </div>
   </section>
 </div>
