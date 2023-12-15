@@ -21,9 +21,12 @@ const translatePath = useTranslatedPath(lang);
       <li>
         <a href={getRelativeLocaleUrl(lang, "/blog")} class="nav-link">Blog</a>
       </li>
+      <li>
+        <a href="#" class="nav-link">contact me</a>
+      </li>
     </ul>
     <nav>
-      <ul>
+      <ul class="lang-nav">
         {
           Object.entries(languages).map(([lang, label]) => (
             <li>
@@ -71,9 +74,10 @@ const translatePath = useTranslatedPath(lang);
     padding: 1% 10% 1% 18%;
   }
 
+
   @media screen and (max-width: 798px) {
     nav {
-      padding: 0;
+    padding: 0;
     }
 
     header {
