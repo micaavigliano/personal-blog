@@ -1,12 +1,12 @@
 import { defineConfig } from "astro/config";
 import { remarkModifiedTime } from './remark-modified-time.mjs';
-import node from '@astrojs/node';
+// import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  build: {
-    redirects: false
-  },
+  // build: {
+  //   redirects: false
+  // },
   i18n: {
     defaultLocale: "es",
     locales: ["es", "en"],
@@ -17,8 +17,8 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkModifiedTime],
   },
-  output: "server",
-  adapter: node({
-    mode: 'standalone',
-  }),
+  // output: "server",
+  // adapter: node({
+  //   mode: 'standalone',
+  // }),
 });
