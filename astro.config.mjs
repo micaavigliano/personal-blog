@@ -15,7 +15,9 @@ export default defineConfig({
     remarkPlugins: [remarkModifiedTime],
   },
   output: 'server',
-  adapter: node(),
+  adapter: node({
+    mode: 'standalone',
+  }),
   build: {
     redirects: false,
   }
