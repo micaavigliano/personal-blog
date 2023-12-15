@@ -22,10 +22,6 @@ dayjs.extend(utc);
             return dateB - dateA;
           })
           .map((post) => {
-            const tags = post.frontmatter.tags.map((tag: string) => {
-              return `${tag} `
-            })
-            
             const lastModified = dayjs(post.frontmatter.posted).locale('es').format("DD MMMM YYYY");
             return (
               <li>
