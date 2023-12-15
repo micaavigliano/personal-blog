@@ -17,7 +17,7 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkModifiedTime],
   },
-  output: 'hybrid',
+  output: 'server',
   adapter: node({
     mode: 'standalone',
   }),
