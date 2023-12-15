@@ -13,4 +13,7 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkModifiedTime],
   },
+  build: {
+    redirects: false
+  }
 });
