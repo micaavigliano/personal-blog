@@ -17,6 +17,8 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkModifiedTime],
   },
-  output: 'server',
-  adapter: node({}),
+  output: 'static',
+  adapter: node({
+    mode: 'standalone',
+  }),
 });
