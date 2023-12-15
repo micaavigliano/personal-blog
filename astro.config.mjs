@@ -17,8 +17,8 @@ export default defineConfig({
   output: 'server',
   adapter: node({
     mode: 'standalone',
+    build: {
+      redirects: false
+    }
   }),
-  build: {
-    redirects: /es/,
-  }
 });
