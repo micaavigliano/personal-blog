@@ -14,11 +14,12 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkModifiedTime],
   },
-  output: 'server',
+  output: 'static',
   adapter: node({
     mode: 'standalone',
     build: {
       redirects: false
     }
   }),
+
 });
