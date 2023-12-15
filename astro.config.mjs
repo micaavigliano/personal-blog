@@ -7,6 +7,9 @@ export default defineConfig({
   // build: {
   //   redirects: false
   // },
+  redirects: {
+    '/': '/es/'
+  },
   i18n: {
     defaultLocale: "es",
     locales: ["es", "en"],
