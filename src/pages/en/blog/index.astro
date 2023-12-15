@@ -2,6 +2,12 @@
 import MainLayout from "../../../layouts/MainLayout.astro";
 const posts = await Astro.glob("../../../content/blog/en/*.{md,mdx}");
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import 'dayjs/locale/es';
+dayjs.locale('es');
+
+
+dayjs.extend(utc);
 ---
 
 <MainLayout>
@@ -17,7 +23,7 @@ import dayjs from "dayjs";
             return dateB - dateA;
           })
           .map((post) => {
-            const lastModified = dayjs(post.frontmatter.posted).locale('es').format("DD MMMM YYYY");
+            const lastModified = dayjs(post.frontmatter.posted).locale('en').format("DD MMMM YYYY");
             return (
             <li>
               <a
@@ -27,8 +33,8 @@ import dayjs from "dayjs";
                   .replace(/\.md(x)?/, "")}`}
               >
                 {post.frontmatter.title}
-                {lastModified}
               </a>
+              <p>{lastModified}</p>
             </li>)
           })
       }
@@ -45,7 +51,6 @@ import dayjs from "dayjs";
   }
 
   li {
-    background-color: green;
     width: 100%;
     padding: 2%;
     height: auto;
