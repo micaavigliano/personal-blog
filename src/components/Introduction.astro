@@ -1,17 +1,14 @@
 ---
-import { Image } from 'astro:assets'
+import { Image } from "astro:assets";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import Badge from './Badge.astro';
 import profileImg from '../assets/img/mica-profile.jpg'
-import linkedin from '../assets/img/linkedin.png';
-import gmail from '../assets/img/gmail.png';
-import github from '../assets/img/github-logo.png';
-import twitter from '../assets/img/twitter.png'
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 ---
 
-<div>
+<div class="container">
   <section>
     <div class="header-container">
       <div class="header-wrapper">
@@ -28,26 +25,25 @@ const t = useTranslations(lang);
   <section>
     <div class="info-wrapper">
       <p>
-        Hello all! My name is Micaela. I'm a frontend developer with 4 years of
-        experience working on modern technologies such as React and a special
-        attention towards accessibility and developing impactful products that
-        reach large target audience. Also, in a personal way, I really enjoy
-        playing video games,
+        {t("info.desc")}
       </p>
     </div>
   </section>
   <section>
     <h4>Let's be friends:</h4>
     <div class="social-media-container">
-      <Image src={github} width="25" alt=""/>
-      <Image src={gmail} width="25" height="25" alt=""/>
-      <Image src={linkedin} width="25" height="25" alt=""/>
-      <Image src={twitter} width="25" height="25" alt=""/>
+      <Badge title="Github" href="https://github.com/micaavigliano"/>
+      <Badge title="Linkedin" href="https://www.linkedin.com/in/micaelaavigliano/" />
+      <Badge title="Twitter" href="https://twitter.com/messycatx" />
     </div>
   </section>
 </div>
 
 <style>
+  .container {
+    margin-top: 20%
+  }
+
   .container-title {
     height: 5vh;
   }
@@ -63,6 +59,9 @@ const t = useTranslations(lang);
   .social-media-container {
     display: flex;
     flex-direction: row;
+    margin-left: 2%;
+    justify-content: start;
+    gap: 2%;
   }
 
   img.avatar {
@@ -70,6 +69,7 @@ const t = useTranslations(lang);
     display: inline-block;
     object-fit: cover;
   }
+  
   section {
     margin-top: 2%;
     width: 100%;
@@ -84,7 +84,8 @@ const t = useTranslations(lang);
   }
 
   .info-wrapper {
-    margin: 4% 0;
+    margin: 10% 0;
+    text-align: center;
   }
 
   h4 {
