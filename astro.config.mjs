@@ -2,8 +2,10 @@ import { defineConfig } from "astro/config";
 import { remarkModifiedTime } from "./remark-modified-time.mjs";
 import partytown from "@astrojs/partytown";
 
-// https://astro.build/config
 export default defineConfig({
+  redirects: {
+    '/': '/es/'
+  },
   i18n: {
     defaultLocale: "es",
     locales: ["es", "en"],
