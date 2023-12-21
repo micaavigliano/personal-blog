@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
-import { remarkModifiedTime } from './remark-modified-time.mjs';
+import { remarkModifiedTime } from "./remark-modified-time.mjs";
+import partytown from "@astrojs/partytown";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,4 +14,12 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkModifiedTime],
   },
+  site: "https://micaavigliano.com",
+  integrations: [
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+  ],
 });
