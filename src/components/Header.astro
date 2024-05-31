@@ -22,7 +22,7 @@ const translatePath = useTranslatedPath(lang);
         <a href={getRelativeLocaleUrl(lang, "/blog")} class="nav-link">Blog</a>
       </li>
     </ul>
-    <nav>
+    <nav aria-label="languages-navigation">
       <ul class="lang-nav">
         {
           Object.entries(languages).map(([lang, label]) => (
@@ -43,6 +43,10 @@ const translatePath = useTranslatedPath(lang);
     background-color: var(--background);
     width: -webkit-fill-available;
     left: 0;
+  }
+
+  .lang-nav > li {
+    margin-left: 10%;
   }
 
   ul {
@@ -71,10 +75,9 @@ const translatePath = useTranslatedPath(lang);
     padding: 1% 10% 1% 18%;
   }
 
-
   @media screen and (max-width: 798px) {
     nav {
-    padding: 0;
+      padding: 0;
     }
 
     header {
