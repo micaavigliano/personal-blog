@@ -1,0 +1,21 @@
+{
+  "name": "Mica Avigliano",
+  "short_name": "Mica",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ec4899",
+  "description": "Frontend developer and accessibility analyst",
+  "icons": [
+    {
+      "src": "/og-image.jpg",
+      "type": "image/jpg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/og-image.jpg",
+      "type": "image/jpg",
+      "sizes": "512x512"
+    }
+  ]
+}
