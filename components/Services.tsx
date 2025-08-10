@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { getTranslation, TranslationKey } from "@/lib/translations"
 import { getLocaleFromPathname } from "@/lib/i18n"
 import { getServicesData } from "@/lib/services-trans"
+import Link from "next/link"
 
 const iconMap = {
   FileText,
@@ -22,6 +23,9 @@ export function Services({ locale }: ServicesProps = {}) {
   const pathname = usePathname()
   const currentLocale = locale || getLocaleFromPathname(pathname)
   const t = (key: TranslationKey) => getTranslation(currentLocale, key)
+  const getLocalizedPath = (path: string) => {
+    return `/${locale}${path}`
+  }
 
   const services = getServicesData(currentLocale)
 
@@ -46,7 +50,7 @@ export function Services({ locale }: ServicesProps = {}) {
             return (
               <Card
                 key={index}
-                className={`border-2 ${service.borderColor} shadow-soft hover:shadow-soft-lg rounded-3xl bg-white/90 backdrop-blur-sm overflow-hidden group`}
+                className={`border-2 ${service.borderColor} shadow-soft hover:shadow-soft-lg rounded-3xl bg-white/90 backdrop-blur-sm overflow-hidden group flex flex-col justify-center items-center`}
               >
                 <CardHeader className="text-center pb-4 relative">
                   <div className="absolute inset-0 opacity-5">
@@ -75,12 +79,13 @@ export function Services({ locale }: ServicesProps = {}) {
                       </li>
                     ))}
                   </ul>
-                  <button
-                    className={`w-full ${service.buttonColor} text-white rounded-2xl py-3 shadow-soft hover:shadow-soft-lg transform hover:-translate-y-1 transition-all border-2 border-transparent hover:border-white/20`}
+                  <Link
+                    href={getLocalizedPath("/book")}
+                    className={`w-full m-auto text-${service.bgColor} text-white py-3 hover:shadow-soft-lg transform hover:-translate-y-1 transition-all underline underline-offset-2 hover:border-white/20`}
                     aria-label={`${t("services.learn.more")} ${service.title}`}
                   >
                     {t("services.learn.more")}
-                  </button>
+                  </Link>
                 </CardContent>
               </Card>
             )

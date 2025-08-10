@@ -68,7 +68,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href={getLocalizedPath("/about")}
+                  href="/#about"
                   className="inline-block text-lavender-300 hover:text-white transition-colors text-left bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:0_100%] pb-1"
                 >
                   {t("nav.about")}
@@ -84,18 +84,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href={getLocalizedPath("/services")}
+                  href="/#services"
                   className="inline-block text-lavender-300 hover:text-white transition-colors text-left bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:0_100%] pb-1"
                 >
                   {t("nav.services")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={getLocalizedPath('/projects')}
-                  className="inline-block text-lavender-300 hover:text-white transition-colors text-left bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:0_100%] pb-1"
-                >
-                  {t("nav.projects")}
                 </Link>
               </li>
               <li>
@@ -108,7 +100,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href={getLocalizedPath("/contact")}
+                  href="/#contact"
                   className="inline-block text-lavender-300 hover:text-white transition-colors text-left bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:0_100%] pb-1"
                 >
                   {t("nav.contact")}
@@ -146,7 +138,7 @@ export function Footer() {
 
         <div className="border-t border-lavender-700 pt-8 text-center">
           <p className="text-lavender-300 flex items-center justify-center gap-2 text-lg font-medium">
-            {t("footer.made.with")} <Heart className="w-4 h-4 text-rose-400" aria-hidden="true" />
+            {t("footer.made.with")} <Heart className="w-4 h-4 text-rose-400" aria-label={t("footer.love")} /> {t("footer.by")}
           </p>
         </div>
       </div>

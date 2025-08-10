@@ -91,7 +91,7 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex lg:flex space-x-6 items-center" aria-label="Main navigation">
           <Link
-            href={getLocalizedPath("/about")}
+            href="/#about"
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/about")
                 ? "text-neutral-900 bg-neutral-100"
@@ -111,7 +111,7 @@ export function Header() {
             {t("nav.experience")}
           </Link>
           <Link
-            href={getLocalizedPath("/services")}
+            href="/#services"
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/services")
                 ? "text-neutral-900 bg-neutral-100"
@@ -131,7 +131,7 @@ export function Header() {
             {t("nav.blog")}
           </Link>
           <Link
-            href={getLocalizedPath("/contact")}
+            href="/#contact"
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/contact")
                 ? "text-neutral-900 bg-neutral-100"
@@ -200,7 +200,7 @@ export function Header() {
             <ul className="flex flex-col gap-1">
               <li>
                 <Link
-                  href={getLocalizedPath("/about")}
+                  href="/#about"
                   className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/about")
                     ? "text-neutral-900 bg-neutral-100"
                     : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
@@ -225,7 +225,7 @@ export function Header() {
               </li>
               <li>
                 <Link
-                  href={getLocalizedPath("/services")}
+                  href="/#services"
                   className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/services")
                     ? "text-neutral-900 bg-neutral-100"
                     : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
@@ -250,7 +250,7 @@ export function Header() {
               </li>
               <li>
                 <Link
-                  href={getLocalizedPath("/contact")}
+                  href="/#contact"
                   className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/contact")
                     ? "text-neutral-900 bg-neutral-100"
                     : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
