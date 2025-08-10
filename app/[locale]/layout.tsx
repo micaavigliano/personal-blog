@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter, Caveat, Roboto_Mono } from 'next/font/google';
-import '../globals.css';
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
+import "../globals.css"
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { JsonLd } from "@/components/json-ld"
 import { locales, isValidLocale } from '@/lib/i18n';
 import { notFound } from 'next/navigation';
 import { ClarityScript } from '@/components/clarity-script';
+import { BackToTop } from '@/components/BackToTop';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -83,9 +85,13 @@ export default async function LocaleLayout({
         <link rel="alternate" hrefLang="x-default" href="https://micaavigliano.com/en" />
       </head>
       <body className={inter.className}>
+        <JsonLd />
         <ClarityScript />
         <Header />
-        {children}
+        <main className="bg-gradient-to-br from-lavender-50 via-rose-50 to-sunshine-50" id="main-content" tabIndex={-1}>
+          {children}
+          <BackToTop />
+        </main>
         <Footer />
       </body>
     </html>

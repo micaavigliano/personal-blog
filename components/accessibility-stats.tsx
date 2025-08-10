@@ -49,51 +49,44 @@ export function AccessibilityStats() {
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-rose-50 paper-texture">
-      <div className="container mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 relative">
-            <span className="text-lavender-700">{t("stats.title")}</span>
-            <TrendingUp className="absolute -top-2 -right-8 w-6 h-6 text-rose-400 animate-subtle-pulse" />
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-rose-300 rounded-full opacity-60"></div>
-          </h2>
-          <p className="text-xl text-lavender-600 max-w-2xl mx-auto leading-relaxed font-medium">
-            {t("stats.description")}
-          </p>
-        </div>
+      <div className="text-center mb-16 flex flex-col items-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-lavender-700 flex flex-row items-center gap-2 mb-10">
+          {t("stats.title")}
+          <TrendingUp className="w-6 h-6 text-rose-400 animate-subtle-pulse" aria-hidden="true" />
+        </h2>
+        <p className="text-xl text-lavender-600 max-w-2xl mx-auto leading-relaxed font-medium">
+          {t("stats.description")}
+        </p>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-stretch mb-16" aria-label="Technical skills">
+        {stats.map((stat, index) => (
+          <li key={index} className="h-full">
             <Card
-              key={index}
-              className={`border-2 ${stat.borderColor} shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:-translate-y-3 rounded-2xl bg-white/90 backdrop-blur-sm text-center overflow-hidden group`}
+              className={`h-full flex flex-col justify-between border-2 ${stat.borderColor} shadow-soft hover:shadow-soft-lg rounded-2xl bg-white/90 backdrop-blur-sm text-center overflow-hidden group`}
             >
               <CardContent className="p-8 relative">
-                <div className="absolute inset-0 opacity-5">
-                  <div className="w-full h-full bg-gradient-to-br from-transparent via-current to-transparent"></div>
-                </div>
-
                 <div
                   className={`w-20 h-20 mx-auto mb-6 rounded-2xl ${stat.bgColor} flex items-center justify-center shadow-soft border-2 ${stat.borderColor} transform group-hover:scale-110 transition-transform relative z-10`}
                 >
-                  <stat.icon className={`w-10 h-10 ${stat.textColor}`} />
+                  <stat.icon className={`w-10 h-10 ${stat.textColor}`} aria-hidden="true" />
                 </div>
                 <div className={`text-4xl font-bold mb-3 ${stat.textColor} code-style relative z-10`}>
                   {stat.number}
                 </div>
                 <p className="text-lavender-600 text-sm leading-relaxed relative z-10">{stat.label}</p>
-
-                <div className={`absolute top-2 right-2 w-3 h-3 ${stat.bgColor} rounded-full opacity-60`}></div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          </li>
+        ))
+        }
+      </ul >
 
-        <div className="mt-16 text-center">
-          <div className="inline-block bg-white/90 px-8 py-4 rounded-2xl border-2 border-lavender-200 shadow-soft">
-            <p className="text-xl text-lavender-700 font-medium">Every user deserves an accessible experience ✨</p>
-          </div>
+      <div className="mt-16 text-center">
+        <div className="inline-block bg-lavender-900 px-8 py-4 rounded-2xl border-2 border-lavender-200 shadow-soft">
+          <p className="text-xl text-white font-medium">{t("stats.message")}</p>
         </div>
       </div>
-    </section>
+    </section >
   )
 }

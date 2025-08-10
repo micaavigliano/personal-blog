@@ -7,12 +7,6 @@ export const localeNames: Record<Locale, string> = {
   it: "Italiano",
 }
 
-export const localeFlags: Record<Locale, string> = {
-  en: "🇺🇸",
-  es: "🇪🇸",
-  it: "🇮🇹",
-}
-
 export function getLocaleFromPathname(pathname: string): Locale {
   const segments = pathname.split("/")
   const potentialLocale = segments[1] as Locale
