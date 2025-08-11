@@ -52,7 +52,7 @@ export const translations = {
     // Stats Section
     "stats.title": "Why Accessibility Matters",
     "stats.description":
-      "Creating inclusive experiences isn't just the right thing to do—it's essential for reaching all users.",
+      "Creating inclusive experiences isn't just the right thing to do. It's essential for reaching all users.",
     "stats.disabilities": "People with disabilities worldwide",
     "stats.visual": "People with visual impairments",
     "stats.keyboard": "Of users rely on keyboard navigation",
@@ -417,7 +417,7 @@ export const translations = {
     // Stats Section
     "stats.title": "Perché l'Accessibilità è Importante",
     "stats.description":
-      "Creare esperienze inclusive non è solo la cosa giusta da fare—è essenziale per raggiungere tutti gli utenti.",
+      "Creare esperienze inclusive non è solo la cosa giusta da fare. È essenziale per raggiungere tutti gli utenti.",
     "stats.disabilities": "Persone con disabilità nel mondo",
     "stats.visual": "Persone con disabilità visive",
     "stats.keyboard": "Degli utenti dipendono dalla navigazione da tastiera",

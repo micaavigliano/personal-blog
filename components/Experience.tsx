@@ -43,7 +43,7 @@ export function Experience() {
 
   const languages = [
     { language: t("experience.spanish"), level: t("experience.level.native"), flag: "🇪🇸" },
-    { language: t("experience.spanish"), level: t("experience.level.fluent"), flag: "🇺🇸" },
+    { language: t("experience.english"), level: t("experience.level.fluent"), flag: "🇺🇸" },
     { language: t("experience.italian"), level: t("experience.level.intermediate"), flag: "🇮🇹" },
   ]
 

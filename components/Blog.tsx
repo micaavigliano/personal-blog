@@ -69,7 +69,7 @@ export function Blog() {
       </div>
 
       <ul className="relative max-w-3xl mx-auto">
-        <div className="absolute left-3 top-0 bottom-0 w-px bg-rose-200" />
+        <div className="absolute left-3 top-0 bottom-0 w-px bg-rose-200" aria-hidden="true" />
 
         {posts.map((post) => {
           const title = String(post.fields.title ?? "").trim() || "Untitled"
