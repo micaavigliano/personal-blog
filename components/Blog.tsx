@@ -102,7 +102,7 @@ export function Blog() {
                   {title}
                 </h3>
                 <span className="inline-flex items-center gap-1 text-rose-600 text-sm mt-1">
-                  Leer más
+                  {t("blog.read.more")}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -110,6 +110,7 @@ export function Blog() {
                     strokeWidth={2}
                     stroke="currentColor"
                     className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12l-7.5 7.5M21 12H3" />
                   </svg>

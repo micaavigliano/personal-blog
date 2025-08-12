@@ -91,6 +91,7 @@ export const translations = {
     "blog.share": "Share",
     "blog.view": "view",
     "blog.views": "views",
+    "blog.read.more": "Read more",
 
     // Contact Section
     "contact.title": "Get In Touch",
@@ -276,6 +277,7 @@ export const translations = {
     "blog.share": "Comparte",
     "blog.view": "vista",
     "blog.views": "vistas",
+    "blog.read.more": "Leggi di più",
 
     // Contact Section
     "contact.title": "Ponte en Contacto",
@@ -462,6 +464,7 @@ export const translations = {
     "blog.share": "Convidi",
     "blog.view": "vista",
     "blog.views": "viste",
+    "blog.read.more": "Leggi più",
 
     // Contact Section
     "contact.title": "Mettiamoci in Contatto",
