@@ -12,6 +12,7 @@ export const translations = {
     "nav.contact": "Contact",
     "nav.book": "Book a Call",
     "nav.home": "Home",
+    "nav.select.language": "Select Language",
     "nav.extraInfo": "Use arrow keys to navigate, Enter to select, Escape to close",
     "nav.mobile.menu.close": "Close menu",
     "nav.mobile.menu.open": "Open menu",
@@ -88,6 +89,8 @@ export const translations = {
     "blog.all": "View All Posts",
     "blog.shareLabel": "Copy the URL and share the post",
     "blog.share": "Share",
+    "blog.view": "view",
+    "blog.views": "views",
 
     // Contact Section
     "contact.title": "Get In Touch",
@@ -192,6 +195,7 @@ export const translations = {
     "nav.contact": "Contacto",
     "nav.book": "Reservar Llamada",
     "nav.home": "Inicio",
+    "nav.select.language": "Selecciona idioma",
     "nav.extraInfo": "Usa las teclas de flecha para navegar, Enter para seleccionar y Escape para cerrar.",
     "nav.mobile.menu.close": "Cerrar el menu",
     "nav.mobile.menu.open": "Abrir el menu",
@@ -270,6 +274,8 @@ export const translations = {
     "blog.all": "Ver Todas las Publicaciones",
     "blog.shareLabel": "Copia el URL y compartí el posteo",
     "blog.share": "Comparte",
+    "blog.view": "vista",
+    "blog.views": "vistas",
 
     // Contact Section
     "contact.title": "Ponte en Contacto",
@@ -377,6 +383,7 @@ export const translations = {
     "nav.contact": "Contatti",
     "nav.book": "Prenota una Chiamata",
     "nav.home": "Home",
+    "nav.select.language": "Seleziona lingua",
     "nav.extraInfo": "Usa i tasti freccia per navigare, Invio per selezionare ed Esc per chiudere.",
     "nav.mobile.menu.close": "Chiudi il menu",
     "nav.mobile.menu.open": "Apri il menu",
@@ -453,6 +460,8 @@ export const translations = {
     "blog.all": "Vedi Tutti i Post",
     "blog.shareLabel": "Copia l'URL e condividi il post",
     "blog.share": "Convidi",
+    "blog.view": "vista",
+    "blog.views": "viste",
 
     // Contact Section
     "contact.title": "Mettiamoci in Contatto",

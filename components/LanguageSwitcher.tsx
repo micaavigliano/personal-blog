@@ -11,6 +11,7 @@ import { getTranslation, TranslationKey } from "@/lib/translations"
 export function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)
+  const [newLocale, setNewLocale] = useState("")
   const pathname = usePathname()
   const locale = getLocaleFromPathname(pathname)
   const t = (key: TranslationKey) => getTranslation(locale, key)
@@ -22,23 +23,19 @@ export function LanguageSwitcher() {
   const currentLocale = getLocaleFromPathname(pathname)
   const currentLanguageName = localeNames[currentLocale]
 
-  // Initialize option refs array
   useEffect(() => {
     optionRefs.current = optionRefs.current.slice(0, locales.length)
   }, [])
 
   const switchLanguage = (newLocale: Locale) => {
-    // Remove current locale from pathname and add new locale
     const segments = pathname.split("/")
     const isCurrentLocaleInPath = locales.includes(segments[1] as Locale)
 
     let newPathname: string
     if (isCurrentLocaleInPath) {
-      // Replace current locale
       segments[1] = newLocale
       newPathname = segments.join("/")
     } else {
-      // Add locale to beginning
       newPathname = `/${newLocale}${pathname}`
     }
 
@@ -46,20 +43,11 @@ export function LanguageSwitcher() {
     setIsOpen(false)
     setFocusedIndex(-1)
 
-    // Announce the language change to screen readers
-    const announcement = `Language changed to ${localeNames[newLocale]}`
-    const ariaLive = document.createElement("div")
-    ariaLive.setAttribute("aria-live", "polite")
-    ariaLive.setAttribute("aria-atomic", "true")
-    ariaLive.className = "sr-only"
-    ariaLive.textContent = announcement
-    document.body.appendChild(ariaLive)
-    setTimeout(() => document.body.removeChild(ariaLive), 1000)
+    setNewLocale(localeNames[newLocale])
   }
 
   const updateFocusedIndex = (newIndex: number) => {
     setFocusedIndex(newIndex)
-    // Focus the actual DOM element
     if (optionRefs.current[newIndex]) {
       optionRefs.current[newIndex]?.focus()
     }
@@ -70,7 +58,6 @@ export function LanguageSwitcher() {
       if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
         event.preventDefault()
         setIsOpen(true)
-        // Focus first option when opening
         setTimeout(() => updateFocusedIndex(0), 0)
       }
       return
@@ -109,7 +96,6 @@ export function LanguageSwitcher() {
         updateFocusedIndex(locales.length - 1)
         break
       case "Tab":
-        // Allow tab to close dropdown and move to next element
         setIsOpen(false)
         setFocusedIndex(-1)
         break
@@ -117,7 +103,6 @@ export function LanguageSwitcher() {
   }
 
   const handleOptionKeyDown = (event: React.KeyboardEvent, index: number) => {
-    // Handle keyboard events on individual options
     switch (event.key) {
       case "Escape":
         event.preventDefault()
@@ -149,15 +134,12 @@ export function LanguageSwitcher() {
         updateFocusedIndex(locales.length - 1)
         break
       case "Tab":
-        // Allow tab to move through options or close dropdown
         if (event.shiftKey && index === 0) {
-          // Shift+Tab on first option goes back to trigger
           event.preventDefault()
           setIsOpen(false)
           setFocusedIndex(-1)
           buttonRef.current?.focus()
         } else if (!event.shiftKey && index === locales.length - 1) {
-          // Tab on last option closes dropdown and moves to next element
           setIsOpen(false)
           setFocusedIndex(-1)
         }
@@ -165,7 +147,6 @@ export function LanguageSwitcher() {
     }
   }
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -180,7 +161,6 @@ export function LanguageSwitcher() {
     }
   }, [isOpen])
 
-  // Handle focus management when dropdown opens
   useEffect(() => {
     if (isOpen && focusedIndex >= 0 && optionRefs.current[focusedIndex]) {
       optionRefs.current[focusedIndex]?.focus()
@@ -195,7 +175,6 @@ export function LanguageSwitcher() {
           const newIsOpen = !isOpen
           setIsOpen(newIsOpen)
           if (newIsOpen) {
-            // When opening with click, focus first option
             setTimeout(() => updateFocusedIndex(0), 0)
           } else {
             setFocusedIndex(-1)
@@ -223,7 +202,7 @@ export function LanguageSwitcher() {
           aria-labelledby="language-button"
           aria-activedescendant={focusedIndex >= 0 ? `language-option-${locales[focusedIndex]}` : undefined}
         >
-          <div className="px-3 py-2 text-xs font-medium text-peach-600 border-b border-peach-100">Select Language</div>
+          <div className="px-3 py-2 text-xs font-medium text-peach-600 border-b border-peach-100">{t("nav.select.language")}</div>
           {locales.map((loc, index) => {
             const isSelected = currentLocale === loc
             const isFocused = focusedIndex === index
@@ -238,13 +217,11 @@ export function LanguageSwitcher() {
                 onClick={() => switchLanguage(loc)}
                 onKeyDown={(e) => handleOptionKeyDown(e, index)}
                 onMouseEnter={() => {
-                  // Only update focus index on mouse enter, don't steal focus from keyboard navigation
                   if (document.activeElement !== optionRefs.current[index]) {
                     setFocusedIndex(index)
                   }
                 }}
                 onFocus={() => {
-                  // Update focused index when option receives focus
                   setFocusedIndex(index)
                 }}
                 className={`w-full px-4 py-3 text-left hover:bg-peach-50 transition-colors flex items-center gap-3 rounded-lg focus:outline-none focus:bg-peach-50 ${isSelected ? "bg-peach-100 text-peach-800" : "text-peach-600"
@@ -266,11 +243,11 @@ export function LanguageSwitcher() {
         </div>
       )}
 
-      {/* Screen reader only instructions */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {isOpen
-          ? `Language menu opened. ${locales.length} options available. Use arrow keys to navigate, Enter to select, Escape to close.`
-          : ""}
+        {isOpen && `Language menu opened. ${locales.length} options available. ${t("nav.extraInfo")}`}
+      </div>
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {`Language changed to ${newLocale}`}
       </div>
     </div>
   )
