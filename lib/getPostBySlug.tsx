@@ -7,6 +7,7 @@ export type PostView = {
   title: string
   slug: string
   seoTitle?: string
+  description: EntryFields.RichText
   seoDescription?: string
   dateISO?: string
   updatedAtISO?: string
@@ -15,8 +16,6 @@ export type PostView = {
 export async function getPostBySlug(slug: string, routeLocale: string) {
   const res = await client.getEntries<BlogPostSkeleton>({
     content_type: "blogPost",
-    // ...({ ["fields.slug"]: slug } as Record<"fields.slug", string>),
-    // locale: toCfLocale(routeLocale),
     ["fields.slug"]: slug,
     locale: toCfLocale(routeLocale),
     limit: 1,
@@ -31,6 +30,7 @@ export async function getPostBySlug(slug: string, routeLocale: string) {
     id: entry.sys.id,
     slug: f.slug,
     title: f.title,
+    description: f.description,
     seoTitle: f.seoTitle,
     seoDescription: f.seoDescription,
     dateISO: f.dateISO,

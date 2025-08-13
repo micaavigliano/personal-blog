@@ -79,11 +79,7 @@ export default async function BlogPostPage({
   params,
 }: { params: Promise<{ locale: "en" | "es" | "it"; slug: string }> }) {
   const { locale, slug } = await params
-  //const cfLocale = cfLocaleMap[locale] ?? "en-US"
   const post = await getPostBySlug(slug, locale)
-
-  // const { items } = await client.getEntries<PostSkeleton>(query)
-  // const post = items[0]
 
   if (!post) {
     notFound()
