@@ -119,7 +119,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex lg:flex space-x-6 items-center" aria-label="Main navigation">
+        <nav className="hidden md:hidden lg:flex space-x-6 items-center" aria-label="Main navigation">
           <Link
             href="/#about"
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
