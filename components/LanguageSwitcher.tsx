@@ -1,17 +1,21 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { Globe, ChevronDown, Check } from "lucide-react"
 import { locales, localeNames, type Locale, getLocaleFromPathname } from "@/lib/i18n"
 import { getTranslation, TranslationKey } from "@/lib/translations"
 
-export function LanguageSwitcher() {
+type Props = {
+  /** map of routeLocale -> translatedSlug, e.g., { en: "post-en", es: "post-es" } */
+  translations: Record<string, string>
+}
+
+export function LanguageSwitcher({ translations }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)
-  const [newLocale, setNewLocale] = useState("")
+  const [newLocaleName, setNewLocaleName] = useState("")
   const pathname = usePathname()
   const locale = getLocaleFromPathname(pathname)
   const t = (key: TranslationKey) => getTranslation(locale, key)
@@ -21,36 +25,39 @@ export function LanguageSwitcher() {
   const optionRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   const currentLocale = getLocaleFromPathname(pathname)
-  const currentLanguageName = localeNames[currentLocale]
 
   useEffect(() => {
     optionRefs.current = optionRefs.current.slice(0, locales.length)
   }, [])
 
-  const switchLanguage = (newLocale: Locale) => {
-    const segments = pathname.split("/")
-    const isCurrentLocaleInPath = locales.includes(segments[1] as Locale)
-
-    let newPathname: string
-    if (isCurrentLocaleInPath) {
-      segments[1] = newLocale
-      newPathname = segments.join("/")
-    } else {
-      newPathname = `/${newLocale}${pathname}`
-    }
-
-    router.push(newPathname)
-    setIsOpen(false)
-    setFocusedIndex(-1)
-
-    setNewLocale(localeNames[newLocale])
-  }
-
   const updateFocusedIndex = (newIndex: number) => {
     setFocusedIndex(newIndex)
-    if (optionRefs.current[newIndex]) {
-      optionRefs.current[newIndex]?.focus()
+    optionRefs.current[newIndex]?.focus()
+  }
+
+  const buildTargetPath = (path: string, targetLocale: Locale): string => {
+    const seg = path.split("/")
+
+    const hasLocale = locales.includes(seg[1] as Locale)
+    console.log(hasLocale, 'has locale?')
+    if (hasLocale) seg[1] = targetLocale
+    else seg.splice(1, 0, targetLocale)
+
+    const blogIndex = seg.indexOf("blog")
+    if (blogIndex !== -1 && seg[blogIndex + 1]) {
+      const translatedSlug = translations[targetLocale]
+      if (translatedSlug) seg[blogIndex + 1] = translatedSlug
     }
+
+    return seg.join("/").replace(/\/{2,}/g, "/")
+  }
+
+  const switchLanguage = (targetLocale: Locale) => {
+    const href = buildTargetPath(pathname, targetLocale)
+    router.push(href)
+    setIsOpen(false)
+    setFocusedIndex(-1)
+    setNewLocaleName(localeNames[targetLocale])
   }
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -58,7 +65,8 @@ export function LanguageSwitcher() {
       if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
         event.preventDefault()
         setIsOpen(true)
-        setTimeout(() => updateFocusedIndex(0), 0)
+        const idx = Math.max(0, locales.indexOf(currentLocale))
+        setTimeout(() => updateFocusedIndex(idx), 0)
       }
       return
     }
@@ -70,22 +78,22 @@ export function LanguageSwitcher() {
         setFocusedIndex(-1)
         buttonRef.current?.focus()
         break
-      case "ArrowDown":
+      case "ArrowDown": {
         event.preventDefault()
         const nextIndex = focusedIndex < locales.length - 1 ? focusedIndex + 1 : 0
         updateFocusedIndex(nextIndex)
         break
-      case "ArrowUp":
+      }
+      case "ArrowUp": {
         event.preventDefault()
         const prevIndex = focusedIndex > 0 ? focusedIndex - 1 : locales.length - 1
         updateFocusedIndex(prevIndex)
         break
+      }
       case "Enter":
       case " ":
         event.preventDefault()
-        if (focusedIndex >= 0) {
-          switchLanguage(locales[focusedIndex])
-        }
+        if (focusedIndex >= 0) switchLanguage(locales[focusedIndex])
         break
       case "Home":
         event.preventDefault()
@@ -110,16 +118,18 @@ export function LanguageSwitcher() {
         setFocusedIndex(-1)
         buttonRef.current?.focus()
         break
-      case "ArrowDown":
+      case "ArrowDown": {
         event.preventDefault()
         const nextIndex = index < locales.length - 1 ? index + 1 : 0
         updateFocusedIndex(nextIndex)
         break
-      case "ArrowUp":
+      }
+      case "ArrowUp": {
         event.preventDefault()
         const prevIndex = index > 0 ? index - 1 : locales.length - 1
         updateFocusedIndex(prevIndex)
         break
+      }
       case "Enter":
       case " ":
         event.preventDefault()
@@ -148,13 +158,12 @@ export function LanguageSwitcher() {
   }
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
         setFocusedIndex(-1)
       }
     }
-
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside)
       return () => document.removeEventListener("mousedown", handleClickOutside)
@@ -172,24 +181,26 @@ export function LanguageSwitcher() {
       <button
         ref={buttonRef}
         onClick={() => {
-          const newIsOpen = !isOpen
-          setIsOpen(newIsOpen)
-          if (newIsOpen) {
-            setTimeout(() => updateFocusedIndex(0), 0)
+          const open = !isOpen
+          setIsOpen(open)
+          if (open) {
+            const idx = Math.max(0, locales.indexOf(currentLocale))
+            setTimeout(() => updateFocusedIndex(idx), 0)
           } else {
             setFocusedIndex(-1)
           }
         }}
         onKeyDown={handleKeyDown}
-        className="flex items-center gap-2 text-peach-800 hover:text-peach-900 px-3 py-2 rounded-lg bg-peach-100 hover:bg-peach-200 border border-peach-300 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5 nav-focus"
-        aria-label={`Current language: ${currentLanguageName}. Click to change language`}
+        className="flex items-center gap-2 text-peach-800 hover:text-peach-900 px-3 py-2 rounded-lg bg-peach-100 hover:bg-peach-200 border border-peach-300 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5 nav-focus
+                   min-w-[44px] min-h-[44px]"
+        aria-label={`Current language: ${localeNames[currentLocale]}. Click to change language`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         id="language-button"
       >
         <Globe className="w-4 h-4" aria-hidden="true" />
         <span className="flex items-center gap-2">
-          <span className="hidden sm:inline font-medium">{currentLanguageName}</span>
+          <span className="hidden sm:inline font-medium">{localeNames[currentLocale]}</span>
           <span className="sm:hidden font-medium text-xs code-style">{currentLocale.toUpperCase()}</span>
         </span>
         <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} aria-hidden="true" />
@@ -202,52 +213,50 @@ export function LanguageSwitcher() {
           aria-labelledby="language-button"
           aria-activedescendant={focusedIndex >= 0 ? `language-option-${locales[focusedIndex]}` : undefined}
         >
-          <div className="px-3 py-2 text-xs font-medium text-peach-600 border-b border-peach-100">{t("nav.select.language")}</div>
+          <div className="px-3 py-2 text-xs font-medium text-peach-600 border-b border-peach-100">
+            {t("nav.select.language")}
+          </div>
+
           {locales.map((loc, index) => {
             const isSelected = currentLocale === loc
+            const hasTranslation = Boolean(translations[loc])
             const isFocused = focusedIndex === index
 
             return (
               <button
                 key={loc}
-                ref={(el) => {
-                  optionRefs.current[index] = el
-                }}
+                ref={(el) => { optionRefs.current[index] = el }}
                 id={`language-option-${loc}`}
-                onClick={() => switchLanguage(loc)}
+                onClick={() => hasTranslation && switchLanguage(loc)}
                 onKeyDown={(e) => handleOptionKeyDown(e, index)}
-                onMouseEnter={() => {
-                  if (document.activeElement !== optionRefs.current[index]) {
-                    setFocusedIndex(index)
-                  }
-                }}
-                onFocus={() => {
-                  setFocusedIndex(index)
-                }}
-                className={`w-full px-4 py-3 text-left hover:bg-peach-50 transition-colors flex items-center gap-3 rounded-lg focus:outline-none focus:bg-peach-50 ${isSelected ? "bg-peach-100 text-peach-800" : "text-peach-600"
-                  } ${isFocused ? "bg-peach-50 ring-2 ring-peach-400 ring-offset-1" : ""}`}
+                onMouseEnter={() => document.activeElement !== optionRefs.current[index] && setFocusedIndex(index)}
+                onFocus={() => setFocusedIndex(index)}
+                className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 rounded-lg focus:outline-none
+                  ${isSelected ? "bg-peach-100 text-peach-800" : "text-peach-600 hover:bg-peach-50"}
+                  ${isFocused ? "bg-peach-50 ring-2 ring-peach-400 ring-offset-1" : ""}`}
                 role="option"
                 aria-selected={isSelected}
-                aria-current={isSelected ? "true" : "false"}
                 tabIndex={isFocused ? 0 : -1}
               >
                 <span className="font-medium flex-1">{localeNames[loc]}</span>
-                <span className="text-xs text-peach-400 code-style">{loc}</span>
+                <span className="text-xs text-peach-600 code-style">{loc}</span>
                 {isSelected && <Check className="w-4 h-4 text-peach-600 flex-shrink-0" aria-hidden="true" />}
               </button>
             )
           })}
-          <div className="px-3 py-2 text-xs text-peach-400 border-t border-peach-100 mt-1">
+
+          <div className="px-3 py-2 text-xs text-peach-600 border-t border-peach-400 mt-1">
             {t("nav.extraInfo")}
           </div>
         </div>
       )}
 
+      {/* Announcements for screen readers */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {isOpen && `Language menu opened. ${locales.length} options available. ${t("nav.extraInfo")}`}
+        {isOpen && `Language menu opened. ${locales.length} options available.`}
       </div>
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {`Language changed to ${newLocale}`}
+        {newLocaleName && `Language changed to ${newLocaleName}`}
       </div>
     </div>
   )

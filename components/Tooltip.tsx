@@ -1,28 +1,28 @@
-import React, { useState, ReactNode, useEffect } from "react";
+import React, { useState, ReactNode, useEffect } from "react"
 
 interface TooltipProps {
-  text: string;
-  children: ReactNode;
-  direction: "top" | "bottom" | "left" | "right";
-  id: string;
+  text: string
+  children: ReactNode
+  direction: "top" | "bottom" | "left" | "right"
+  id: string
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ text, children, direction, id }) => {
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
+  const [showTooltip, setShowTooltip] = useState<boolean>(false)
 
   const tooltipOn = () => {
-    setShowTooltip(true);
-  };
+    setShowTooltip(true)
+  }
 
   const tooltipOff = () => {
-    setShowTooltip(false);
-  };
+    setShowTooltip(false)
+  }
 
   const closeTooltip = (ev: KeyboardEvent) => {
     if (ev.key === "Escape") {
-      setShowTooltip(false);
+      setShowTooltip(false)
     }
-  };
+  }
 
   const getTooltipStyle = () => {
     const tooltipStyle = {
@@ -30,18 +30,18 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children, direction, id }) => {
       [direction === "top" || direction === "bottom"
         ? "marginLeft"
         : "marginTop"]: "7%",
-    };
+    }
 
-    return tooltipStyle;
-  };
+    return tooltipStyle
+  }
 
   useEffect(() => {
-    document.addEventListener("keydown", closeTooltip);
+    document.addEventListener("keydown", closeTooltip)
 
     return () => {
-      document.removeEventListener("keydown", closeTooltip);
-    };
-  }, []);
+      document.removeEventListener("keydown", closeTooltip)
+    }
+  }, [])
 
   return (
     <div
@@ -80,7 +80,7 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children, direction, id }) => {
       )}
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default Tooltip;
+export default Tooltip

@@ -10,7 +10,7 @@ import { getLocaleFromPathname } from '@/lib/i18n'
 export function AccessibilityStats() {
   const pathname = usePathname()
   const locale = getLocaleFromPathname(pathname)
-  const t = (key: TranslationKey): string => getTranslation(locale, key);
+  const t = (key: TranslationKey): string => getTranslation(locale, key)
 
   const stats = [
     {

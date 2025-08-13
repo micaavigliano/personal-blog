@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import { getTranslation, TranslationKey } from "@/lib/translations";
-import { Eye } from "lucide-react";
-import { useEffect, useState } from "react";
+import { getTranslation, TranslationKey } from "@/lib/translations"
+import { Eye } from "lucide-react"
+import { useEffect, useState } from "react"
 
 type Props = {
   slug: string
@@ -29,5 +29,5 @@ export default function ViewCounter({ slug, locale }: Props) {
       <Eye aria-hidden="true" className="text-gray-400" />
       {views === null ? "—" : <p>{views}</p>}
     </div>
-  );
+  )
 }

@@ -1,58 +1,78 @@
-import { Entry, EntryFields, EntrySkeletonType } from "contentful";
-import { client } from "./contentful";
-
-
-export const cfLocale = (appLocale: string) =>
-  ({ en: "en-US", es: "es", it: "it" } as const)[appLocale] ?? "en-US"
-
-type PostFields = {
-  title: EntryFields.Symbol
-  slug: EntryFields.Symbol
-  seoTitle?: EntryFields.Symbol
-  seoDescription?: EntryFields.Text
-  description?: EntryFields.RichText
-  dateISO?: string
-  updatedAtISO?: string
-}
-type PostSkeleton = EntrySkeletonType<PostFields, "blogPost">
-type PostEntry = Entry<PostSkeleton>
+import { EntryFields } from "contentful"
+import { client } from "./contentful"
+import { toCfLocale, toRouteLocale } from "./locales"
+import { BlogPostSkeleton } from "./contentful-types"
 
 export type PostView = {
   title: string
   slug: string
   seoTitle?: string
   seoDescription?: string
-  description: unknown
   dateISO?: string
   updatedAtISO?: string
 }
 
-export async function getPostBySlug(slug: string, locale: string): Promise<PostView | null> {
-  // const res = await client.getEntries({
-  //   content_type: "blogPost",
-  //   "fields.slug": slug,
-  //   limit: 1,
-  //   locale,
-  // });
-
-  const res = await client.getEntries<PostSkeleton>({
+export async function getPostBySlug(slug: string, routeLocale: string) {
+  const res = await client.getEntries<BlogPostSkeleton>({
     content_type: "blogPost",
+    // ...({ ["fields.slug"]: slug } as Record<"fields.slug", string>),
+    // locale: toCfLocale(routeLocale),
+    ["fields.slug"]: slug,
+    locale: toCfLocale(routeLocale),
     limit: 1,
-    locale,
-    ...({ ["fields.slug"]: slug } as Record<"fields.slug", string>),
   })
 
   const entry = res.items[0]
   if (!entry) return null
 
   const f = entry.fields
-  return {
-    title: typeof f.title === "string" ? f.title : "",
-    slug: f.slug as string,
-    seoTitle: typeof f.seoTitle === "string" ? f.seoTitle : undefined,
-    seoDescription: typeof f.seoDescription === "string" ? f.seoDescription : undefined,
-    description: f.description,
-    dateISO: f.dateISO ?? entry.sys.createdAt,
-    updatedAtISO: f.updatedAtISO ?? entry.sys.updatedAt,
+
+  const view: PostView & { id: string } = {
+    id: entry.sys.id,
+    slug: f.slug,
+    title: f.title,
+    seoTitle: f.seoTitle,
+    seoDescription: f.seoDescription,
+    dateISO: f.dateISO,
+    updatedAtISO: f.updatedAtISO,
   }
+
+  return view
+}
+
+export async function getEntryIdBySlug(slug: string, routeLocale: string) {
+  const res = await client.getEntries({
+    content_type: "blogPost",
+    ...({ ["fields.slug"]: slug } as Record<"fields.slug", string>),
+    locale: toCfLocale(routeLocale),
+    limit: 1,
+  })
+  return res.items[0]?.sys.id as string | undefined
+}
+
+export async function getTranslationsMapForPost(
+  slug: string,
+  routeLocale: string
+): Promise<Record<string, string>> {
+  const entryId = await getEntryIdBySlug(slug, routeLocale)
+  if (!entryId) return {}
+
+  const entryAll = await client.withAllLocales.getEntry<BlogPostSkeleton>(entryId)
+  const raw = entryAll.fields.slug as unknown
+  const translations: Record<string, string> = {}
+
+  if (raw && typeof raw === "object") {
+    for (const [cfLoc, value] of Object.entries(raw as Record<string, unknown>)) {
+      if (typeof value === "string" && value.trim()) {
+        translations[toRouteLocale(cfLoc) as string] = value
+      }
+    }
+  } else if (typeof raw === "string" && raw.trim()) {
+    const cfLocales = ["en-US", "es", "it"]
+    for (const cfLoc of cfLocales) {
+      translations[toRouteLocale(cfLoc) as string] = raw
+    }
+  }
+
+  return translations
 }

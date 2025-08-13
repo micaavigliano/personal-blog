@@ -3,7 +3,10 @@ import Post from "@/components/Post"
 import { EntrySkeletonType, EntryFields } from "contentful"
 import { client } from "@/lib/contentful"
 import { Metadata } from "next"
-import { cfLocale, getPostBySlug } from "@/lib/getPostBySlug"
+import { getPostBySlug, getTranslationsMapForPost } from "@/lib/getPostBySlug"
+import JsonLdPost from "@/components/json-ld"
+import { toCfLocale } from "@/lib/locales"
+import { BlogPostFields } from "@/lib/contentful-types"
 
 type PostFields = {
   title: EntryFields.Symbol
@@ -25,8 +28,13 @@ function asNonEmptyString(v: unknown): string | undefined {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string; locale: string } }): Promise<Metadata> {
-  const { slug, locale } = await params
-  const post = await getPostBySlug(slug, cfLocale(locale))
+  const { slug, locale } = params
+  const post = await getPostBySlug(slug, locale)
+  const title = asNonEmptyString(post?.seoTitle) ?? asNonEmptyString(post?.title) ?? "Article"
+  const description = asNonEmptyString(post?.seoDescription) ?? ""
+  const published = typeof post?.dateISO === "string" ? post.dateISO : undefined
+  const updated = typeof post?.updatedAtISO === "string" ? post.updatedAtISO : published
+  const url = `https://micaavigliano.com/${locale}/blog/${slug}`
 
   if (!post) {
     return {
@@ -36,26 +44,18 @@ export async function generateMetadata({ params }: { params: { slug: string; loc
     }
   }
 
-  const title = asNonEmptyString(post.seoTitle) ?? asNonEmptyString(post.title)
-  const description = asNonEmptyString(post.seoDescription) ?? ""
-  const published = typeof post.dateISO === "string" ? post.dateISO : undefined
-  const updated = typeof post.updatedAtISO === "string" ? post.updatedAtISO : undefined
-  const other = {
-    ...(published ? { "article:published_time": published } : {}),
-    ...(updated ? { "article:modified_time": updated } : {}),
-  } satisfies Record<string, string | number | (string | number)[]>
-  const url = `https://micaavigliano.com/${locale}/blog/${slug}`
+  const translations = await getTranslationsMapForPost(slug, locale)
+  const languages: Record<string, string> = {}
+  for (const [loc, translatedSlug] of Object.entries(translations)) {
+    languages[loc] = `https://micaavigliano.com/${loc}/blog/${translatedSlug}`
+  }
 
   return {
     title,
     description,
     alternates: {
       canonical: url,
-      languages: {
-        en: `https://micaavigliano.com/en/blog/${slug}`,
-        es: `https://micaavigliano.com/es/blog/${slug}`,
-        it: `https://micaavigliano.com/it/blog/${slug}`,
-      },
+      ...(Object.keys(languages).length ? { languages } : {}),
     },
     openGraph: {
       type: "article",
@@ -63,8 +63,15 @@ export async function generateMetadata({ params }: { params: { slug: string; loc
       title,
       description,
       locale,
+      ...(post.dateISO ? { publishedTime: post.dateISO } : {}),
+      ...(post.updatedAtISO ? { modifiedTime: post.updatedAtISO } : {}),
+      authors: ["Mica Avigliano"], // TODO: or from CMS
     },
-    other
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description
+    },
   }
 }
 
@@ -72,22 +79,19 @@ export default async function BlogPostPage({
   params,
 }: { params: Promise<{ locale: "en" | "es" | "it"; slug: string }> }) {
   const { locale, slug } = await params
-  const cfLocale = cfLocaleMap[locale] ?? "en-US"
+  //const cfLocale = cfLocaleMap[locale] ?? "en-US"
+  const post = await getPostBySlug(slug, locale)
 
-  const query: Parameters<typeof client.getEntries<PostSkeleton>>[0] = {
-    content_type: "blogPost",
-    locale: cfLocale,
-    limit: 1
-  }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ; (query as any)["fields.slug"] = slug
-
-  const { items } = await client.getEntries<PostSkeleton>(query)
-  const post = items[0]
+  // const { items } = await client.getEntries<PostSkeleton>(query)
+  // const post = items[0]
 
   if (!post) {
     notFound()
   }
 
-  return <Post post={post.fields} locale={locale} />
+  return (
+    <>
+      <JsonLdPost post={post} locale={locale} />
+      <Post post={post} locale={locale} />
+    </>)
 }

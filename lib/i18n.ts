@@ -8,9 +8,8 @@ export const localeNames: Record<Locale, string> = {
 }
 
 export function getLocaleFromPathname(pathname: string): Locale {
-  const segments = pathname.split("/")
-  const potentialLocale = segments[1] as Locale
-  return locales.includes(potentialLocale) ? potentialLocale : "en"
+  const seg = pathname.split("/")[1] as Locale
+  return (locales.includes(seg) ? seg : "en") as Locale // default to 'en'
 }
 
 export function isValidLocale(locale: string): locale is Locale {

@@ -11,14 +11,12 @@ export function BackToTop() {
     let scrollTimeout: NodeJS.Timeout
 
     const toggleVisibility = () => {
-      // Show button when user has scrolled down 300px
       if (window.pageYOffset > 300) {
         setIsVisible(true)
       } else {
         setIsVisible(false)
       }
 
-      // Track scrolling state for animation
       setIsScrolling(true)
       clearTimeout(scrollTimeout)
       scrollTimeout = setTimeout(() => {
@@ -26,7 +24,6 @@ export function BackToTop() {
       }, 150)
     }
 
-    // Throttle scroll events for performance
     let ticking = false
     const handleScroll = () => {
       if (!ticking) {
@@ -52,7 +49,6 @@ export function BackToTop() {
       behavior: "smooth",
     })
 
-    // Announce to screen readers
     const announcement = "Scrolling to top of page"
     const ariaLive = document.createElement("div")
     ariaLive.setAttribute("aria-live", "polite")
@@ -62,7 +58,6 @@ export function BackToTop() {
     document.body.appendChild(ariaLive)
     setTimeout(() => document.body.removeChild(ariaLive), 1000)
 
-    // Focus the main heading after scrolling
     setTimeout(() => {
       const mainHeading = document.querySelector("h1")
       if (mainHeading) {

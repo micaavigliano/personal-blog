@@ -103,7 +103,7 @@ export const experiences: Record<Locale, Experience[]> = {
         "Led the migration of blog and dashboard from legacy architecture to modern tech stack at a fintech platform supporting investors. Focused on improving SEO, performance, and maintainability through server-side rendering and clean, scalable components, resulting in higher user engagement and increased revenue.",
       achievements: [
         "Migrated legacy systems to Next.js, React, TypeScript, GraphQL, PHP, and WordPress",
-        "Optimized Core Web Vitals and SEO with SSR; results tracked via Mixpanel",
+        "Optimized Core Web Vitals and SEO with SSR results tracked via Mixpanel",
         "Built features such as filters, pagination, forms, modals, and content tools",
         "Integrated Optimizely SSR for A/B testing and user segmentation",
         "Enhanced accessibility and Lighthouse performance scores significantly",
@@ -333,7 +333,7 @@ export const experiences: Record<Locale, Experience[]> = {
         "Lideré la migración del blog y dashboard desde arquitectura legacy a stack tecnológico moderno en una plataforma fintech que apoya inversores. Enfoque en mejorar SEO, rendimiento y mantenibilidad a través de renderizado del lado del servidor y componentes limpios y escalables, resultando en mayor engagement de usuarios e ingresos incrementados.",
       achievements: [
         "Migré sistemas legacy a Next.js, React, TypeScript, GraphQL, PHP y WordPress",
-        "Optimicé Core Web Vitals y SEO con SSR; resultados rastreados vía Mixpanel",
+        "Optimicé Core Web Vitals y SEO con SSR resultados rastreados vía Mixpanel",
         "Construí características como filtros, paginación, formularios, modales y herramientas de contenido",
         "Integré Optimizely SSR para pruebas A/B y segmentación de usuarios",
         "Mejoré significativamente las puntuaciones de accesibilidad y rendimiento de Lighthouse",
@@ -563,7 +563,7 @@ export const experiences: Record<Locale, Experience[]> = {
         "Guidato la migrazione di blog e dashboard da architettura legacy a stack tecnologico moderno in una piattaforma fintech che supporta investitori. Focus sul miglioramento di SEO, performance e manutenibilità attraverso rendering lato server e componenti puliti e scalabili, risultando in maggiore coinvolgimento degli utenti e aumento dei ricavi.",
       achievements: [
         "Migrato sistemi legacy a Next.js, React, TypeScript, GraphQL, PHP e WordPress",
-        "Ottimizzato Core Web Vitals e SEO con SSR; risultati tracciati via Mixpanel",
+        "Ottimizzato Core Web Vitals e SEO con SSR risultati tracciati via Mixpanel",
         "Costruito funzionalità come filtri, paginazione, form, modal e strumenti di contenuto",
         "Integrato Optimizely SSR per test A/B e segmentazione utenti",
         "Migliorato significativamente i punteggi di accessibilità e performance di Lighthouse",

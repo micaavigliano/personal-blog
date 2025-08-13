@@ -9,7 +9,7 @@ import { EntryFields } from "contentful"
 import ViewCounter from "./ViewCounter"
 
 interface BlogPostProps {
-  locale: string;
+  locale: string
   post: {
     title: EntryFields.Symbol
     slug: EntryFields.Symbol

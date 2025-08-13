@@ -1,16 +1,17 @@
 "use client"
 
-import { useEffect, useId, useState } from "react"
+import { useEffect, useId, useMemo, useState } from "react"
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { getTranslation, TranslationKey } from "@/lib/translations"
-import { getLocaleFromPathname } from "@/lib/i18n"
+import { getLocaleFromPathname, locales, type Locale } from "@/lib/i18n"
 import { useFocusTrap } from "../hook/useFocusTrap"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [translations, setTranslations] = useState<Record<string, string>>({})
   const titleId = useId()
   const panelId = useId()
   const pathname = usePathname()
@@ -18,6 +19,12 @@ export function Header() {
   const locale = getLocaleFromPathname(pathname)
   const mobileMenuRef = useFocusTrap()
   const isSlug = !!params.slug
+
+  const { isPost, slug } = useMemo(() => {
+    const seg = pathname.split("/").filter(Boolean) // e.g. ["en","blog","my-post"]
+    const isPost = seg.length >= 3 && seg[1] === "blog" && locales.includes(seg[0] as Locale)
+    return { isPost, slug: isPost ? seg[2] : "" }
+  }, [pathname])
 
   const t = (key: TranslationKey) => getTranslation(locale, key)
 
@@ -31,23 +38,23 @@ export function Header() {
       const buttonToFocus = document.getElementById('mobile-menu-button')
 
       if (buttonToFocus instanceof HTMLElement) {
-        buttonToFocus.focus();
+        buttonToFocus.focus()
       }
     }
-  };
+  }
 
   useEffect(() => {
     if (isMenuOpen) {
       const interactiveElements = mobileMenuRef.current?.querySelectorAll("input, a, button")
 
       if (interactiveElements) {
-        const firstInteractiveElement = interactiveElements[0];
+        const firstInteractiveElement = interactiveElements[0]
         if (firstInteractiveElement instanceof HTMLElement) {
-          firstInteractiveElement.focus();
+          firstInteractiveElement.focus()
         }
       }
     }
-  }, [isMenuOpen]);
+  }, [isMenuOpen])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -62,6 +69,27 @@ export function Header() {
     }
   }, [isMenuOpen])
 
+  useEffect(() => {
+    let ignore = false
+    async function load() {
+      if (!isPost || !slug || !locale) {
+        setTranslations({})
+        return
+      }
+      try {
+        const res = await fetch(`/api/translations?slug=${encodeURIComponent(slug)}&locale=${locale}`, { cache: "no-store" })
+        const data = await res.json()
+        if (!ignore && data?.translations) setTranslations(data.translations)
+      } catch {
+        if (!ignore) setTranslations({})
+      }
+    }
+    load()
+    return () => {
+      ignore = true
+    }
+  }, [isPost, slug, locale])
+
   return (
     <header className="fixed top-0 w-full bg-white backdrop-blur-md border-b-2 border-neutral-300 z-50 shadow-soft rounded-b-4xl">
       {/* Skip link for keyboard users */}
@@ -70,10 +98,10 @@ export function Header() {
           href="#main-content"
           className="skip-link hidden md:sr-only md:focus:not-sr-only md:block"
           onClick={(e) => {
-            e.preventDefault();
-            const el = document.getElementById("main-content");
+            e.preventDefault()
+            const el = document.getElementById("main-content")
             if (el) {
-              el.scrollIntoView({ behavior: "smooth" });
+              el.scrollIntoView({ behavior: "smooth" })
             }
           }}
         >
@@ -142,7 +170,7 @@ export function Header() {
           >
             {t("nav.contact")}
           </Link>
-          {!isSlug ? <LanguageSwitcher /> : null}
+          <LanguageSwitcher translations={translations} />
           <Link
             href={getLocalizedPath("/book")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
@@ -157,7 +185,7 @@ export function Header() {
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center gap-2">
-          {!isSlug ? <LanguageSwitcher /> : null}
+          <LanguageSwitcher translations={translations} />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced"
@@ -198,7 +226,7 @@ export function Header() {
                   const buttonToFocus = document.getElementById('mobile-menu-button')
 
                   if (buttonToFocus instanceof HTMLElement) {
-                    buttonToFocus.focus();
+                    buttonToFocus.focus()
                   }
                 }}
                 className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
