@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useId, useState } from "react"
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
@@ -11,6 +11,8 @@ import { useFocusTrap } from "../hook/useFocusTrap"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const titleId = useId()
+  const panelId = useId()
   const pathname = usePathname()
   const params = useParams<{ slug?: string }>()
   const locale = getLocaleFromPathname(pathname)
@@ -94,8 +96,8 @@ export function Header() {
             href="/#about"
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/about")
-                ? "text-neutral-900 bg-neutral-100"
-                : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                ? "text-purple-900 bg-purple-50"
+                : "text-purple-600 hover:text-purple-800 hover:bg-purple-50"
               }`}
           >
             {t("nav.about")}
@@ -104,8 +106,8 @@ export function Header() {
             href={getLocalizedPath("/experience")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/experience")
-                ? "text-neutral-900 bg-neutral-100"
-                : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                ? "text-amber-900 bg-amber-50"
+                : "text-amber-600 hover:text-amber-900 hover:bg-amber-50"
               }`}
           >
             {t("nav.experience")}
@@ -114,8 +116,8 @@ export function Header() {
             href="/#services"
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/services")
-                ? "text-neutral-900 bg-neutral-100"
-                : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                ? "text-emerald-900 bg-emerald-50"
+                : "text-emerald-600 hover:text-emerald-900 hover:bg-emerald-50"
               }`}
           >
             {t("nav.services")}
@@ -124,8 +126,8 @@ export function Header() {
             href={getLocalizedPath("/blog")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/blog")
-                ? "text-neutral-900 bg-neutral-100"
-                : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                ? "text-teal-900 bg-teal-50"
+                : "text-teal-600 hover:text-sky-900 hover:bg-teal-50"
               }`}
           >
             {t("nav.blog")}
@@ -134,8 +136,8 @@ export function Header() {
             href="/#contact"
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/contact")
-                ? "text-neutral-900 bg-neutral-100"
-                : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                ? "text-sky-900 bg-sky-50"
+                : "text-sky-600 hover:text-neutral-900 hover:bg-sky-50"
               }`}
           >
             {t("nav.contact")}
@@ -145,8 +147,8 @@ export function Header() {
             href={getLocalizedPath("/book")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
             ${pathname.includes("/book")
-                ? "text-neutral-900 bg-neutral-100"
-                : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                ? "text-orange-900 bg-orange-50"
+                : "text-orange-600 hover:text-orange-700 hover:bg-orange-50"
               }`}
           >
             {t("nav.book")}
@@ -160,7 +162,8 @@ export function Header() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced"
             aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
+            aria-controls={panelId}
+            aria-haspopup="dialog"
             aria-label={isMenuOpen ? t("nav.mobile.menu.close") : t("nav.mobile.menu.open")}
             id="mobile-menu-button"
           >
@@ -178,9 +181,17 @@ export function Header() {
           aria-label={t("nav.mobile.menu")}
           onKeyUp={onKeyDown}
         >
-          <div className="flex flex-col space-y-4" role="menu" aria-labelledby="mobile-nav-title">
+          <div
+            className="flex flex-col space-y-4"
+            id={panelId}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            hidden={!open}
+          >
             {/* Header with close */}
             <div className="flex justify-end-safe px-3 pb-2">
+              <h2 id={titleId} className="sr-only">{t("nav.mobile.menu")}</h2>
               <button
                 onClick={() => {
                   setIsMenuOpen(false)
@@ -190,90 +201,86 @@ export function Header() {
                     buttonToFocus.focus();
                   }
                 }}
-                className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced"
+                className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label={t("nav.mobile.close")}
               >
                 <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
 
-            <ul className="flex flex-col gap-1">
-              <li>
-                <Link
-                  href="/#about"
-                  className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/about")
-                    ? "text-neutral-900 bg-neutral-100"
-                    : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
-                    }`}
-                  role="menuitem"
-                >
-                  {t("nav.about")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={getLocalizedPath("/experience")}
-                  onClick={() => setIsMenuOpen(false)}
-                  role="menuitem"
-                  className={`font-medium transition-colors px-3 py-2 rounded-lg nav-focus ${pathname.includes("/experience")
-                    ? "text-neutral-900 bg-neutral-100"
-                    : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
-                    }`}
-                >
-                  {t("nav.experience")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#services"
-                  className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/services")
-                    ? "text-neutral-900 bg-neutral-100"
-                    : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
-                    }`}
-                  role="menuitem"
-                >
-                  {t("nav.services")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={getLocalizedPath("/blog")}
-                  onClick={() => setIsMenuOpen(false)}
-                  role="menuitem"
-                  className={`font-medium transition-colors px-3 py-2 rounded-lg nav-focus ${pathname.includes("/blog")
-                    ? "text-neutral-900 bg-neutral-100"
-                    : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
-                    }`}
-                >
-                  {t("nav.blog")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#contact"
-                  className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/contact")
-                    ? "text-neutral-900 bg-neutral-100"
-                    : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
-                    }`}
-                  role="menuitem"
-                >
-                  {t("nav.contact")}
-                </Link>
-              </li>
-              <li className="flex justify-center">
-                <Link
-                  href={getLocalizedPath("/book")}
-                  onClick={() => setIsMenuOpen(false)}
-                  role="menuitem"
-                  className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/book")
-                    ? "text-neutral-900 bg-neutral-100"
-                    : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
-                    }`}
-                >
-                  {t("nav.book")}
-                </Link>
-              </li>
-            </ul>
+            <nav aria-label="menu items navigation">
+              <ul className="flex flex-col gap-1">
+                <li>
+                  <Link
+                    href="/#about"
+                    className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus $${pathname.includes("/about")
+                      ? "text-purple-700 bg-purple-50"
+                      : "text-purple-600 hover:text-purple-800 hover:bg-purple-50"
+                      }`}
+                  >
+                    {t("nav.about")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={getLocalizedPath("/experience")}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`font-medium transition-colors px-3 py-2 rounded-lg nav-focus ${pathname.includes("/experience")
+                      ? "text-amber-900 bg-amber-50"
+                      : "text-amber-600 hover:text-amber-900 hover:bg-amber-50"
+                      }`}
+                  >
+                    {t("nav.experience")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/#services"
+                    className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/services")
+                      ? "text-emerald-900 bg-emerald-50"
+                      : "text-emerald-600 hover:text-emerald-900 hover:bg-emerald-50"
+                      }`}
+                  >
+                    {t("nav.services")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={getLocalizedPath("/blog")}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`nline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/blog")
+                      ? "text-teal-900 bg-teal-50"
+                      : "text-teal-600 hover:text-sky-900 hover:bg-teal-50"
+                      }`}
+                  >
+                    {t("nav.blog")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/#contact"
+                    className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/contact")
+                      ? "text-sky-900 bg-sky-50"
+                      : "text-sky-600 hover:text-neutral-900 hover:bg-sky-50"
+                      }`}
+                  >
+                    {t("nav.contact")}
+                  </Link>
+                </li>
+                <li className="flex justify-center">
+                  <Link
+                    href={getLocalizedPath("/book")}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/book")
+                      ? "text-orange-900 bg-orange-50"
+                      : "text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                      }`}
+                  >
+                    {t("nav.book")}
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
         </nav>
       )}
