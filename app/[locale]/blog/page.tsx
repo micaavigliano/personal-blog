@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
 export default async function BlogPage({ params }: { params: RouteParams }) {
   const { locale } = await params
   const posts = await getAllPosts(locale)
-  console.log(posts)
+
   return (
     <Blog posts={posts} locale={locale} />
   )
