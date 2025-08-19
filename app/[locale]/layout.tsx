@@ -32,31 +32,56 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
-  const { locale } = await params
+type RouteParams = { slug: string; locale: "en" | "es" | "it" }
+type Props = { params: Promise<RouteParams> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug, locale } = await params
+  const site = 'https://micaavigliano.com'
+
   const titles = {
     en: 'Mica Avigliano - Frontend Developer & Accessibility Analyst',
     es: 'Mica Avigliano - Desarrollador Frontend y Analista de Accesibilidad',
     it: 'Mica Avigliano - Sviluppatore Frontend e Analista di Accessibilità',
-  }
+  } as const
 
   const descriptions = {
-    en: 'Expert frontend developer and accessibility analyst...',
-    es: 'Desarrollador frontend experto y analista de accesibilidad...',
-    it: 'Sviluppatore frontend esperto e analista di accessibilità...',
-  }
+    en: 'Frontend developer and accessibility analyst…',
+    es: 'Desarrollador frontend y analista de accesibilidad…',
+    it: 'Sviluppatore frontend e analista di accessibilità…',
+  } as const
+
+  const baseTitle = titles[locale] ?? titles.en
+  const description = descriptions[locale] ?? descriptions.en
 
   return {
+    metadataBase: new URL(site),
     title: {
-      default: titles[locale as keyof typeof titles] || titles.en,
-      template: `%s | ${titles[locale as keyof typeof titles] || titles.en}`,
+      default: baseTitle,
+      template: `%s | ${baseTitle}`,
     },
-    description:
-      descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    description,
+    alternates: {
+      canonical: `${site}/${locale}`,
+      languages: {
+        en: `${site}/en`,
+        es: `${site}/es`,
+        it: `${site}/it`,
+        'x-default': `${site}/en`,
+      },
+    },
+    openGraph: {
+      type: 'website',
+      url: `${site}/${locale}`,
+      title: baseTitle,
+      description,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: baseTitle,
+      description,
+    },
+    robots: { index: true, follow: true },
   }
 }
 

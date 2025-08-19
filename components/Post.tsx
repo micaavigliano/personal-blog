@@ -8,7 +8,7 @@ import { RichText } from "@/components/RichText"
 import { EntryFields } from "contentful"
 import ViewCounter from "./ViewCounter"
 
-interface BlogPostProps {
+export interface BlogPostProps {
   locale: string
   post: {
     title: EntryFields.Symbol
@@ -18,6 +18,7 @@ interface BlogPostProps {
     description?: EntryFields.RichText
     dateISO?: string
     updatedAtISO?: string
+    keywords?: string[],
   }
 }
 

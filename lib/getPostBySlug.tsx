@@ -11,6 +11,37 @@ export type PostView = {
   seoDescription?: string
   dateISO?: string
   updatedAtISO?: string
+  keywords?: string[]
+}
+
+export type PostSummary = {
+  id: string,
+  slug: string
+  title: string
+  seoDescription?: string
+  dateISO?: string
+  updatedAtISO?: string
+}
+
+export async function getAllPosts(
+  locale: "en" | "es" | "it"
+): Promise<PostSummary[]> {
+  const res = await client.getEntries<BlogPostSkeleton>({
+    content_type: "blogPost",
+    locale: toCfLocale(locale),
+    order: ["-sys.updatedAt"],
+    limit: 100,
+    select: ["fields", "sys"] as const,
+  })
+
+  return res.items.map((entry: any) => ({
+    id: entry.sys.id,
+    slug: entry.fields.slug,
+    title: entry.fields.title,
+    seoDescription: entry.fields.seoDescription,
+    dateISO: entry.sys.createdAt,
+    updatedAtISO: entry.sys.updatedAt,
+  }))
 }
 
 export async function getPostBySlug(slug: string, routeLocale: string) {
@@ -18,15 +49,14 @@ export async function getPostBySlug(slug: string, routeLocale: string) {
     content_type: "blogPost",
     ["fields.slug"]: slug,
     locale: toCfLocale(routeLocale),
-    limit: 1,
+    limit: 1
   })
 
   const entry = res.items[0]
   if (!entry) return null
 
   const f = entry.fields
-
-  const view: PostView & { id: string } = {
+  return {
     id: entry.sys.id,
     slug: f.slug,
     title: f.title,
@@ -35,9 +65,8 @@ export async function getPostBySlug(slug: string, routeLocale: string) {
     seoDescription: f.seoDescription,
     dateISO: f.dateISO,
     updatedAtISO: f.updatedAtISO,
-  }
-
-  return view
+    keywords: f.keywords ?? [],
+  } satisfies PostView & { id: string }
 }
 
 export async function getEntryIdBySlug(slug: string, routeLocale: string) {

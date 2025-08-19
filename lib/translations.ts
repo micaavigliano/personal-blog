@@ -92,6 +92,7 @@ export const translations = {
     "blog.view": "view",
     "blog.views": "views",
     "blog.read.more": "Read more",
+    "blog.about": "about",
 
     // Contact Section
     "contact.title": "Get In Touch",
@@ -278,6 +279,7 @@ export const translations = {
     "blog.view": "vista",
     "blog.views": "vistas",
     "blog.read.more": "Leer más",
+    "blog.about": "sobre",
 
     // Contact Section
     "contact.title": "Ponte en Contacto",
@@ -465,6 +467,7 @@ export const translations = {
     "blog.view": "vista",
     "blog.views": "viste",
     "blog.read.more": "Scopri di più",
+    "blog.about": "su",
 
     // Contact Section
     "contact.title": "Mettiamoci in Contatto",

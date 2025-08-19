@@ -1,52 +1,19 @@
-"use client"
-
 import { ArrowLeft, BookOpen } from "lucide-react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { getTranslation, TranslationKey } from "@/lib/translations"
-import { getLocaleFromPathname } from "@/lib/i18n"
-import { client } from '@/lib/contentful'
-import { EntrySkeletonType, Entry, EntryFields } from 'contentful'
-import { useEffect, useState } from "react"
+import { PostSummary } from "@/lib/getPostBySlug"
 
-export type PostFields = {
-  title: EntryFields.Symbol
-  slug: EntryFields.Symbol
-  seoTitle?: EntryFields.Symbol
-  seoDescription?: EntryFields.Text
-  description?: EntryFields.RichText
-  dateISO?: string
-  updatedAtISO?: string
+export type BlogProps = {
+  posts: PostSummary[]
+  locale: "en" | "es" | "it"
 }
 
-type PostSkeleton = EntrySkeletonType<PostFields, 'blogPost'>
-type PostEntry = Entry<PostSkeleton>
-
-export function Blog() {
-  const pathname = usePathname()
-  const locale = getLocaleFromPathname(pathname)
+export function Blog({ posts, locale }: BlogProps) {
   const t = (key: TranslationKey) => getTranslation(locale, key)
-  const [posts, setPosts] = useState<PostEntry[]>([])
 
   const getLocalizedPath = (path: string) => {
     return `/${locale}${path}`
   }
-
-  useEffect(() => {
-    const cfLocaleMap = { en: "en-US", es: "es", it: "it" } as const
-    const cfLocale = cfLocaleMap[locale] ?? "en-US"
-
-    client.getEntries<PostSkeleton>({
-      content_type: 'blogPost',
-      locale: cfLocale,
-    })
-      .then(res => {
-        setPosts(res.items)
-      })
-      .catch(err => {
-        console.error("[Contentful] getEntries failed:", err)
-      })
-  }, [locale])
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-mint-50 paper-texture mx-auto mt-10">
@@ -72,8 +39,8 @@ export function Blog() {
         <div className="absolute left-3 top-0 bottom-0 w-px bg-rose-200" aria-hidden="true" />
 
         {posts.map((post) => {
-          const title = String(post.fields.title ?? "").trim() || "Untitled"
-          const iso = post.sys.createdAt || post.sys.updatedAt
+          const title = String(post.title ?? "").trim() || "Untitled"
+          const iso = post.dateISO || post.updatedAtISO
           const dateFmt = iso
             ? new Date(iso).toLocaleDateString(locale, {
               year: "numeric",
@@ -83,12 +50,13 @@ export function Blog() {
             : null
 
           return (
-            <li key={post.sys.id} className="relative pl-10 pb-8">
+            <li key={post.id} className="relative pl-10 pb-8">
               <span className="absolute left-1 top-2 w-4 h-4 rounded-full bg-rose-500 border-4 border-mint-50" />
 
               <Link
-                href={getLocalizedPath(`/blog/${post.fields.slug}`)}
+                href={getLocalizedPath(`/blog/${post.slug}`)}
                 className="group block"
+                aria-label={`${t("blog.read.more")} ${t("blog.about")} ${title}`}
               >
                 {dateFmt && (
                   <time

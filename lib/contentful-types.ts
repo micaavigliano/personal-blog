@@ -8,6 +8,7 @@ export interface BlogPostFields {
   seoDescription?: EntryFieldTypes.Text
   dateISO?: EntryFieldTypes.Date
   updatedAtISO?: EntryFieldTypes.Date
+  keywords?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
 }
 
 export type BlogPostSkeleton = EntrySkeletonType<BlogPostFields, "blogPost">

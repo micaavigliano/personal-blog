@@ -1,3 +1,4 @@
+// components/json-ld.tsx
 type JsonLdPostProps = {
   locale: string
   post: {
@@ -18,22 +19,31 @@ export default function JsonLdPost({ post, locale }: JsonLdPostProps) {
   const headline = post.seoTitle || post.title
   const description = post.seoDescription || ""
 
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "@id": `${url}#blogposting`,
-    mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    headline,
-    description,
-    inLanguage: locale,
-    isAccessibleForFree: true,
-    datePublished: post.dateISO,
-    dateModified: post.updatedAtISO || post.dateISO,
-    author: { "@id": "https://micaavigliano.com/#person" },
-    publisher: { "@id": "https://micaavigliano.com/#person" },
-    keywords: post.keywords?.join(", "),
-    wordCount: post.wordCount,
-  }
+  const data = [
+    {
+      "@context": "https://schema.org",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Blog", item: `https://micaavigliano.com/${locale}/blog` },
+        { "@type": "ListItem", position: 2, name: post.title, item: url },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "@id": `${url}#blogposting`,
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      headline,
+      description,
+      inLanguage: locale,
+      isAccessibleForFree: true,
+      datePublished: post.dateISO,
+      dateModified: post.updatedAtISO || post.dateISO,
+      author: { "@id": "https://micaavigliano.com/#person" },
+      publisher: { "@id": "https://micaavigliano.com/#person" },
+      keywords: post.keywords?.join(", "),
+      wordCount: post.wordCount,
+    },
+  ]
 
   return (
     <script

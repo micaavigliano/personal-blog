@@ -39,7 +39,6 @@ export function LanguageSwitcher({ translations }: Props) {
     const seg = path.split("/")
 
     const hasLocale = locales.includes(seg[1] as Locale)
-    console.log(hasLocale, 'has locale?')
     if (hasLocale) seg[1] = targetLocale
     else seg.splice(1, 0, targetLocale)
 

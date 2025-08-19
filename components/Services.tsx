@@ -23,8 +23,9 @@ export function Services({ locale }: ServicesProps = {}) {
   const pathname = usePathname()
   const currentLocale = locale || getLocaleFromPathname(pathname)
   const t = (key: TranslationKey) => getTranslation(currentLocale, key)
+
   const getLocalizedPath = (path: string) => {
-    return `/${locale}${path}`
+    return `${path}`
   }
 
   const services = getServicesData(currentLocale)
@@ -52,7 +53,7 @@ export function Services({ locale }: ServicesProps = {}) {
                 key={index}
                 className={`border-2 ${service.borderColor} shadow-soft hover:shadow-soft-lg rounded-3xl bg-white/90 backdrop-blur-sm overflow-hidden group flex flex-col justify-center items-center`}
               >
-                <CardHeader className="text-center pb-4 relative bg-sky-50 w-full">
+                <CardHeader className="text-center pb-4 relative bg-sky-50 w-full h-full">
                   <div
                     className={`w-24 h-24 mx-auto mb-6 rounded-2xl ${service.bgColor} flex items-center justify-center shadow-soft border-2 ${service.borderColor} transform group-hover:scale-110 transition-transform relative z-10`}
                   >
