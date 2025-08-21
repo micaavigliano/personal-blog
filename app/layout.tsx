@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 
 import "./globals.css"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
   title: "Mica Avigliano - Frontend Developer & Accessibility Analyst",
@@ -14,5 +15,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <Suspense>
+      {children}
+    </Suspense>
+  )
 }

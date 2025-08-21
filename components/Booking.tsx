@@ -61,7 +61,7 @@ export function CalendlyBooking() {
   ]
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-sunshine-50">
+    <section className="py-30 px-4 sm:px-6 lg:px-8 bg-sunshine-50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 relative flex flex-row justify-center items-center gap-4">
@@ -113,7 +113,7 @@ export function CalendlyBooking() {
           <div
             className="calendly-inline-widget rounded-2xl overflow-hidden"
             data-url="https://calendly.com/micaela-avigliano/30min"
-            style={{ minWidth: "320px", height: "700px" }}
+            style={{ minWidth: "320px", height: "900px" }}
           ></div>
         </div>
 
