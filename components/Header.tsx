@@ -28,15 +28,12 @@ export function Header() {
 
   const t = (key: TranslationKey) => getTranslation(locale, key)
 
-  const getLocalizedPath = (path: string) => {
-    return `/${locale}${path}`
-  }
+  const getLocalizedPath = (path: string) => `/${locale}${path}`
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Escape" && isMenuOpen) {
       setIsMenuOpen(false)
-      const buttonToFocus = document.getElementById('mobile-menu-button')
-
+      const buttonToFocus = document.getElementById("mobile-menu-button")
       if (buttonToFocus instanceof HTMLElement) {
         buttonToFocus.focus()
       }
@@ -46,12 +43,9 @@ export function Header() {
   useEffect(() => {
     if (isMenuOpen) {
       const interactiveElements = mobileMenuRef.current?.querySelectorAll("input, a, button")
-
       if (interactiveElements) {
         const firstInteractiveElement = interactiveElements[0]
-        if (firstInteractiveElement instanceof HTMLElement) {
-          firstInteractiveElement.focus()
-        }
+        if (firstInteractiveElement instanceof HTMLElement) firstInteractiveElement.focus()
       }
     }
   }, [isMenuOpen])
@@ -59,10 +53,9 @@ export function Header() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setIsMenuOpen(true)
+        setIsMenuOpen(false)
       }
     }
-
     if (isMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside)
       return () => document.removeEventListener("mousedown", handleClickOutside)
@@ -85,14 +78,12 @@ export function Header() {
       }
     }
     load()
-    return () => {
-      ignore = true
-    }
+    return () => { ignore = true }
   }, [isPost, slug, locale])
 
   return (
     <header className="fixed top-0 w-full bg-white backdrop-blur-md border-b-2 border-neutral-300 z-50 shadow-soft rounded-b-4xl">
-      {/* Skip link for keyboard users */}
+      {/* Skip link */}
       {!isMenuOpen && (
         <Link
           href="#main-content"
@@ -100,15 +91,12 @@ export function Header() {
           onClick={(e) => {
             e.preventDefault()
             const el = document.getElementById("main-content")
-            if (el) {
-              el.scrollIntoView({ behavior: "smooth" })
-            }
+            if (el) el.scrollIntoView({ behavior: "smooth" })
           }}
         >
           {t("nav.skip")}
         </Link>
-      )
-      }
+      )}
 
       <div className="flex justify-between items-center py-4 mx-auto px-4 sm:px-6 lg:px-8">
         <Link
@@ -121,63 +109,38 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:hidden lg:flex space-x-6 items-center" aria-label="Main navigation">
           <Link
-            href="/#about"
+            href={getLocalizedPath("/#about")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
-            ${pathname.includes("/about")
-                ? "text-purple-900 bg-purple-50"
-                : "text-purple-600 hover:text-purple-800 hover:bg-purple-50"
-              }`}
+            ${pathname.includes("/about") ? "text-purple-900 bg-purple-50" : "text-purple-600 hover:text-purple-800 hover:bg-purple-50"}`}
           >
             {t("nav.about")}
           </Link>
           <Link
             href={getLocalizedPath("/experience")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
-            ${pathname.includes("/experience")
-                ? "text-amber-900 bg-amber-50"
-                : "text-amber-600 hover:text-amber-900 hover:bg-amber-50"
-              }`}
+            ${pathname.includes("/experience") ? "text-amber-900 bg-amber-50" : "text-amber-600 hover:text-amber-900 hover:bg-amber-50"}`}
           >
             {t("nav.experience")}
           </Link>
           <Link
-            href="/#services"
+            href={getLocalizedPath("/#services")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
-            ${pathname.includes("/services")
-                ? "text-emerald-900 bg-emerald-50"
-                : "text-emerald-600 hover:text-emerald-900 hover:bg-emerald-50"
-              }`}
+            ${pathname.includes("/services") ? "text-emerald-900 bg-emerald-50" : "text-emerald-600 hover:text-emerald-900 hover:bg-emerald-50"}`}
           >
             {t("nav.services")}
           </Link>
           <Link
             href={getLocalizedPath("/blog")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
-            ${pathname.includes("/blog")
-                ? "text-teal-900 bg-teal-50"
-                : "text-teal-600 hover:text-sky-900 hover:bg-teal-50"
-              }`}
+            ${pathname.includes("/blog") ? "text-teal-900 bg-teal-50" : "text-teal-600 hover:text-sky-900 hover:bg-teal-50"}`}
           >
             {t("nav.blog")}
-          </Link>
-          <Link
-            href="/#contact"
-            className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
-            ${pathname.includes("/contact")
-                ? "text-sky-900 bg-sky-50"
-                : "text-sky-600 hover:text-neutral-900 hover:bg-sky-50"
-              }`}
-          >
-            {t("nav.contact")}
           </Link>
           <LanguageSwitcher translations={translations} />
           <Link
             href={getLocalizedPath("/book")}
             className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus 
-            ${pathname.includes("/book")
-                ? "text-orange-900 bg-orange-50"
-                : "text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-              }`}
+            ${pathname.includes("/book") ? "text-orange-900 bg-orange-50" : "text-orange-600 hover:text-orange-700 hover:bg-orange-50"}`}
           >
             {t("nav.book")}
           </Link>
@@ -215,19 +178,15 @@ export function Header() {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            hidden={!open}
+            hidden={!isMenuOpen}
           >
-            {/* Header with close */}
             <div className="flex justify-end-safe px-3 pb-2">
               <h2 id={titleId} className="sr-only">{t("nav.mobile.menu")}</h2>
               <button
                 onClick={() => {
                   setIsMenuOpen(false)
-                  const buttonToFocus = document.getElementById('mobile-menu-button')
-
-                  if (buttonToFocus instanceof HTMLElement) {
-                    buttonToFocus.focus()
-                  }
+                  const buttonToFocus = document.getElementById("mobile-menu-button")
+                  if (buttonToFocus instanceof HTMLElement) buttonToFocus.focus()
                 }}
                 className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label={t("nav.mobile.close")}
@@ -240,8 +199,8 @@ export function Header() {
               <ul className="flex flex-col gap-1">
                 <li>
                   <Link
-                    href="/#about"
-                    className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus $${pathname.includes("/about")
+                    href={getLocalizedPath("/#about")}
+                    className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/about")
                       ? "text-purple-700 bg-purple-50"
                       : "text-purple-600 hover:text-purple-800 hover:bg-purple-50"
                       }`}
@@ -263,7 +222,7 @@ export function Header() {
                 </li>
                 <li>
                   <Link
-                    href="/#services"
+                    href={getLocalizedPath("/#services")}
                     className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/services")
                       ? "text-emerald-900 bg-emerald-50"
                       : "text-emerald-600 hover:text-emerald-900 hover:bg-emerald-50"
@@ -276,7 +235,7 @@ export function Header() {
                   <Link
                     href={getLocalizedPath("/blog")}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`nline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/blog")
+                    className={`inline-block font-medium transition-colors bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat [background-size:1.5rem_2px] [background-position:center_calc(100%-0.25rem)] focus:bg-none px-3 py-2 rounded-lg nav-focus ${pathname.includes("/blog")
                       ? "text-teal-900 bg-teal-50"
                       : "text-teal-600 hover:text-sky-900 hover:bg-teal-50"
                       }`}
@@ -312,7 +271,6 @@ export function Header() {
           </div>
         </nav>
       )}
-
     </header>
   )
 }

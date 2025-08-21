@@ -53,13 +53,13 @@ export function Services({ locale }: ServicesProps = {}) {
                 key={index}
                 className={`border-2 ${service.borderColor} shadow-soft hover:shadow-soft-lg rounded-3xl bg-white/90 backdrop-blur-sm overflow-hidden group flex flex-col justify-center items-center`}
               >
-                <CardHeader className="text-center pb-4 relative bg-sky-50 w-full h-full">
+                <CardHeader className="text-center relative bg-sky-50 w-full h-full">
                   <div
                     className={`w-24 h-24 mx-auto mb-6 rounded-2xl ${service.bgColor} flex items-center justify-center shadow-soft border-2 ${service.borderColor} transform group-hover:scale-110 transition-transform relative z-10`}
                   >
                     <IconComponent className={`w-12 h-12 ${service.textColor}`} aria-hidden="true" />
                   </div>
-                  <CardTitle className={`text-2xl font-bold ${service.textColor} mb-4 relative z-10`}>
+                  <CardTitle className={`text-2xl font-bold ${service.textColor} relative z-10`}>
                     {service.title}
                   </CardTitle>
                   <div className={`absolute top-2 right-2 w-4 h-4 ${service.bgColor} rounded-full opacity-60`}></div>

@@ -80,14 +80,17 @@ export async function getEntryIdBySlug(slug: string, routeLocale: string) {
 }
 
 export async function getTranslationsMapForPost(
-  slug: string,
+  slug: string | null | undefined,
   routeLocale: string
 ): Promise<Record<string, string>> {
+  if (!slug) return {}
+
   const entryId = await getEntryIdBySlug(slug, routeLocale)
   if (!entryId) return {}
 
   const entryAll = await client.withAllLocales.getEntry<BlogPostSkeleton>(entryId)
-  const raw = entryAll.fields.slug as unknown
+  const raw = (entryAll.fields as any).slug as unknown
+
   const translations: Record<string, string> = {}
 
   if (raw && typeof raw === "object") {

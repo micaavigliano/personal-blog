@@ -161,7 +161,6 @@ export function RichText({ doc, locale }: { doc?: Document; locale: string }) {
         )
       },
 
-      // Embedded entries (e.g., "codeBlock", "callout")
       [BLOCKS.EMBEDDED_ENTRY]: (node) => {
         const n = node as EntryLinkBlock
         const target = n.data.target as unknown as EntryTarget

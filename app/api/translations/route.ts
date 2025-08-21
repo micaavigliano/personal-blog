@@ -8,8 +8,8 @@ export async function GET(req: NextRequest) {
   const slug = searchParams.get("slug")
   const locale = searchParams.get("locale")
 
-  if (!slug || !locale) {
-    return NextResponse.json({ error: "Missing slug or locale" }, { status: 400 })
+  if (!locale) {
+    return NextResponse.json({ error: "Missing locale" }, { status: 400 })
   }
 
   const translations = await getTranslationsMapForPost(slug, locale)

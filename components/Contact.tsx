@@ -89,7 +89,7 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="bg-lavender-50 rounded-3xl p-6 border-2 border-lavender-200 shadow-soft text-center">
+          <div className="bg-lavender-50 rounded-3xl p-6 border-2 border-lavender-200 shadow-soft text-center lg:w-full w-7/12">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-lavender-200 rounded-2xl flex items-center justify-center">
                 <Calendar className="w-6 h-6 text-lavender-700" aria-hidden="true" />

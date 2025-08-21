@@ -1,4 +1,3 @@
-// components/json-ld.tsx
 type JsonLdPostProps = {
   locale: string
   post: {

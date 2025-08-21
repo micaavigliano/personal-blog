@@ -2,6 +2,7 @@ import { createClient } from "redis"
 import { NextRequest, NextResponse } from "next/server"
 
 export const runtime = "nodejs"
+type Params = { slug: string }
 
 let redisClient: ReturnType<typeof createClient> | null = null
 
@@ -15,21 +16,27 @@ async function getRedisClient() {
 }
 
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { slug: string } }
+  _req: NextRequest,
+  ctx: { params: Promise<Params> }
 ) {
+  const { slug } = await ctx.params
+  const decoded = decodeURIComponent(slug)
+
   const redis = await getRedisClient()
-  const slug = await decodeURIComponent(params.slug)
-  const count = Number(await redis.get(`views:${slug}`)) || 0
-  return NextResponse.json({ slug, views: count })
+  const count = Number(await redis.get(`views:${decoded}`)) || 0
+
+  return NextResponse.json({ slug: decoded, views: count })
 }
 
 export async function POST(
-  req: NextRequest,
-  { params }: { params: { slug: string } }
+  _req: NextRequest,
+  ctx: { params: Promise<Params> }
 ) {
+  const { slug } = await ctx.params
+  const decoded = decodeURIComponent(slug)
+
   const redis = await getRedisClient()
-  const slug = decodeURIComponent(params.slug)
-  const newCount = await redis.incr(`views:${slug}`)
-  return NextResponse.json({ slug, views: newCount })
+  const newCount = await redis.incr(`views:${decoded}`)
+
+  return NextResponse.json({ slug: decoded, views: newCount })
 }
