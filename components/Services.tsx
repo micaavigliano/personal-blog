@@ -25,7 +25,15 @@ export function Services({ locale }: ServicesProps = {}) {
   const t = (key: TranslationKey) => getTranslation(currentLocale, key)
 
   const getLocalizedPath = (path: string) => {
-    return `${path}`
+    const loc = currentLocale || "en"
+    const input = path.startsWith("/") ? path : `/${path}`
+
+    const parts = input.split("/")
+    if (locale?.includes(parts[1] as any)) {
+      parts[1] = loc
+      return parts.join("/").replace(/\/{2,}/g, "/")
+    }
+    return `/${loc}${input}`.replace(/\/{2,}/g, "/")
   }
 
   const services = getServicesData(currentLocale)
@@ -62,7 +70,7 @@ export function Services({ locale }: ServicesProps = {}) {
                   <CardTitle className={`text-2xl font-bold ${service.textColor} relative z-10`}>
                     {service.title}
                   </CardTitle>
-                  <div className={`absolute top-2 right-2 w-4 h-4 ${service.bgColor} rounded-full opacity-60`}></div>
+                  <div className={`absolute top-2 right-2 w-4 h-4 rounded-full opacity-60`}></div>
                 </CardHeader>
                 <CardContent className="pt-0 relative z-10">
                   <p className="text-lavender-600 mb-6 leading-relaxed text-center font-medium">
@@ -78,7 +86,7 @@ export function Services({ locale }: ServicesProps = {}) {
                   </ul>
                   <Link
                     href={getLocalizedPath("/book")}
-                    className={`w-full m-auto text-${service.bgColor} text-white py-3 hover:shadow-soft-lg transform hover:-translate-y-1 transition-all underline underline-offset-2 hover:border-white/20`}
+                    className={`w-full m-auto text-${service.bgColor} py-3 hover:shadow-soft-lg transform hover:-translate-y-1 transition-all underline underline-offset-2 hover:border-white/20`}
                     aria-label={`${t("services.learn.more")} ${service.title}`}
                   >
                     {t("services.learn.more")}

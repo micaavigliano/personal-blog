@@ -88,6 +88,7 @@ export function LanguageSwitcher({ translations }: Props) {
       }
       return
     }
+
     switch (event.key) {
       case "Escape":
         event.preventDefault()
@@ -123,6 +124,53 @@ export function LanguageSwitcher({ translations }: Props) {
       case "Tab":
         setIsOpen(false)
         setFocusedIndex(-1)
+        break
+    }
+  }
+
+  const handleOptionKeyDown = (event: React.KeyboardEvent, index: number) => {
+    switch (event.key) {
+      case "Escape":
+        event.preventDefault()
+        setIsOpen(false)
+        setFocusedIndex(-1)
+        buttonRef.current?.focus()
+        break
+      case "ArrowDown": {
+        event.preventDefault()
+        const nextIndex = index < locales.length - 1 ? index + 1 : 0
+        updateFocusedIndex(nextIndex)
+        break
+      }
+      case "ArrowUp": {
+        event.preventDefault()
+        const prevIndex = index > 0 ? index - 1 : locales.length - 1
+        updateFocusedIndex(prevIndex)
+        break
+      }
+      case "Enter":
+      case " ":
+        event.preventDefault()
+        switchLanguage(locales[index])
+        break
+      case "Home":
+        event.preventDefault()
+        updateFocusedIndex(0)
+        break
+      case "End":
+        event.preventDefault()
+        updateFocusedIndex(locales.length - 1)
+        break
+      case "Tab":
+        if (event.shiftKey && index === 0) {
+          event.preventDefault()
+          setIsOpen(false)
+          setFocusedIndex(-1)
+          buttonRef.current?.focus()
+        } else if (!event.shiftKey && index === locales.length - 1) {
+          setIsOpen(false)
+          setFocusedIndex(-1)
+        }
         break
     }
   }
@@ -201,12 +249,7 @@ export function LanguageSwitcher({ translations }: Props) {
                 ref={(el) => { optionRefs.current[index] = el }}
                 id={`language-option-${loc}`}
                 onClick={() => allow && switchLanguage(loc)}
-                onKeyDown={(e) => {
-                  if ((e.key === "Enter" || e.key === " ") && allow) {
-                    e.preventDefault()
-                    switchLanguage(loc)
-                  }
-                }}
+                onKeyDown={(e) => handleOptionKeyDown(e, index)}
                 onMouseEnter={() => document.activeElement !== optionRefs.current[index] && setFocusedIndex(index)}
                 onFocus={() => setFocusedIndex(index)}
                 className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 rounded-lg focus:outline-none

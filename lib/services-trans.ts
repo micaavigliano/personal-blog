@@ -106,7 +106,7 @@ export const servicesData: Record<"en" | "es" | "it", Service[]> = {
         "Sesiones de pruebas prácticas",
         "Documentación de mejores prácticas",
       ],
-      bgColor: "bg-lavender-600",
+      bgColor: "bg-lavender-100",
       textColor: "text-lavender-700",
       borderColor: "border-lavender-200",
       buttonColor: "bg-lavender-600 hover:bg-lavender-700",
