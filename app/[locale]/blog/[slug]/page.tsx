@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       robots: { index: false, follow: false },
     }
   }
-  const title = post.seoTitle?.trim() || post.title || "Article"
+  const title = post.title
   const description = post.seoDescription?.trim() || ""
   const published = post.dateISO
   const updated = post.updatedAtISO ?? post.dateISO
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    keywords: post.keywords,
+    keywords: post.keywords.join(', '),
     openGraph: {
       type: "article",
       url,
