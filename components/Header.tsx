@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useMemo, useState } from "react"
 import Link from "next/link"
-import { useParams, usePathname } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { getTranslation, TranslationKey } from "@/lib/translations"
@@ -15,10 +15,8 @@ export function Header() {
   const titleId = useId()
   const panelId = useId()
   const pathname = usePathname()
-  const params = useParams<{ slug?: string }>()
   const locale = getLocaleFromPathname(pathname)
   const mobileMenuRef = useFocusTrap()
-  const isSlug = !!params.slug
 
   const { isPost, slug } = useMemo(() => {
     const seg = pathname.split("/").filter(Boolean) // e.g. ["en","blog","my-post"]
@@ -38,6 +36,10 @@ export function Header() {
         buttonToFocus.focus()
       }
     }
+  }
+
+  const openMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
   }
 
   useEffect(() => {
@@ -150,7 +152,7 @@ export function Header() {
         <div className="lg:hidden flex items-center gap-2">
           <LanguageSwitcher translations={translations} />
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={openMenu}
             className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced"
             aria-expanded={isMenuOpen}
             aria-controls={panelId}
@@ -167,7 +169,7 @@ export function Header() {
       {isMenuOpen && (
         <nav
           id="mobile-menu"
-          className="md:hidden py-4 bg-white backdrop-blur-md border rounded-b-4xl rounded-t-4xl border-t border-neutral-200"
+          className="py-4 bg-white backdrop-blur-md border rounded-b-4xl rounded-t-4xl border-t border-neutral-200"
           ref={mobileMenuRef}
           aria-label={t("nav.mobile.menu")}
           onKeyUp={onKeyDown}
