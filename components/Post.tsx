@@ -61,7 +61,7 @@ export default function Post({ post, locale }: BlogPostProps) {
       </header>
 
       <section className="prose prose-lg max-w-none">
-        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-soft-lg border-2 border-cream-200">
+        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-soft-lg border-2 border-cream-200 text-wrap">
           <RichText doc={post.description} locale={locale} />
         </div>
       </section>
