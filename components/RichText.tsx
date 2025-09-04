@@ -104,7 +104,7 @@ export function RichText({ doc, locale }: { doc?: Document; locale: string }) {
           )
         }
 
-        return <p className="mb-4 last:mb-0">{children}</p>
+        return <p className="mb-4 last:mb-0 text-wrap">{children}</p>
       },
 
       [BLOCKS.HEADING_1]: (_n, children) => <h1>{children}</h1>,
@@ -153,10 +153,10 @@ export function RichText({ doc, locale }: { doc?: Document; locale: string }) {
         }
 
         return (
-          <p>
-            <a href={url} target="_blank" rel="noreferrer" className="underline">
+          <p className="text-wrap">
+            <Link href={url} target="_blank" rel="noreferrer" className="underline text-wrap">
               {title || url}
-            </a>
+            </Link>
           </p>
         )
       },
@@ -210,9 +210,9 @@ export function RichText({ doc, locale }: { doc?: Document; locale: string }) {
         const href = n.data.uri
         const external = /^https?:\/\//i.test(href)
         return external ? (
-          <a href={href} target="_blank" rel="noreferrer" className="underline text-wrap text-blue-600">
+          <Link href={href} target="_blank" rel="noreferrer" className="underline text-wrap text-blue-600">
             {children}
-          </a>
+          </Link>
         ) : (
           <Link href={href} target="_blank" rel="noreferrer" className="underline text-wrap text-blue-600">
             {children}
@@ -239,9 +239,9 @@ export function RichText({ doc, locale }: { doc?: Document; locale: string }) {
           }
         }
         return (
-          <a href={url} target="_blank" rel="noreferrer">
+          <Link href={url} target="_blank" rel="noreferrer" className="text-wrap">
             {children}
-          </a>
+          </Link>
         )
       },
     },

@@ -45,7 +45,7 @@ export default function Post({ post, locale }: BlogPostProps) {
 
       <header className="mb-8 flex flex-row justify-between items-start">
         <div className="flex flex-col">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-lavender-700 leading-tight text-wrap">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-lavender-700 leading-tight">
             {post.title}
           </h1>
           <ViewCounter slug={params.slug!} locale={locale} />
@@ -60,7 +60,7 @@ export default function Post({ post, locale }: BlogPostProps) {
         </button>
       </header>
 
-      <section className="prose prose-lg max-w-none">
+      <section className="prose prose-lg max-w-none text-wrap">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-soft-lg border-2 border-cream-200 text-wrap">
           <RichText doc={post.description} locale={locale} />
         </div>
