@@ -1,0 +1,23 @@
+# robots.txt — https://www.robotstxt.org/robotstxt.html
+# Last updated: 2025-10-21
+
+User-agent: *
+# --- Allow public sections ---
+Allow: /
+Allow: /experience/
+Allow: /services/
+Allow: /blog/
+Allow: /contact/
+Allow: /book/
+
+# --- Block internal or temporary areas ---
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /drafts/
+Disallow: /404
+Disallow: /assets-temp/
+Disallow: /node_modules/
+
+# --- Sitemap location ---
+Sitemap: https://micaavigliano.com/sitemap.xml

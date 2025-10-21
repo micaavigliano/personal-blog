@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[dev]
+  command = "npm run dev"  # runs Vite
+  targetPort = 5173        # must match the port Vite actually uses
+  port = 8888              # browse here
