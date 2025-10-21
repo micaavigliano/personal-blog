@@ -58,7 +58,7 @@ const Book = () => {
 
   return (
     <article>
-      <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 container mx-auto max-w-6xl">
+      <section className="pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 container mx-auto max-w-6xl">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6">
           {t('booking.title')}
         </h1>

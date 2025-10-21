@@ -10,7 +10,7 @@ const Introduction = () => {
   const t = (key: TranslationKey) => getTranslation(locale, key)
 
   return (
-    <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 text-center" aria-labelledby="name-title">
+    <section className="pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 text-center" aria-labelledby="name-title">
       <p className="text-muted-foreground mb-4 animate-fade-in">{t('hero.greeting')}</p>
       <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 animate-fade-in" id="name-title">
         Mica Avigliano

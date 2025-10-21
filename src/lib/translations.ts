@@ -186,9 +186,9 @@ export const translations = {
     "footer.linkedin": "Go to my Linkedin's profile",
     "footer.email": "Send me an email",
     "footer.member": "Proud member of the A11y Webring",
-    "footer.previous": "← Previous Website",
+    "footer.previous": "Previous Website",
     "footer.random": "Random Website",
-    "footer.next": "Next Website →",
+    "footer.next": "Next Website",
 
     // Common
     "common.minutes": "minutes",
@@ -388,9 +388,9 @@ export const translations = {
     "footer.linkedin": "Ir a mi cuenta de Linkedin",
     "footer.email": "Envíame un email",
     "footer.member": "Orgullosa miembro del A11y Webring",
-    "footer.previous": "← Sitio web anterior",
+    "footer.previous": "Sitio web anterior",
     "footer.random": "Sitio web aleatorio",
-    "footer.next": "Siguiente sitio web →",
+    "footer.next": "Siguiente sitio web",
 
     // Common
     "common.minutes": "minutos",
@@ -589,9 +589,9 @@ export const translations = {
     "footer.linkedin": "Vai al mio profilo LinkedIn",
     "footer.email": "Inviami un'email",
     "footer.member": "Orgogliosa membro di A11y Webring",
-    "footer.previous": "← Sito Web Precedente",
+    "footer.previous": "Sito Web Precedente",
     "footer.random": "Sito Web Casuale",
-    "footer.next": "Prossimo Sito Web →",
+    "footer.next": "Prossimo Sito Web",
 
     // Common
     "common.minutes": "minuti",

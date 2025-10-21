@@ -39,7 +39,7 @@ export default function Post({ post }: BlogPostProps) {
     : null
 
   return (
-    <article className="container mx-auto px-4 py-24 max-w-4xl focus:outline-none" aria-labelledby="post-title">
+    <article className="container mx-auto py-12 sm:py-16 max-w-4xl focus:outline-none" aria-labelledby="post-title">
       <PostSEOHelmet
         baseUrl="https://micaavigliano.com"
         siteName="Mica Avigliano"
@@ -55,7 +55,7 @@ export default function Post({ post }: BlogPostProps) {
           updatedAtISO: post.updatedAtISO,
         }}
       />
-      <Link to="/$locale/blog" params={{ locale }} className="nav-link flex flex-row items-center">
+      <Link to="/$locale/blog" params={{ locale }} className="nav-link flex flex-row items-center pb-6">
         <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
         {t("blog.back")}
       </Link>

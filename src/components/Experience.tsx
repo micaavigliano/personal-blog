@@ -42,7 +42,7 @@ const Experience = () => {
   ]
 
   return (
-    <article className="min-h-screen pt-24 sm:pt-28 pb-12 sm:pb-16 container mx-auto max-w-4xl" aria-labelledby="experience-header-title">
+    <article className="min-h-screen pt-12 sm:pt-16 pb-12 sm:pb-16 container mx-auto max-w-4xl" aria-labelledby="experience-header-title">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 px-4">
         <div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4" id="experience-header-title">
@@ -78,11 +78,6 @@ const Experience = () => {
                       {exp.period} <span aria-hidden="true">•</span> {exp.location}
                     </span>
                   </div>
-                </div>
-                <div
-                  className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-${exp.bgColor} flex items-center justify-center flex-shrink-0 self-start sm:self-auto`}
-                >
-                  <Briefcase className="w-6 h-6 sm:w-7 sm:h-7 text-foreground" aria-hidden="true" />
                 </div>
               </div>
               <div className="space-y-4 p-6 pt-0">
@@ -145,7 +140,7 @@ const Experience = () => {
         ))}
       </ul>
 
-      <section className="pb-16 sm:pb-20 px-8 sm:px-10 bg-muted mx-auto pt-12 sm:pt-16">
+      <section className="pb-16 sm:pb-20 px-4 sm:px-6 bg-muted mx-auto pt-12 sm:pt-16">
         <h2 className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-12">{t('experience.skills')}</h2>
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
           <article className="border-2 rounded-lg bg-card text-card-foreground shadow-sm" aria-labelledby="hard-skills-title">
@@ -194,7 +189,7 @@ const Experience = () => {
         </div>
       </section>
 
-      <section className="pb-16 sm:pb-20 px-8 sm:px-10 bg-muted mx-auto pt-12 sm:pt-16" aria-labelledby="languages-title">
+      <section className="pb-16 sm:pb-20 px-4 sm:px-6 bg-muted mx-auto pt-12 sm:pt-16" aria-labelledby="languages-title">
         <h2 className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-12" id="languages-title">{t('experience.language')}</h2>
         <ul className="grid sm:grid-cols-3 gap-4 sm:gap-6">
           {languages.map((lang, index) => (

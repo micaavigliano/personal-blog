@@ -12,7 +12,7 @@ const Blog = ({ posts }: Props) => {
   const t = (key: TranslationKey) => getTranslation(locale, key)
 
   return (
-    <article className="pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6" aria-labelledby="blog-title">
+    <article className="pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6" aria-labelledby="blog-title">
       <div className="container mx-auto max-w-6xl pb-12 sm:pb-16 px-4 sm:px-6">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6" id="blog-title">{t('blog.title')}</h1>
         <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl">

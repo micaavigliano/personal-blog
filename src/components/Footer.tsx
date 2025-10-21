@@ -94,7 +94,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="pt-6 border-t text-center">
+      <div className="pt-6 border-t text-center pb-6">
         <p className="text-sm text-muted-foreground mb-3">
           {t('footer.member')}{" "}
           <a
@@ -113,7 +113,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors underline decoration-transparent hover:decoration-foreground decoration-1 underline-offset-2"
           >
-            {t('footer.previous')}
+            <span aria-hidden="true">←</span>{t('footer.previous')}
           </a>
           <a
             href="https://a11y-webring.club/random"
@@ -129,7 +129,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors underline decoration-transparent hover:decoration-foreground decoration-1 underline-offset-2"
           >
-            {t('footer.next')}
+            {t('footer.next')}<span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
