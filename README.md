@@ -52,7 +52,7 @@ Getting started (run locally)
 
 3. Run the dev server
    npm run dev
-   # open http://localhost:5173 (or the URL shown in your terminal)
+   open http://localhost:5173 (or the URL shown in your terminal)
 
 4. Build for production
    npm run build
