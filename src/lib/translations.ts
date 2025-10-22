@@ -189,6 +189,9 @@ export const translations = {
     "footer.previous": "Previous Website",
     "footer.random": "Random Website",
     "footer.next": "Next Website",
+    "footer.back.to.top": "Back to top",
+    "footer.back.to.top.process": "Scrolling to top...",
+    "footer.back.to.top.msg": "Click to smoothly scroll back to the top of the page",
 
     // Common
     "common.minutes": "minutes",
@@ -391,6 +394,9 @@ export const translations = {
     "footer.previous": "Sitio web anterior",
     "footer.random": "Sitio web aleatorio",
     "footer.next": "Siguiente sitio web",
+    "footer.back.to.top": "Volver arriba",
+    "footer.back.to.top.process": "Desplazándose hacia arriba...",
+    "footer.back.to.top.msg": "Hacé clic para desplazarte suavemente hasta la parte superior de la página",
 
     // Common
     "common.minutes": "minutos",
@@ -592,6 +598,9 @@ export const translations = {
     "footer.previous": "Sito Web Precedente",
     "footer.random": "Sito Web Casuale",
     "footer.next": "Prossimo Sito Web",
+    "footer.back.to.top": "Torna su top",
+    "footer.back.to.top.process": "Scorrendo verso l'alto...",
+    "footer.back.to.top.msg": "Clicca per scorrere dolcemente fino alla cima della pagina",
 
     // Common
     "common.minutes": "minuti",

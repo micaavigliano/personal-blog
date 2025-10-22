@@ -5,7 +5,16 @@ import { ArrowRight, Calendar, Clock } from "lucide-react"
 import { Link } from "@tanstack/react-router"
 import { calculateReadingTime } from "@/lib/readingTime"
 
-type Props = { posts: any }
+type Props = {
+  posts: {
+    dateISO?: string
+    updatedAtISO?: string
+    slug: string
+    title: string
+    seoDescription: string
+    description: string
+  }[]
+}
 
 const Blog = ({ posts }: Props) => {
   const { locale } = useI18n()

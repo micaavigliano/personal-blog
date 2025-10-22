@@ -2,26 +2,27 @@ import { ArrowLeft, Calendar, Clock, Share2 } from "lucide-react"
 import { getTranslation } from "@/lib/translations"
 import type { TranslationKey } from "@/lib/translations"
 import { RichText } from "@/components/RichText"
-import type { EntryFields } from "contentful"
 import { useI18n } from "@/lib/I18nProvider"
 import { Link } from "@tanstack/react-router"
 import { calculateReadingTime } from "@/lib/readingTime"
 import { PostSEOHelmet } from "./PostSEOHelmet"
+import { BackToTop } from "./BackToTop"
+import { type Document } from "@contentful/rich-text-types"
 
-export interface BlogPostProps {
+type Props = {
   post: {
-    title: EntryFields.Symbol
-    slug: EntryFields.Symbol
-    seoTitle?: EntryFields.Symbol
-    seoDescription?: EntryFields.Text
-    description: EntryFields.RichText
-    dateISO?: string
+    dateISO: string
     updatedAtISO?: string
-    keywords?: string[],
+    slug: string
+    title: string
+    seoDescription: string
+    description: Document
+    seoTitle: string
+    keywords: string[]
   }
 }
 
-export default function Post({ post }: BlogPostProps) {
+export default function Post({ post }: Props) {
   const { locale } = useI18n()
   const t = (key: TranslationKey) => getTranslation(locale, key)
 
@@ -37,6 +38,8 @@ export default function Post({ post }: BlogPostProps) {
       day: "numeric",
     })
     : null
+
+  console.log(dateFmt)
 
   return (
     <article className="container mx-auto py-12 sm:py-16 max-w-4xl focus:outline-none" aria-labelledby="post-title">
@@ -61,7 +64,7 @@ export default function Post({ post }: BlogPostProps) {
       </Link>
 
       <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" id="post-title">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" id="post-title" tabIndex={-1}>
           {post.title}
         </h1>
 
@@ -87,6 +90,7 @@ export default function Post({ post }: BlogPostProps) {
 
       <div className="prose prose-lg prose-slate dark:prose-invert max-w-none">
         <RichText doc={post.description} />
+        <BackToTop />
       </div>
 
       <div className="mt-12 pt-8 border-t border-border">

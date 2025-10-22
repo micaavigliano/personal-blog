@@ -6,12 +6,12 @@ import type { BlogPostSkeleton } from "./contentful-types"
 export type PostView = {
   title: string
   slug: string
-  seoTitle?: string
+  seoTitle: string
   description: EntryFields.RichText
-  seoDescription?: string
-  dateISO?: string
-  updatedAtISO?: string
-  keywords?: string[]
+  seoDescription: string
+  dateISO: string
+  updatedAtISO: string
+  keywords: string[]
 }
 
 export type PostSummary = {
@@ -63,10 +63,10 @@ export async function getPostBySlug(slug: string, routeLocale: string) {
     slug: f.slug,
     title: f.title,
     description: f.description,
-    seoTitle: f.seoTitle,
-    seoDescription: f.seoDescription,
-    dateISO: f.dateISO,
-    updatedAtISO: f.updatedAtISO,
+    seoTitle: f.seoTitle || f.title,
+    seoDescription: f.seoDescription || "",
+    dateISO: f.dateISO || entry.sys.createdAt,
+    updatedAtISO: f.updatedAtISO || entry.sys.updatedAt,
     keywords: f.keywords ?? [],
   } satisfies PostView & { id: string }
 }

@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react"
 
-const FOCUSABLE_ELEMENTS = 'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+export const FOCUSABLE_ELEMENTS = 'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
 
 export const useFocusTrap = () => {
   const ref = useRef<HTMLElement | null>(null)
