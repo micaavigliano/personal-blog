@@ -72,7 +72,7 @@ const Footer = () => {
             </a>
             <div className="flex gap-4 pt-2">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/micaelaavigliano/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -81,7 +81,7 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5" aria-hidden="true" />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/micaavigliano"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
