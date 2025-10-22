@@ -9,6 +9,7 @@ export const Route = createRootRoute({
   beforeLoad: ({ location }) => {
     const firstSeg = (location.pathname || '/').split('/')[1]
     if (!firstSeg) {
+      // Use the route pattern and pass params so TypeScript types and runtime routing both work
       throw redirect({ to: '/$locale', params: { locale: defaultLocale } })
     }
   },
