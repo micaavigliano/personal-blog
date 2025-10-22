@@ -42,7 +42,7 @@ export const translations = {
       "I'm a passionate frontend developer and accessibility engineer who believes that great design and inclusive code go hand in hand. With 6+ years of experience, I love turning complex problems into simple, beautiful solutions that work for everyone.",
     "about.mission.title": "My Mission",
     "about.mission.p1":
-      "I believe the web should be accessible to everyone, regardless of their abilities. As a frontend developer and accessibility analyst, I bridge the gap between beautiful design and inclusive functionality.",
+      "I believe the web should be accessible to everyone, regardless of their abilities. As a frontend developer and accessibility engineer, I bridge the gap between beautiful design and inclusive functionality.",
     "about.mission.p2":
       "My expertise spans WCAG compliance, screen reader optimization, keyboard navigation, and creating delightful user experiences that work for users with diverse needs and assistive technologies.",
     "about.mission": "Accessibility is not a feature, it's a foundation",
@@ -181,7 +181,7 @@ export const translations = {
     "experience.call": "Schedule a Call",
 
     // Footer
-    "footer.description": "Frontend developer and accessibility analyst passionate about building beautiful, functional, and inclusive digital experiences.",
+    "footer.description": "Frontend developer and accessibility engineer passionate about building beautiful, functional, and inclusive digital experiences.",
     "footer.navigation": "Navigation",
     "footer.services": "Services",
     "footer.services.audits": "Accessibility Audits",
