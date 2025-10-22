@@ -39,8 +39,6 @@ export default function Post({ post }: Props) {
     })
     : null
 
-  console.log(dateFmt)
-
   return (
     <article className="container mx-auto py-12 sm:py-16 max-w-4xl focus:outline-none" aria-labelledby="post-title">
       <PostSEOHelmet

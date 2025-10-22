@@ -10,12 +10,6 @@ type Props = {
   translations: Partial<Record<Locale, string>>
 }
 
-function detectIsPost(pathname: string): { isPost: boolean; slug?: string } {
-  const parts = pathname.split("/").filter(Boolean)
-  const isPost = parts.length >= 3 && parts[1] === "blog" && locales.includes(parts[0] as Locale)
-  return { isPost, slug: isPost ? parts[2] : undefined }
-}
-
 export function LanguageSwitcher({ translations }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)
@@ -30,7 +24,6 @@ export function LanguageSwitcher({ translations }: Props) {
   const { locale } = useI18n()
   const currentLocale = getLocaleFromPathname(pathname)
   const t = (key: TranslationKey) => getTranslation(locale, key)
-  const { isPost } = detectIsPost(pathname)
 
   const dropdownRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -63,6 +56,7 @@ export function LanguageSwitcher({ translations }: Props) {
   const switchLanguage = (targetLocale: Locale) => {
     const href = buildTargetHref(pathname, targetLocale)
     router.navigate({ to: href })
+    buttonRef.current?.focus()
     setIsOpen(false)
     setFocusedIndex(-1)
     setNewLocaleName(localeNames[targetLocale])
@@ -185,10 +179,6 @@ export function LanguageSwitcher({ translations }: Props) {
     }
   }, [isOpen, focusedIndex])
 
-  const allowSwitch = (loc: Locale) => {
-    return !isPost || Boolean(translations?.[loc])
-  }
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -205,7 +195,7 @@ export function LanguageSwitcher({ translations }: Props) {
         }}
         onKeyDown={handleKeyDown}
         className="flex items-center gap-2 text-peach-800 hover:text-peach-900 px-3 py-2 rounded-lg bg-peach-100 hover:bg-peach-200 border border-peach-300 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5 nav-focus min-w-[44px] min-h-[44px]"
-        aria-label={`Current language: ${localeNames[currentLocale]}. Click to change language`}
+        aria-label={`${t('lang.switcher.current.lng')} ${localeNames[currentLocale]}. ${t('lang.switcher.change')}`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         id="language-button"
@@ -230,7 +220,6 @@ export function LanguageSwitcher({ translations }: Props) {
 
           {locales.map((loc, index) => {
             const isSelected = currentLocale === loc
-            const allow = allowSwitch(loc)
             const isFocused = focusedIndex === index
 
             return (
@@ -238,18 +227,17 @@ export function LanguageSwitcher({ translations }: Props) {
                 key={loc}
                 ref={(el) => { optionRefs.current[index] = el }}
                 id={`language-option-${loc}`}
-                onClick={() => allow && switchLanguage(loc)}
+                onClick={() => switchLanguage(loc)}
                 onKeyDown={(e) => handleOptionKeyDown(e, index)}
                 onMouseEnter={() => document.activeElement !== optionRefs.current[index] && setFocusedIndex(index)}
                 onFocus={() => setFocusedIndex(index)}
-                className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 rounded-lg focus:outline-none
+                className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 rounded-lg
                   ${isSelected ? "bg-peach-100 text-peach-800" : "text-peach-600 hover:bg-peach-50"}
-                  ${isFocused ? "bg-peach-50 ring-2 ring-peach-400 ring-offset-1" : ""}
-                  ${!allow ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                  ${isFocused ? "bg-peach-50 ring-2 ring-peach-400 nav-link" : ""}
+`}
                 role="option"
                 aria-selected={isSelected}
-                aria-disabled={!allow}
-                tabIndex={isFocused ? 0 : -1}
+                tabIndex={isFocused || isSelected ? 0 : -1}
               >
                 <span className="font-medium flex-1">{localeNames[loc]}</span>
                 <span className="text-xs text-peach-600 code-style">{loc}</span>
@@ -264,12 +252,11 @@ export function LanguageSwitcher({ translations }: Props) {
         </div>
       )}
 
-      {/* SR announcements */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {isOpen && `Language menu opened. ${locales.length} options available.`}
+        {isOpen && `${t('lang.switcher.menu.opened')}. ${locales.length} ${t("lang.switcher.options")}.`}
       </div>
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {newLocaleName && `Language changed to ${newLocaleName}`}
+        {newLocaleName && `${t("lang.switcher.changed.to")} ${newLocaleName}`}
       </div>
     </div>
   )

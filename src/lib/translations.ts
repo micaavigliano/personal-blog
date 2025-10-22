@@ -19,6 +19,13 @@ export const translations = {
     "nav.mobile.menu": "Mobile navigation",
     "nav.mobile.close": "Close navigation menu",
 
+    // Language Switcher
+    "lang.switcher.current.lng": "The current language is",
+    "lang.switcher.change": "Click to change language",
+    "lang.switcher.menu.opened": "Language menu opened",
+    "lang.switcher.options": "options available",
+    "lang.switcher.changed.to": "Language changed to",
+
     // Hero Section
     "hero.greeting": "Hello, I am",
     "hero.title.main": "Frontend Developer",
@@ -219,6 +226,13 @@ export const translations = {
     "nav.mobile.menu.open": "Abrir el menu",
     "nav.mobile.menu": "Navegación mobile",
     "nav.mobile.close": "Cerrar navegación mobile",
+
+    // Language Switcher
+    "lang.switcher.current.lng": "El idioma actual es",
+    "lang.switcher.change": "Hacé clic para cambiar el idioma",
+    "lang.switcher.menu.opened": "Menú de idiomas abierto",
+    "lang.switcher.options": "opciones disponibles",
+    "lang.switcher.changed.to": "Idioma cambiado a",
 
     // Hero Section
     "hero.greeting": "Hola, soy",
@@ -424,6 +438,13 @@ export const translations = {
     "nav.mobile.menu.open": "Apri il menu",
     "nav.mobile.menu": "Navegazione mobile",
     "nav.mobile.close": "Chiudi navegazione mobile",
+
+    // Language Switcher
+    "lang.switcher.current.lng": "La lingua corrente è",
+    "lang.switcher.change": "Clicca per cambiare lingua",
+    "lang.switcher.menu.opened": "Menu delle lingue aperto",
+    "lang.switcher.options": "opzioni disponibili",
+    "lang.switcher.changed.to": "Lingua cambiata in",
 
     // Hero Section
     "hero.greeting": "Ciao, io sono",
