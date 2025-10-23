@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as LocaleServicesRouteImport } from './routes/$locale/services'
 import { Route as LocaleExperienceRouteImport } from './routes/$locale/experience'
@@ -17,48 +16,42 @@ import { Route as LocaleBookRouteImport } from './routes/$locale/book'
 import { Route as LocaleBlogIndexRouteImport } from './routes/$locale/blog/index'
 import { Route as LocaleBlogSlugRouteImport } from './routes/$locale/blog/$slug'
 
-const LocaleRoute = LocaleRouteImport.update({
-  id: '/$locale',
-  path: '/$locale',
+const LocaleIndexRoute = LocaleIndexRouteImport.update({
+  id: '/$locale/',
+  path: '/$locale/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LocaleIndexRoute = LocaleIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => LocaleRoute,
-} as any)
 const LocaleServicesRoute = LocaleServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => LocaleRoute,
+  id: '/$locale/services',
+  path: '/$locale/services',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleExperienceRoute = LocaleExperienceRouteImport.update({
-  id: '/experience',
-  path: '/experience',
-  getParentRoute: () => LocaleRoute,
+  id: '/$locale/experience',
+  path: '/$locale/experience',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleBookRoute = LocaleBookRouteImport.update({
-  id: '/book',
-  path: '/book',
-  getParentRoute: () => LocaleRoute,
+  id: '/$locale/book',
+  path: '/$locale/book',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleBlogIndexRoute = LocaleBlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
-  getParentRoute: () => LocaleRoute,
+  id: '/$locale/blog/',
+  path: '/$locale/blog/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleBlogSlugRoute = LocaleBlogSlugRouteImport.update({
-  id: '/blog/$slug',
-  path: '/blog/$slug',
-  getParentRoute: () => LocaleRoute,
+  id: '/$locale/blog/$slug',
+  path: '/$locale/blog/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/$locale': typeof LocaleRouteWithChildren
   '/$locale/book': typeof LocaleBookRoute
   '/$locale/experience': typeof LocaleExperienceRoute
   '/$locale/services': typeof LocaleServicesRoute
-  '/$locale/': typeof LocaleIndexRoute
+  '/$locale': typeof LocaleIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
   '/$locale/blog': typeof LocaleBlogIndexRoute
 }
@@ -72,7 +65,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/$locale': typeof LocaleRouteWithChildren
   '/$locale/book': typeof LocaleBookRoute
   '/$locale/experience': typeof LocaleExperienceRoute
   '/$locale/services': typeof LocaleServicesRoute
@@ -83,11 +75,10 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/$locale'
     | '/$locale/book'
     | '/$locale/experience'
     | '/$locale/services'
-    | '/$locale/'
+    | '/$locale'
     | '/$locale/blog/$slug'
     | '/$locale/blog'
   fileRoutesByTo: FileRoutesByTo
@@ -100,7 +91,6 @@ export interface FileRouteTypes {
     | '/$locale/blog'
   id:
     | '__root__'
-    | '/$locale'
     | '/$locale/book'
     | '/$locale/experience'
     | '/$locale/services'
@@ -110,64 +100,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  LocaleRoute: typeof LocaleRouteWithChildren
-}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/$locale': {
-      id: '/$locale'
-      path: '/$locale'
-      fullPath: '/$locale'
-      preLoaderRoute: typeof LocaleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/$locale/': {
-      id: '/$locale/'
-      path: '/'
-      fullPath: '/$locale/'
-      preLoaderRoute: typeof LocaleIndexRouteImport
-      parentRoute: typeof LocaleRoute
-    }
-    '/$locale/services': {
-      id: '/$locale/services'
-      path: '/services'
-      fullPath: '/$locale/services'
-      preLoaderRoute: typeof LocaleServicesRouteImport
-      parentRoute: typeof LocaleRoute
-    }
-    '/$locale/experience': {
-      id: '/$locale/experience'
-      path: '/experience'
-      fullPath: '/$locale/experience'
-      preLoaderRoute: typeof LocaleExperienceRouteImport
-      parentRoute: typeof LocaleRoute
-    }
-    '/$locale/book': {
-      id: '/$locale/book'
-      path: '/book'
-      fullPath: '/$locale/book'
-      preLoaderRoute: typeof LocaleBookRouteImport
-      parentRoute: typeof LocaleRoute
-    }
-    '/$locale/blog/': {
-      id: '/$locale/blog/'
-      path: '/blog'
-      fullPath: '/$locale/blog'
-      preLoaderRoute: typeof LocaleBlogIndexRouteImport
-      parentRoute: typeof LocaleRoute
-    }
-    '/$locale/blog/$slug': {
-      id: '/$locale/blog/$slug'
-      path: '/blog/$slug'
-      fullPath: '/$locale/blog/$slug'
-      preLoaderRoute: typeof LocaleBlogSlugRouteImport
-      parentRoute: typeof LocaleRoute
-    }
-  }
-}
-
-interface LocaleRouteChildren {
   LocaleBookRoute: typeof LocaleBookRoute
   LocaleExperienceRoute: typeof LocaleExperienceRoute
   LocaleServicesRoute: typeof LocaleServicesRoute
@@ -176,20 +108,60 @@ interface LocaleRouteChildren {
   LocaleBlogIndexRoute: typeof LocaleBlogIndexRoute
 }
 
-const LocaleRouteChildren: LocaleRouteChildren = {
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/services': {
+      id: '/$locale/services'
+      path: '/$locale/services'
+      fullPath: '/$locale/services'
+      preLoaderRoute: typeof LocaleServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/experience': {
+      id: '/$locale/experience'
+      path: '/$locale/experience'
+      fullPath: '/$locale/experience'
+      preLoaderRoute: typeof LocaleExperienceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/book': {
+      id: '/$locale/book'
+      path: '/$locale/book'
+      fullPath: '/$locale/book'
+      preLoaderRoute: typeof LocaleBookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/blog/': {
+      id: '/$locale/blog/'
+      path: '/$locale/blog'
+      fullPath: '/$locale/blog'
+      preLoaderRoute: typeof LocaleBlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/blog/$slug': {
+      id: '/$locale/blog/$slug'
+      path: '/$locale/blog/$slug'
+      fullPath: '/$locale/blog/$slug'
+      preLoaderRoute: typeof LocaleBlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
+}
+
+const rootRouteChildren: RootRouteChildren = {
   LocaleBookRoute: LocaleBookRoute,
   LocaleExperienceRoute: LocaleExperienceRoute,
   LocaleServicesRoute: LocaleServicesRoute,
   LocaleIndexRoute: LocaleIndexRoute,
   LocaleBlogSlugRoute: LocaleBlogSlugRoute,
   LocaleBlogIndexRoute: LocaleBlogIndexRoute,
-}
-
-const LocaleRouteWithChildren =
-  LocaleRoute._addFileChildren(LocaleRouteChildren)
-
-const rootRouteChildren: RootRouteChildren = {
-  LocaleRoute: LocaleRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

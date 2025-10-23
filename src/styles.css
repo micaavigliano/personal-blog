@@ -205,7 +205,7 @@
   }
 
   .skip-link:focus-visible {
-    background: var(--color-lavender);
+    background: rgb(238, 172, 238);
     color: black;
     font-weight: 700;
     font-size: 18px;
@@ -218,6 +218,7 @@
   }
 
   .skip-link:focus {
+    background: rgb(238, 172, 238);
     position: static;
     width: fit-content;
     height: auto;
