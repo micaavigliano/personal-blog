@@ -6,6 +6,18 @@
   to = "/index.html"
   status = 200
 
+# Webhook from Contentful → triggers email function
+[[redirects]]
+  from = "/api/subscribe"
+  to = "/.netlify/functions/subscribe"
+  status = 200
+
+# Unsubscribe link in emails → unsubscribe function
+[[redirects]]
+  from = "/api/unsubscribe"
+  to = "/.netlify/functions/unsubscribe"
+  status = 200
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
