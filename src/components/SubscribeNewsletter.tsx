@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Mail, Check, AlertCircle, Loader2, Sparkles, PartyPopper } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, Check, AlertCircle, Loader2, Sparkles } from 'lucide-react';
 import { useI18n } from '@/lib/I18nProvider';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
 
@@ -11,29 +11,9 @@ const NewsletterSubscribe = () => {
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
 
-  // Check if already subscribed on mount
-  // useEffect(() => {
-  //   //const stored = window.sessionStorage?.getItem('newsletter_subscribed');
-  //   if (stored) {
-  //     try {
-  //       const parsed = JSON.parse(stored);
-  //       if (parsed?.email) {
-  //         setEmail(parsed.email);
-  //         setStatus('success');
-  //       }
-  //     } catch { }
-  //   }
-  // }, []);
-
   const validateEmail = (value: string): boolean => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
   };
-
-  // interface StoredSubscription {
-  //   email: string;
-  //   name?: string;
-  //   subscribedAt?: string;
-  // }
 
  const handleSubmit = async (e?: React.SyntheticEvent): Promise<void> => {
   e?.preventDefault();
@@ -51,19 +31,14 @@ const NewsletterSubscribe = () => {
     const res = await fetch('/.netlify/functions/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      // Send whatever you want to store; your function already supports { email, name }
       body: JSON.stringify({
         email: email.trim().toLowerCase(),
         name: name.trim() || undefined,
-        locale,                 // nice to have for targeting
-        source: 'newsletter-form', // optional: where it came from
+        locale,
+        source: 'newsletter-form',
       }),
     });
 
-    // The function returns:
-    // 201 { message: "Subscribed", subscriber: {...} }
-    // 200 { already: true, message: "Already subscribed" }
-    // 400/500 { message: "..." }
     const data = await res.json().catch(() => ({}));
 
     if (!res.ok) {
@@ -72,19 +47,16 @@ const NewsletterSubscribe = () => {
       return;
     }
 
-    // Success (new or already)
     const successMsg = data?.already
-      ? 'already' // add this key to your i18n if you like
+      ? 'already'
       : t('newsletter.success.msg');
 
     setMessage(successMsg);
 
-    // Reset UI back to initial state
     setEmail('');
     setName('');
     setStatus('idle');
 
-    // Optional: remember they subscribed (if you want to alter UI next visit)
     try {
       window.sessionStorage?.setItem(
         'newsletter_subscribed',
@@ -99,8 +71,6 @@ const NewsletterSubscribe = () => {
     setMessage(t('newsletter.error.msg'));
   }
 };
-
-
 
   // Success state
   // if (status === 'success' && email) {
