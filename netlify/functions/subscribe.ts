@@ -2,7 +2,7 @@ import type { Handler } from "@netlify/functions";
 import { createClient } from "@supabase/supabase-js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_TOKEN = process.env.VITE_SUPABASE_TOKEN;
 
 const allowedOrigins = [
   "https://micaavigliano.com",
@@ -37,7 +37,7 @@ export const handler: Handler = async (event) => {
     };
   }
 
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+  if (!SUPABASE_URL || !SUPABASE_TOKEN) {
     console.error("Missing SUPABASE env vars");
     return {
       statusCode: 500,
@@ -68,7 +68,7 @@ export const handler: Handler = async (event) => {
     };
   }
 
-  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+  const supabase = createClient(SUPABASE_URL, SUPABASE_TOKEN, {
     auth: { persistSession: false },
   });
 
