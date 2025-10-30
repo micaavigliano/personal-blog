@@ -1,8 +1,8 @@
 import type { Handler } from "@netlify/functions";
 import { createClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_TOKEN = process.env.VITE_SUPABASE_TOKEN;
+const SUPABASE_URL = import.meta.env.SUPABASE_URL;
+const SUPABASE_TOKEN = import.meta.env.SUPABASE_TOKEN;
 
 const allowedOrigins = [
   "https://micaavigliano.com",

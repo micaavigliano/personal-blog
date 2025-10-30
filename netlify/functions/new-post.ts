@@ -3,8 +3,8 @@ import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
 const resend = new Resend(process.env.VITE_RESEND_API!);
-const SUPABASE_URL = process.env.VITE_SUPABASE_URL!;
-const SUPABASE_TOKEN = process.env.VITE_SUPABASE_TOKEN!;
+const SUPABASE_URL = process.env.SUPABASE_URL!;
+const SUPABASE_TOKEN = process.env.SUPABASE_TOKEN!;
 
 async function listSubscribers() {
   const supabase = createClient(SUPABASE_URL, SUPABASE_TOKEN, { auth: { persistSession: false } });
