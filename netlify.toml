@@ -1,54 +1,34 @@
-# allow static assets and dev endpoints through (place BEFORE the catch-all)
-[[redirects]]
-  from = "/manifest.json"
-  to = "/manifest.json"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/favicon.ico"
-  to = "/favicon.ico"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/og-image.png"
-  to = "/og-image.png"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/assets/*"
-  to = "/assets/:splat"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/static/*"
-  to = "/static/:splat"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/src/*"
-  to = "/src/:splat"
-  status = 200
-  force = false
-
-# Vite dev endpoints (if you run netlify dev in local dev)
-[[redirects]]
-  from = "/@vite/*"
-  to = "/@vite/:splat"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/@react-refresh/*"
-  to = "/@react-refresh/:splat"
-  status = 200
-  force = false
+[build]
+  publish = "dist"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Webhook from Contentful → triggers email function
+[[redirects]]
+  from = "/api/new-post"
+  to = "/.netlify/functions/new-post"
+  status = 200
+
+# Unsubscribe link in emails → unsubscribe function
+[[redirects]]
+  from = "/api/unsubscribe"
+  to = "/.netlify/functions/unsubscribe"
+  status = 200
+
+# Subscribe to newsletter function
+[[redirects]]
+  from = "/api/subscribe"
+  to = "/.netlify/functions/subscribe"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[dev]
+  command = "npm run dev"  # runs Vite
+  targetPort = 5173        # must match the port Vite actually uses
+  port = 8888              # browse here
