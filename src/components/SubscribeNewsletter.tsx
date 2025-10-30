@@ -39,6 +39,8 @@ const NewsletterSubscribe = () => {
       }),
     });
 
+    console.log(res)
+
     const data = await res.json().catch(() => ({}));
 
     if (!res.ok) {
@@ -100,7 +102,6 @@ const NewsletterSubscribe = () => {
 
   return (
     <article className="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl max-w-md mx-auto" aria-labelledby="newsletter-subscribe-title">
-      {/* Header */}
       <div className="text-center mb-6">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 bg-purple-100 text-purple-600">
             <Mail className="w-7 h-7" aria-hidden="true" />
