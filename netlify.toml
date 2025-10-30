@@ -1,28 +1,49 @@
+# Netlify config for local dev with Vite + Netlify Functions
 [build]
   publish = "dist"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# Webhook from Contentful → triggers email function
-[[redirects]]
-  from = "/api/subscribe"
-  to = "/.netlify/functions/subscribe"
-  status = 200
-
-# Unsubscribe link in emails → unsubscribe function
-[[redirects]]
-  from = "/api/unsubscribe"
-  to = "/.netlify/functions/unsubscribe"
-  status = 200
 
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
 [dev]
-  command = "npm run dev"  # runs Vite
-  targetPort = 5173        # must match the port Vite actually uses
-  port = 8888              # browse here
+  command = "npm run dev"
+  port = 8888
+  targetPort = 5173
+  functions = "netlify/functions"
+
+# Allow Vite dev client and assets to pass through
+[[redirects]]
+  from = "/@vite/*"
+  to = "/@vite/:splat"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/@react-refresh/*"
+  to = "/@react-refresh/:splat"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/src/*"
+  to = "/src/:splat"
+  status = 200
+  force = false
+
+# Proxy Contentful webhook routes to Netlify functions
+[[redirects]]
+  from = "/api/new-post"
+  to = "/.netlify/functions/new-post"
+  status = 200
+
+[[redirects]]
+  from = "/api/unsubscribe"
+  to = "/.netlify/functions/unsubscribe"
+  status = 200
+
+# SPA catch-all (keep last)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

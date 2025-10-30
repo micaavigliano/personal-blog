@@ -92,8 +92,8 @@ export const translations = {
     // Blog Section
     "blog.title": "Blog",
     "blog.description": "Insights, tutorials, and best practices for building accessible web experiences. Learn from real-world examples and stay updated with the latest in web accessibility.",
-    "blog.back": "View all Posts",
-    "blog.all": "View All Posts",
+    "blog.back": "View all posts",
+    "blog.all": "View All posts",
     "blog.shareLabel": "Copy the URL and share the post",
     "blog.share": "Share",
     "blog.view": "view",
@@ -129,12 +129,12 @@ export const translations = {
     "contact.form.fail": "Something went wrong. Try again later.",
     "contact.schedule": "Prefer to schedule a call?",
     "contact.schedule.desc": "Book a free consultation at your convenience",
-    "contact.schedule.cta": "Schedule a Free Consultation",
-    "contact.response.time": "Response Time",
+    "contact.schedule.cta": "Schedule a free consultation",
+    "contact.response.time": "Response time",
     "contact.message": "I typically respond to all inquiries within 24 hours during business days. For urgent accessibility issues, please mention 'URGENT' in your subject line.",
 
     // Booking Section
-    "booking.title": "Book a Consultation",
+    "booking.title": "Book a consultation",
     "booking.description":
       "Ready to make your digital products more accessible? Let's discuss your project and explore how I can help you create inclusive experiences.",
     "booking.schedule.title": "Schedule Your Free Consultation",
@@ -207,7 +207,20 @@ export const translations = {
 
     // Rich text
     "rich.copy": "Copy the code",
-    "rich.copied": "Code copied"
+    "rich.copied": "Code copied",
+    "rich.code.block": "Code block",
+
+    // Newsletter
+    "newsletter.title": "Stay in the loop",
+    "newsletter.button.text": "Subscribe",
+    "newsletter.success.msg": "Welcome aboard!",
+    "newsletter.error.msg": "Something went wrong. Please try again.",
+    "newsletter.valid.email": "Please enter a valid email address",
+    "newsletter.description": "Get the latest updates delivered straight to your inbox.",
+    "newsletter.subscribed.success": "You're subscribed!",
+    "newsletter.subscribed.msg": "You'll receive an email when we publish new content.",
+    "newsletter.subscribing": "Subscribing...",
+    "newsletter.privacy": "We respect your privacy. Unsubscribe at any time."
   },
   es: {
     // Navigation
@@ -218,7 +231,7 @@ export const translations = {
     "nav.projects": "Proyectos",
     "nav.blog": "Blog",
     "nav.contact": "Contacto",
-    "nav.book": "Reservar Llamada",
+    "nav.book": "Reservar llamada",
     "nav.home": "Inicio",
     "nav.select.language": "Selecciona idioma",
     "nav.extraInfo": "Usa las teclas de flecha para navegar, Enter para seleccionar y Escape para cerrar.",
@@ -292,17 +305,17 @@ export const translations = {
     "services.together": "Construyamos algo accesible juntos!",
 
     // Projects Section
-    "projects.title": "Proyectos Destacados",
+    "projects.title": "Proyectos destacados",
     "projects.description":
       "Aquí están algunos de mis proyectos favoritos que muestran desarrollo accesible y principios de diseño inclusivo.",
     "projects.code": "Código",
-    "projects.demo": "Demo en Vivo",
+    "projects.demo": "Demo en vivo",
 
     // Blog Section
     "blog.title": "Blog",
     "blog.description": "Ideas, tutoriales y buenas prácticas para construir experiencias web accesibles. Aprende de ejemplos del mundo real y mantenete actualizado con lo último en accesibilidad web.",
-    "blog.back": "Ver todas las Publicaciones",
-    "blog.all": "Ver Todas las Publicaciones",
+    "blog.back": "Ver todas las publicaciones",
+    "blog.all": "Ver Todas las publicaciones",
     "blog.shareLabel": "Copia el URL y compartí el posteo",
     "blog.share": "Comparte",
     "blog.view": "vista",
@@ -419,7 +432,20 @@ export const translations = {
 
     // Rich text
     "rich.copy": "Copia el código",
-    "rich.copied": "Código copiado"
+    "rich.copied": "Código copiado",
+    "rich.code.block": "Bloque de código",
+
+    // Newsletter
+    "newsletter.title": "Mantente al tanto",
+    "newsletter.button.text": "Suscribirse",
+    "newsletter.description": "Suscríbete a mi newsletter para recibir las últimas actualizaciones directamente en tu email!",
+    "newsletter.success.msg": "¡Bienvenido al newsletter!",
+    "newsletter.valid.email": "Por favor, ingresa un email válido",
+    "newsletter.error.msg": "Algo salió mal. Por favor, inténtalo de nuevo.",
+    "newsletter.subscribed.success": "Te suscribiste con éxito al newsletter.",
+    "newsletter.subscribed.msg": "Vas a recibir un email cuando publique un nuevo post.",
+    "newsletter.subscribing": "Suscribiéndose...",
+    "newsletter.privacy": "Respetamos tu privacidad. Puedes darte de baja en cualquier momento."
   },
   it: {
     // Navigation
@@ -503,17 +529,17 @@ export const translations = {
     "services.together": "Costruiamo qualcosa di accessibile insieme!",
 
     // Projects Section
-    "projects.title": "Progetti in Evidenza",
+    "projects.title": "Progetti in evidenza",
     "projects.description":
       "Ecco alcuni dei miei progetti preferiti che mostrano sviluppo accessibile e principi di design inclusivo.",
     "projects.code": "Codice",
-    "projects.demo": "Demo Live",
+    "projects.demo": "Demo live",
 
     // Blog Section
     "blog.title": "Blog",
     "blog.description": "Approfondimenti, tutorial e best practice per costruire esperienze web accessibili. Impara da esempi del mondo reale e rimani aggiornato con le ultime novità sull'accessibilità web.",
-    "blog.back": "Vedi tutti i Post",
-    "blog.all": "Vedi Tutti i Post",
+    "blog.back": "Vedi tutti i post",
+    "blog.all": "Vedi tutti i post",
     "blog.shareLabel": "Copia l'URL e condividi il post",
     "blog.share": "Convidi",
     "blog.view": "vista",
@@ -630,7 +656,20 @@ export const translations = {
 
     // Rich text
     "rich.copy": "Copia codice",
-    "rich.copied": "Codice copiato"
+    "rich.copied": "Codice copiato",
+    "rich.code.block": "Blocco di codice",
+
+    // Newsletter
+    "newsletter.title": "Rimani aggiornato",
+    "newsletter.button.text": "Iscriviti",
+    "newsletter.success.msg": "Benvenuto alla newsletter!",
+    "newsletter.error.msg": "Qualcosa è andato storto. Per favore riprova.",
+    "newsletter.valid.email": "Per favore, inserisci un'email valida",
+    "newsletter.description": "Iscriviti alla mia newsletter per ricevere gli ultimi aggiornamenti direttamente nella tua casella di posta!",
+    "newsletter.subscribed.success": "Iscrizione avvenuta con successo!",
+    "newsletter.subscribed.msg": "Riceverai un'email quando pubblicherò un nuovo post.",
+    "newsletter.subscribing": "Iscrivendosi...",
+    "newsletter.privacy": "Rispettiamo la tua privacy. Puoi disiscriverti in qualsiasi momento."
   },
 } as const
 

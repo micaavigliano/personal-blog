@@ -1,20 +1,24 @@
 import type { Handler } from "@netlify/functions";
+import { createClient } from "@supabase/supabase-js";
 
-async function removeSubscriber(email: string) {
-  await fetch(`${process.env.SUBSCRIBERS_API}/${encodeURIComponent(email)}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${process.env.SUBSCRIBERS_TOKEN}` }
-  });
-}
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL!;
+const SUPABASE_TOKEN = process.env.VITE_SUPABASE_TOKEN!;
 
 export const handler: Handler = async (event) => {
-  const email = event.queryStringParameters?.e;
-  if (!email) return { statusCode: 400, body: "Missing email" };
+  const token = event.queryStringParameters?.t;
+  if (!token) return { statusCode: 400, body: "Missing token" };
 
-  await removeSubscriber(email);
-  return {
-    statusCode: 302,
-    headers: { Location: "https://micaavigliano.com/unsubscribed" },
-    body: ""
-  };
+  const supabase = createClient(SUPABASE_URL, SUPABASE_TOKEN, { auth: { persistSession: false } });
+  const { data, error } = await supabase
+    .from("subscribers")
+    .update({ unsubscribed: true })
+    .eq("unsubscribe_token", token)
+    .select("email")
+    .single();
+
+  const location = error
+    ? "https://micaavigliano.com/unsubscribe-error"
+    : "https://micaavigliano.com/unsubscribed";
+
+  return { statusCode: 302, headers: { Location: location }, body: "" };
 };

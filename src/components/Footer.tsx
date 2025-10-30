@@ -114,7 +114,7 @@ const Footer = () => {
               target="_blank"
               rel="external"
               referrerPolicy="strict-origin"
-              className="text-muted-foreground hover:text-foreground transition-colors underline decoration-transparent hover:decoration-foreground decoration-1 underline-offset-2"
+              className="text-muted-foreground hover:text-foreground transition-colors underline hover:decoration-foreground decoration-1 underline-offset-2 hover:underline"
             >
               <span aria-hidden="true">←</span>{t('footer.previous')}
             </a>
@@ -125,7 +125,7 @@ const Footer = () => {
               target="_blank"
               rel="external"
               referrerPolicy="strict-origin"
-              className="text-muted-foreground hover:text-foreground transition-colors underline decoration-transparent hover:decoration-foreground decoration-1 underline-offset-2"
+              className="text-muted-foreground hover:text-foreground transition-colors underline hover:decoration-foreground decoration-1 underline-offset-2 hover:underline"
             >
               {t('footer.random')}
             </a>
@@ -136,7 +136,7 @@ const Footer = () => {
               target="_blank"
               rel="external"
               referrerPolicy="strict-origin"
-              className="text-muted-foreground hover:text-foreground transition-colors underline decoration-transparent hover:decoration-foreground decoration-1 underline-offset-2"
+              className="text-muted-foreground hover:text-foreground transition-colors underline hover:decoration-foreground decoration-1 underline-offset-2 hover:underline"
             >
               {t('footer.next')}<span aria-hidden="true">→</span>
             </a>

@@ -8,6 +8,7 @@ import { calculateReadingTime } from "@/lib/readingTime"
 import { PostSEOHelmet } from "./PostSEOHelmet"
 import { BackToTop } from "./BackToTop"
 import { type Document } from "@contentful/rich-text-types"
+import NewsletterSubscribe from "./SubscribeNewsletter"
 
 type Props = {
   post: {
@@ -56,7 +57,7 @@ export default function Post({ post }: Props) {
           updatedAtISO: post.updatedAtISO,
         }}
       />
-      <Link to="/$locale/blog" params={{ locale }} className="nav-link flex flex-row items-center pb-6">
+      <Link to="/$locale/blog" params={{ locale }} className="nav-link flex flex-row items-center pb-6 w-fit">
         <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
         {t("blog.back")}
       </Link>
@@ -88,11 +89,12 @@ export default function Post({ post }: Props) {
 
       <div className="prose prose-lg prose-slate dark:prose-invert max-w-none">
         <RichText doc={post.description} />
+        <NewsletterSubscribe />
         <BackToTop />
       </div>
 
       <div className="mt-12 pt-8 border-t border-border">
-        <Link to="/$locale/blog" params={{ locale }} className="nav-link flex flex-row items-center">
+        <Link to="/$locale/blog" params={{ locale }} className="nav-link flex flex-row items-center w-fit">
           <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
           {t("blog.back")}
         </Link>

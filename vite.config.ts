@@ -1,22 +1,24 @@
 import { defineConfig } from 'vite'
-import viteReact from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
-import { resolve } from 'node:path'
-import netlify from '@netlify/vite-plugin-tanstack-start'
+// import netlify from '@netlify/vite-plugin-tanstack-start'
 
-// https://vitejs.dev/config/
+// const isProd = process.env.NODE_ENV === 'production'
+
 export default defineConfig({
+  base: './',
   plugins: [
-    netlify(),
     TanStackRouterVite({ autoCodeSplitting: true }),
-    viteReact(),
+    react(),
     tailwindcss(),
   ],
   resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-    },
+    alias: { '@': new URL('./src', import.meta.url).pathname },
+  },
+  server: {
+    port: 5173,
+    strictPort: true,     // do not hop to 5174
+    hmr: { clientPort: 8888 }, // netlify dev proxy port
   },
 })

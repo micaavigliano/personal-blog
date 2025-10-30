@@ -1,15 +1,15 @@
-import { Helmet } from 'react-helmet-async'
-import { useI18n } from '@/lib/I18nProvider'
-import { locales } from '@/lib/i18n'
+import { Helmet } from "react-helmet-async";
+import { useI18n } from "@/lib/I18nProvider";
+import { locales } from "@/lib/i18n";
 
 export default function LocaleHead() {
-  const { locale } = useI18n()
-  const site = 'https://micaavigliano.com'
+  const { locale } = useI18n();
+  const site = "https://micaavigliano.com";
   const title = {
-    en: 'Mica Avigliano - Frontend Developer & Accessibility Engineer',
-    es: 'Mica Avigliano - Desarrollador Frontend e Ingeniera de Accesibilidad',
-    it: 'Mica Avigliano - Sviluppatore Frontend e Ingegnere di Accessibilità',
-  }[locale]
+    en: "Mica Avigliano - Frontend Developer & Accessibility Engineer",
+    es: "Mica Avigliano - Desarrollador Frontend e Ingeniera de Accesibilidad",
+    it: "Mica Avigliano - Sviluppatore Frontend e Ingegnere di Accessibilità",
+  }[locale];
 
   return (
     <Helmet>
@@ -30,5 +30,5 @@ export default function LocaleHead() {
       <meta name="twitter:description" content="Frontend developer and accessibility engineer" />
       <meta name="twitter:image" content={`${site}/og-image.png`} />
     </Helmet>
-  )
+  );
 }

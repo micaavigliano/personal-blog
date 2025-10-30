@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/I18nProvider"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
 import { Link } from "@tanstack/react-router"
 import { calculateReadingTime } from "@/lib/readingTime"
+import NewsletterSubscribe from "./SubscribeNewsletter"
 
 type Props = {
   posts: {
@@ -76,6 +77,7 @@ const Blog = ({ posts }: Props) => {
             )
           })}
         </ul>
+        <NewsletterSubscribe />
       </section>
     </article>
   )

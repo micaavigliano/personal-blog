@@ -65,9 +65,9 @@ export function RichText({ doc }: { doc?: Document }) {
       [MARKS.BOLD]: (text) => <strong>{text}</strong>,
       [MARKS.ITALIC]: (text) => <em>{text}</em>,
       [MARKS.CODE]: (text) => (
-        <code className="font-mono text-sm px-1 py-0.5 rounded bg-neutral-300">
+        <span role="text" className="font-mono text-sm px-1 py-0.5 rounded bg-neutral-300">
           {text}
-        </code>
+        </span>
       ),
     },
 
@@ -87,8 +87,9 @@ export function RichText({ doc }: { doc?: Document }) {
               className="my-6 rounded-xl bg-neutral-900 text-neutral-100 p-4 overflow-x-auto flex flex-row justify-between items-start"
               ref={sectionRef}
             >
+              <h2 className="sr-only">{t('rich.code.block')}</h2>
               <pre>
-                <code className="font-mono text-sm whitespace-pre-wrap">{code}</code>
+                <span role="text" className="font-mono text-sm whitespace-pre-wrap">{code}</span>
               </pre>
               <Tooltip text={copyText} direction="left" id="copyid">
                 <button
@@ -108,13 +109,30 @@ export function RichText({ doc }: { doc?: Document }) {
       },
 
       [BLOCKS.HEADING_1]: (_n, children) => <h1>{children}</h1>,
-      [BLOCKS.HEADING_2]: (_n, children) => <h2>{children}</h2>,
-      [BLOCKS.HEADING_3]: (_n, children) => <h3 className="relative inline-block text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 [text-wrap:balance] after:absolute after:left-0 after:-bottom-1 after:h-1 after:w-12 after:rounded-full after:bg-gradient-to-r after:from-indigo-500 after:via-fuchsia-500 after:to-pink-500">{children}</h3>,
-      [BLOCKS.HEADING_4]: (_n, children) => <h4 className="relative inline-block text-1xl md:text-2xl font-semibold tracking-tight text-neutral-900 [text-wrap:balance] after:absolute after:left-0 after:-bottom-1 after:h-1 after:w-12 after:rounded-full after:bg-gradient-to-r after:from-indigo-500 after:via-fuchsia-500 after:to-pink-500">{children}</h4>,
+      [BLOCKS.HEADING_2]: (_n, children) => <h2 className="relative inline-block text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 text-balance after:absolute after:left-0 after:-bottom-1 after:h-1 after:w-12 after:rounded-full after:bg-linear-to-r after:from-indigo-500 after:via-fuchsia-500 after:to-pink-500">{children}</h2>,
+      [BLOCKS.HEADING_3]: (_n, children) => <h3 className="relative inline-block text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 text-balance after:absolute after:left-0 after:-bottom-1 after:h-1 after:w-12 after:rounded-full after:bg-linear-to-r after:from-indigo-500 after:via-fuchsia-500 after:to-pink-500">{children}</h3>,
+      [BLOCKS.HEADING_4]: (_n, children) => <h4 className="relative inline-block text-1xl md:text-2xl font-semibold tracking-tight text-neutral-900 text-balance after:absolute after:left-0 after:-bottom-1 after:h-1 after:w-12 after:rounded-full after:bg-linear-to-r after:from-indigo-500 after:via-fuchsia-500 after:to-pink-500">{children}</h4>,
       [BLOCKS.QUOTE]: (_n, children) => <blockquote>{children}</blockquote>,
-      [BLOCKS.UL_LIST]: (_n, children) => <ul className="list-disc pl-6 my-4">{children}</ul>,
-      [BLOCKS.OL_LIST]: (_n, children) => <ol className="list-decimal pl-6 my-4">{children}</ol>,
-      [BLOCKS.LIST_ITEM]: (_n, children) => <li className="[&::marker]:text-black">{children}</li>,
+      [BLOCKS.UL_LIST]: (_n, children) => <ul role="list" className="list-none pl-6 my-4">{children}</ul>,
+      [BLOCKS.OL_LIST]: (_n, children) => <ol role="list" className="list-none pl-6 my-4">{children}</ol>,
+      [BLOCKS.LIST_ITEM]: (_n, children) => {
+        const isOrdered = _n.nodeType === BLOCKS.OL_LIST
+        const markerStyle = isOrdered
+          ? // decimal style
+            "before:content-[counter(item)'.'] before:text-current before:opacity-80 before:w-4 before:inline-block before:text-right before:mr-2 before:font-normal before:absolute before:left-0 before:top-0 [counter-increment:item]"
+          : // disc style
+            "before:content-[''] before:h-1.5 before:w-1.5 before:rounded-full before:bg-current before:inline-block before:absolute before:left-0 before:top-[0.6em]"
+
+        return (
+          <li
+            role="listitem"
+            className={`relative pl-5 ${markerStyle}`}
+          >
+            {children}
+          </li>
+        )
+      },
+      // [BLOCKS.LIST_ITEM]: (_n, children) => <li className="relative pl-3 before:absolute before:left-0 before:top-[0.6em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-current" role="listitem">{children}</li>,
       [BLOCKS.HR]: () => <hr />,
 
       // Embedded asset (images / files)
@@ -175,8 +193,9 @@ export function RichText({ doc }: { doc?: Document }) {
               className="my-6 rounded-xl bg-neutral-900 text-neutral-100 p-4 overflow-x-auto flex flex-row justify-between items-start"
               ref={sectionRef}
             >
+              <h2 className="sr-only">{t('rich.code.block')}</h2>
               <pre>
-                <code className="font-mono text-sm whitespace-pre-wrap">{code}</code>
+                <span className="font-mono text-sm whitespace-pre-wrap" role="text">{code}</span>
               </pre>
               <Tooltip text={copyText} direction="left" id="copyid">
                 <button

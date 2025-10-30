@@ -215,6 +215,7 @@
     transform: translateY(0);
     transition: all 0.15s ease-in-out;
     outline: none;
+    width: fit-content;
   }
 
   .skip-link:focus {
