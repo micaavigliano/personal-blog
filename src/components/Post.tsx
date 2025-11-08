@@ -7,20 +7,11 @@ import { Link } from "@tanstack/react-router"
 import { calculateReadingTime } from "@/lib/readingTime"
 import { PostSEOHelmet } from "./PostSEOHelmet"
 import { BackToTop } from "./BackToTop"
-import { type Document } from "@contentful/rich-text-types"
-import NewsletterSubscribe from "./SubscribeNewsletter"
+import NewsletterSubscribe from "./NewsletterSubscribe"
+import type { PostSummary } from "@/lib/getPostBySlug"
 
 type Props = {
-  post: {
-    dateISO: string
-    updatedAtISO?: string
-    slug: string
-    title: string
-    seoDescription: string
-    description: Document
-    seoTitle: string
-    keywords: string[]
-  }
+  post: PostSummary
 }
 
 export default function Post({ post }: Props) {

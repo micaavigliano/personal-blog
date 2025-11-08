@@ -4,7 +4,8 @@ import { useI18n } from "@/lib/I18nProvider"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
 import { Link } from "@tanstack/react-router"
 import { calculateReadingTime } from "@/lib/readingTime"
-import NewsletterSubscribe from "./SubscribeNewsletter"
+import NewsletterSubscribe from "./NewsletterSubscribe"
+import type { EntryFields } from "contentful"
 
 type Props = {
   posts: {
@@ -13,7 +14,8 @@ type Props = {
     slug: string
     title: string
     seoDescription: string
-    description: string
+    description: EntryFields.RichText
+    keywords?: string[]
   }[]
 }
 

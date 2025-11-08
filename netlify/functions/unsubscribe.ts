@@ -1,24 +1,11 @@
 import type { Handler } from "@netlify/functions";
 import { createClient } from "@supabase/supabase-js";
-
-const SUPABASE_URL = import.meta.env.SUPABASE_URL!;
-const SUPABASE_TOKEN = import.meta.env.SUPABASE_TOKEN!;
+const db = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_KEY!, { auth: { persistSession: false } });
 
 export const handler: Handler = async (event) => {
   const token = event.queryStringParameters?.t;
   if (!token) return { statusCode: 400, body: "Missing token" };
-
-  const supabase = createClient(SUPABASE_URL, SUPABASE_TOKEN, { auth: { persistSession: false } });
-  const { data, error } = await supabase
-    .from("subscribers")
-    .update({ unsubscribed: true })
-    .eq("unsubscribe_token", token)
-    .select("email")
-    .single();
-
-  const location = error
-    ? "https://micaavigliano.com/unsubscribe-error"
-    : "https://micaavigliano.com/unsubscribed";
-
+  const { error } = await db.from("subscribers").update({ unsubscribed: true }).eq("unsubscribe_token", token);
+  const location = error ? "https://micaavigliano.com/unsubscribe-error" : "https://micaavigliano.com/unsubscribed";
   return { statusCode: 302, headers: { Location: location }, body: "" };
 };

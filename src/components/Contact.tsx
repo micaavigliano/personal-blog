@@ -33,7 +33,7 @@ const Contact = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json().catch(() => ({})); // handle empty body
+      const data = await res.json().catch(() => ({}));
 
       if (res.ok && data.success) {
         setStatus("success");
@@ -73,7 +73,7 @@ const Contact = () => {
           <div className="space-y-6 mb-8">
             <article className="border-2 pt-6 rounded-lg bg-card text-card-foreground shadow-sm" aria-labelledby="contact-email-title">
               <div className="flex items-start gap-4 p-6 pt-0">
-                <div className="w-12 h-12 rounded-full bg-lavender flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full bg-lavender flex items-center justify-center shrink-0">
                   <Mail className="w-6 h-6 text-foreground" aria-hidden="true" />
                 </div>
                 <div>
@@ -90,7 +90,7 @@ const Contact = () => {
 
             <article className="border-2 pt-6 rounded-lg bg-card text-card-foreground shadow-sm">
               <div className="flex items-start gap-4 p-6 pt-0">
-                <div className="w-12 h-12 rounded-full bg-mint flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full bg-mint flex items-center justify-center shrink-0">
                   <Calendar className="w-6 h-6 text-foreground" aria-hidden="true" />
                 </div>
                 <div>
@@ -111,7 +111,7 @@ const Contact = () => {
 
             <article className="border-2 pt-6 rounded-lg bg-card text-card-foreground shadow-sm">
               <div className="flex items-start gap-4 p-6 pt-0">
-                <div className="w-12 h-12 rounded-full bg-sky flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full bg-sky flex items-center justify-center shrink-0">
                   <Clock className="w-6 h-6 text-foreground" aria-hidden="true" />
                 </div>
                 <div>

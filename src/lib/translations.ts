@@ -10,9 +10,9 @@ export const translations = {
     "nav.projects": "Projects",
     "nav.blog": "Blog",
     "nav.contact": "Contact",
-    "nav.book": "Book a Call",
+    "nav.book": "Book a call",
     "nav.home": "Home",
-    "nav.select.language": "Select Language",
+    "nav.select.language": "Select language",
     "nav.extraInfo": "Use arrow keys to navigate, Enter to select, Escape to close",
     "nav.mobile.menu.close": "Close menu",
     "nav.mobile.menu.open": "Open menu",
@@ -93,7 +93,7 @@ export const translations = {
     "blog.title": "Blog",
     "blog.description": "Insights, tutorials, and best practices for building accessible web experiences. Learn from real-world examples and stay updated with the latest in web accessibility.",
     "blog.back": "View all posts",
-    "blog.all": "View All posts",
+    "blog.all": "View all posts",
     "blog.shareLabel": "Copy the URL and share the post",
     "blog.share": "Share",
     "blog.view": "view",
@@ -103,17 +103,17 @@ export const translations = {
     "blog.read.time": "min read",
 
     // Contact Section
-    "contact.title": "Get in Touch",
-    "contact.subtitle": "Let's Work Together",
+    "contact.title": "Get in touch",
+    "contact.subtitle": "Let's work together",
     "contact.description":
       "Ready to make your digital products more accessible? Let's create inclusive experiences that work for everyone.",
-    "contact.connect": "Let's Connect",
+    "contact.connect": "Let's connect",
     "contact.connect.desc":
       "Whether you need an accessibility audit, frontend development, or team training, I'm here to help. Choose the best way to reach out:",
     "contact.email": "Email",
     "contact.phone": "Phone",
     "contact.location": "Location",
-    "contact.form.title": "Send a Message",
+    "contact.form.title": "Send a message",
     "contact.form.desc": "Fill out the form below and I'll get back to you within 24 hours.",
     "contact.form.name": "Name",
     "contact.form.placeholder.name": "Your name",
@@ -220,7 +220,11 @@ export const translations = {
     "newsletter.subscribed.success": "You're subscribed!",
     "newsletter.subscribed.msg": "You'll receive an email when we publish new content.",
     "newsletter.subscribing": "Subscribing...",
-    "newsletter.privacy": "We respect your privacy. Unsubscribe at any time."
+    "newsletter.privacy": "We respect your privacy. Unsubscribe at any time.",
+
+    //404 error
+    "404.error.msg": "Page not found",
+    "404.back.home": "Back to home",
   },
   es: {
     // Navigation
@@ -315,7 +319,7 @@ export const translations = {
     "blog.title": "Blog",
     "blog.description": "Ideas, tutoriales y buenas prácticas para construir experiencias web accesibles. Aprende de ejemplos del mundo real y mantenete actualizado con lo último en accesibilidad web.",
     "blog.back": "Ver todas las publicaciones",
-    "blog.all": "Ver Todas las publicaciones",
+    "blog.all": "Ver todas las publicaciones",
     "blog.shareLabel": "Copia el URL y compartí el posteo",
     "blog.share": "Comparte",
     "blog.view": "vista",
@@ -445,7 +449,11 @@ export const translations = {
     "newsletter.subscribed.success": "Te suscribiste con éxito al newsletter.",
     "newsletter.subscribed.msg": "Vas a recibir un email cuando publique un nuevo post.",
     "newsletter.subscribing": "Suscribiéndose...",
-    "newsletter.privacy": "Respetamos tu privacidad. Puedes darte de baja en cualquier momento."
+    "newsletter.privacy": "Respetamos tu privacidad. Puedes darte de baja en cualquier momento.",
+
+    //404 error
+    "404.error.msg": "Página no encontrada",
+    "404.back.home": "Volver a la página de inicio",
   },
   it: {
     // Navigation
@@ -669,7 +677,11 @@ export const translations = {
     "newsletter.subscribed.success": "Iscrizione avvenuta con successo!",
     "newsletter.subscribed.msg": "Riceverai un'email quando pubblicherò un nuovo post.",
     "newsletter.subscribing": "Iscrivendosi...",
-    "newsletter.privacy": "Rispettiamo la tua privacy. Puoi disiscriverti in qualsiasi momento."
+    "newsletter.privacy": "Rispettiamo la tua privacy. Puoi disiscriverti in qualsiasi momento.",
+
+    //404 error
+    "404.error.msg": "Pagina non trovata",
+    "404.back.home": "Torna alla home",
   },
 } as const
 

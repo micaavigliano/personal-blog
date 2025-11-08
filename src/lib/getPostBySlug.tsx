@@ -19,9 +19,11 @@ export type PostSummary = {
   slug: string
   title: string
   description: EntryFields.RichText
-  seoDescription?: string
+  seoDescription: string
   dateISO?: string
   updatedAtISO?: string
+  seoTitle?: string
+  keywords?: string[]
 }
 
 export async function getAllPosts(
@@ -43,6 +45,8 @@ export async function getAllPosts(
     description: entry.fields.description,
     dateISO: entry.sys.createdAt,
     updatedAtISO: entry.sys.updatedAt,
+    seoTitle: entry.fields.seoTitle,
+    keywords: entry.fields.keywords ?? [],
   }))
 }
 

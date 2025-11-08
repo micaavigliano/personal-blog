@@ -8,20 +8,14 @@
 
 # Webhook from Contentful → triggers email function
 [[redirects]]
-  from = "/api/new-post"
-  to = "/.netlify/functions/new-post"
+  from = "/api/subscribe"
+  to = "/.netlify/functions/subscribe"
   status = 200
 
 # Unsubscribe link in emails → unsubscribe function
 [[redirects]]
   from = "/api/unsubscribe"
   to = "/.netlify/functions/unsubscribe"
-  status = 200
-
-# Subscribe to newsletter function
-[[redirects]]
-  from = "/api/subscribe"
-  to = "/.netlify/functions/subscribe"
   status = 200
 
 [functions]

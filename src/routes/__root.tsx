@@ -4,6 +4,7 @@ import Footer from '@/components/Footer'
 import { defaultLocale, getLocaleFromPathname, type Locale } from '@/lib/i18n'
 import { I18nProvider } from '@/lib/I18nProvider'
 import LocaleHead from '@/components/LocaleHead'
+import Error from '@/components/Error'
 
 export const Route = createRootRoute({
   beforeLoad: ({ location }) => {
@@ -14,7 +15,7 @@ export const Route = createRootRoute({
     }
   },
   component: RootShell,
-  notFoundComponent: () => <div>404</div>,
+  notFoundComponent: () => <Error />,
 })
 
 function RootShell() {
