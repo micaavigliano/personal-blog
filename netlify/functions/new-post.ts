@@ -2,17 +2,13 @@ import type { Handler } from "@netlify/functions";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
-/**
- * Create clients at cold start (so TS infers the concrete client type).
- * We derive a DB type from the created client (typeof db) to avoid generic mismatches.
- */
 const RESEND_API_KEY = process.env.VITE_RESEND_API!;
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SUPABASE_KEY = process.env.SUPABASE_KEY!;
 const CONTENTFUL_WEBHOOK_SECRET = process.env.CONTENTFUL_WEBHOOK_SECRET!;
 
 const db = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } });
-type DB = typeof db; // use the concrete runtime type produced by createClient
+type DB = typeof db;
 
 
 async function listSubs(client: DB) {
@@ -24,6 +20,24 @@ async function listSubs(client: DB) {
 
   if (error) throw error;
   return data ?? [];
+}
+
+// Minimal header normalization helper (case-insensitive + multiValueHeaders support)
+function normalizeHeaders(event: any): Record<string, string> {
+  const out: Record<string, string> = {};
+  if (event?.multiValueHeaders) {
+    for (const k of Object.keys(event.multiValueHeaders)) {
+      const v = event.multiValueHeaders[k];
+      out[k.toLowerCase()] = Array.isArray(v) ? String(v[0]) : String(v);
+    }
+  }
+  if (event?.headers) {
+    for (const k of Object.keys(event.headers)) {
+      const lk = k.toLowerCase();
+      if (!out[lk]) out[lk] = String(event.headers[k]);
+    }
+  }
+  return out;
 }
 
 export const handler: Handler = async (event) => {
@@ -43,6 +57,18 @@ export const handler: Handler = async (event) => {
       return { statusCode: 500, body: "Server misconfigured: missing contentful webhook secret" };
     }
 
+    // NEW: read and check the notification headers Contentful can send
+    const headers = normalizeHeaders(event as any);
+    const notifyHeader = headers["x-notify"];
+    const authHeader = headers["authentication"] || headers["authorization"];
+
+    // Require either X-Notify: subscribers OR Authentication/Authorization: subscribers
+    if (notifyHeader !== "subscribers" && authHeader !== "subscribers") {
+      console.warn("Webhook ignored: not a subscribers notification", { notifyHeader, authHeader });
+      // Return 204 so Contentful treats it as delivered but no action is taken.
+      return { statusCode: 204, body: "" };
+    }
+
     // const secret = (event.headers["x-webhook-secret"]);
     // if (secret !== CONTENTFUL_WEBHOOK_SECRET) {
     //   console.warn("Unauthorized webhook call", { received: secret });
@@ -58,7 +84,7 @@ export const handler: Handler = async (event) => {
     }
 
     const fields = payload.fields || {};
-    const title = fields.title?.en ?? fields.title ?? "New post";
+    const title = fields.title;
     const slug = fields.slug?.en ?? fields.slug ?? "";
     const excerpt = fields.excerpt?.en ?? fields.excerpt ?? "";
 

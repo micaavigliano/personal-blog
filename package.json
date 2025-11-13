@@ -13,6 +13,8 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^16.6.0",
+    "@contentful/rich-text-plain-text-renderer": "^17.1.6",
     "@contentful/rich-text-react-renderer": "^16.1.5",
     "@netlify/vite-plugin-tanstack-start": "^1.0.2",
     "@supabase/supabase-js": "^2.77.0",
@@ -21,6 +23,7 @@
     "@tanstack/react-router": "^1.132.0",
     "@tanstack/react-router-devtools": "^1.132.0",
     "@tanstack/router-plugin": "^1.132.0",
+    "@types/sanitize-html": "^2.16.0",
     "contentful": "^11.8.6",
     "lucide-react": "^0.545.0",
     "nodemailer": "^7.0.9",
@@ -29,6 +32,7 @@
     "react-dom": "^19.0.0",
     "react-helmet-async": "^2.0.5",
     "resend": "^6.2.2",
+    "sanitize-html": "^2.17.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.0.6",
     "tailwindcss-animate": "^1.0.7"

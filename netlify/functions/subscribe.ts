@@ -38,7 +38,7 @@ export const handler: Handler = async (event) => {
       return { statusCode: 200, headers: cors(event.headers.origin || ""), body: JSON.stringify({ already: true, message: "Already subscribed" }) };
     }
 
-    const { data, error: insErr } = await db.from("newsletter").insert([{ email: normalized, name: name?.trim() || null }]).select("id,email,unsubscribe_token").single();
+    const { data, error: insErr } = await db.from("subscribers").insert([{ email: normalized, name: name?.trim() || null }]).select("id,email,unsubscribe_token").single();
     if (insErr) throw insErr;
 
     return { statusCode: 201, headers: cors(event.headers.origin || ""), body: JSON.stringify({ message: "Subscribed", subscriber: data }) };

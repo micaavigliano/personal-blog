@@ -22,7 +22,7 @@ import { getTranslation, type TranslationKey } from "@/lib/translations"
 import Tooltip from "./Tooltip"
 import { useI18n } from "@/lib/I18nProvider"
 
-export function RichText({ doc }: { doc?: Document }) {
+export const RichText = ({ doc }: { doc?: Document }) => {
   const sectionRef = useRef<HTMLElement>(null)
   const { locale } = useI18n()
   const t = (key: TranslationKey) => getTranslation(locale, key)
