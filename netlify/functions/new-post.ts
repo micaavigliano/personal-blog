@@ -83,6 +83,8 @@ export const handler: Handler = async (event) => {
       return { statusCode: 400, body: "Invalid JSON body" };
     }
 
+    console.log(payload, 'testing in prod porque no tengo miedo')
+
     const fields = payload.fields || {};
     const title = fields.title;
     const slug = fields.slug?.en ?? fields.slug ?? "";
