@@ -7,7 +7,7 @@ import { resolve } from 'node:path'
 import netlify from '@netlify/vite-plugin-tanstack-start'
 
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [
     netlify(),
     TanStackRouterVite({ autoCodeSplitting: true }),
