@@ -145,6 +145,7 @@ export const handler: Handler = async (event) => {
     let totalSent = 0;
     const failures: any[] = [];
 
+    console.log(descriptionHtml, 'descriptionHtml')
     for (let i = 0; i < subs.length; i += batchSize) {
       const chunk = subs.slice(i, i + batchSize)
       const results = await Promise.allSettled(
