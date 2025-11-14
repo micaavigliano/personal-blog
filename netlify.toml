@@ -2,10 +2,10 @@
   publish = "dist"
 
 # if the i am going to run netlify dev locally, comment this. Uncomment for production deploys
-# [[redirects]]
-#  from = "/*"
-#  to = "/index.html"
-#  status = 200
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 # Webhook from Contentful → triggers email function
 [[redirects]]

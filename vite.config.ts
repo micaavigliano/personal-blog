@@ -2,9 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
-// import netlify from '@netlify/vite-plugin-tanstack-start'
-
-// const isProd = process.env.NODE_ENV === 'production'
+import { resolve } from 'node:path'
 
 export default defineConfig({
   base: './',
@@ -14,11 +12,13 @@ export default defineConfig({
     tailwindcss(),
   ],
   resolve: {
-    alias: { '@': new URL('./src', import.meta.url).pathname },
+    alias: {
+      '@': resolve(__dirname, './src')
+    },
   },
   server: {
     port: 5173,
-    strictPort: true,     // do not hop to 5174
-    hmr: { clientPort: 8888 }, // netlify dev proxy port
+    strictPort: true,
+    hmr: { clientPort: 8888 },
   },
 })

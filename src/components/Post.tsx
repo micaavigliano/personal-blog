@@ -8,13 +8,13 @@ import { calculateReadingTime } from "@/lib/readingTime"
 import { PostSEOHelmet } from "./PostSEOHelmet"
 import { BackToTop } from "./BackToTop"
 import NewsletterSubscribe from "./NewsletterSubscribe"
-import type { PostSummary } from "@/lib/getPostBySlug"
+import type { PostSummary } from "@/lib/get-data-contentful"
 
 type Props = {
   post: PostSummary
 }
 
-export default function Post({ post }: Props) {
+export const Post = ({ post }: Props) => {
   const { locale } = useI18n()
   const t = (key: TranslationKey) => getTranslation(locale, key)
 

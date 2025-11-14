@@ -3,11 +3,14 @@ import { Mail, Check, AlertCircle, Loader2, Sparkles } from 'lucide-react';
 import { useI18n } from '@/lib/I18nProvider';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
 
+type Locale = "en-US" | "es" | "it";
+
 const NewsletterSubscribe = () => {
   const { locale } = useI18n()
   const t = (key: TranslationKey) => getTranslation(locale, key)
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [localePost, setLocale] = useState<Locale>("en-US");
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
 
@@ -72,32 +75,6 @@ const NewsletterSubscribe = () => {
   }
 };
 
-  // Success state
-  // if (status === 'success' && email) {
-  //   return (
-  //     <div className="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg">
-  //       <div className="max-w-md mx-auto text-center">
-  //         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-  //           <Check className="w-8 h-8 text-green-600" aria-hidden="true" />
-  //         </div>
-  //         <h3 className="text-2xl font-bold mb-2 text-gray-900">
-  //           {t('newsletter.subscribed.success')}
-  //         </h3>
-  //         <p className="text-sm mb-3 text-gray-600">
-  //           {email}
-  //         </p>
-  //         <p className="text-sm text-gray-600">
-  //           {t('newsletter.subscribed.msg')}
-  //         </p>
-  //         <div className="mt-4 p-3 rounded-lg bg-green-50 text-green-700 text-sm flex items-center justify-center gap-4">
-  //           <PartyPopper className="w-4 h-4" aria-hidden="true" />
-  //           <p>{message}</p>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <article className="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl max-w-md mx-auto" aria-labelledby="newsletter-subscribe-title">
       <div className="text-center mb-6">
@@ -139,14 +116,91 @@ const NewsletterSubscribe = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t('contact.form.placeholder.email')}
               disabled={status === 'loading'}
-              className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed placeholder-gray-400 bg-white border-gray-200 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${status === 'error' ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
-                }`}
+              className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed placeholder-gray-400 bg-white border-gray-200 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
+                status === 'error'
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                  : ''
+              }`}
               onKeyDown={(e) => e.key === 'Enter' && handleSubmit(e)}
               aria-invalid={status === 'error'}
               aria-describedby={message ? 'newsletter-message' : undefined}
             />
           </div>
+          <div>
+            <fieldset
+              className="space-y-3"
+              aria-describedby="preferred-language-help"
+            >
+              <legend className="text-sm font-medium text-gray-900">
+                Preferred language
+              </legend>
+              <p
+                id="preferred-language-help"
+                className="text-xs text-gray-500"
+              >
+                {t('newsletter.locale.msg')}
+              </p>
 
+              <div className="mt-2 flex flex-col gap-2">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    id="preferred-language-en"
+                    name="preferred-language"
+                    value="en-US"
+                    checked={localePost === 'en-US'}
+                    onChange={(e) => setLocale(e.target.value as Locale)}
+                    disabled={status === 'loading'}
+                    className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  />
+                  <label
+                    htmlFor="preferred-language-en"
+                    className="font-normal cursor-pointer"
+                  >
+                    {t("experience.english")}
+                  </label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    id="preferred-language-es"
+                    name="preferred-language"
+                    value="es"
+                    checked={localePost === 'es'}
+                    onChange={(e) => setLocale(e.target.value as Locale)}
+                    disabled={status === 'loading'}
+                    className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  />
+                  <label
+                    htmlFor="preferred-language-es"
+                    className="font-normal cursor-pointer"
+                  >
+                    {t("experience.spanish")}
+                  </label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    id="preferred-language-it"
+                    name="preferred-language"
+                    value="it"
+                    checked={localePost === 'it'}
+                    onChange={(e) => setLocale(e.target.value as Locale)}
+                    disabled={status === 'loading'}
+                    className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  />
+                  <label
+                    htmlFor="preferred-language-it"
+                    className="font-normal cursor-pointer"
+                  >
+                    {t("experience.italian")}
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
           <button
             onClick={handleSubmit}
             disabled={status === 'loading' || !email}

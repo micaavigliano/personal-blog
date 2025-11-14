@@ -19,7 +19,7 @@ type Props = {
   }[]
 }
 
-const Blog = ({ posts }: Props) => {
+export const Blog = ({ posts }: Props) => {
   const { locale } = useI18n()
   const t = (key: TranslationKey) => getTranslation(locale, key)
 
@@ -84,5 +84,3 @@ const Blog = ({ posts }: Props) => {
     </article>
   )
 }
-
-export default Blog;

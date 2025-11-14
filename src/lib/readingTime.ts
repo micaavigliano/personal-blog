@@ -1,6 +1,6 @@
 import type { EntryFields } from "contentful"
 
-function extractTextFromRichText(node: any): string {
+const extractTextFromRichText = (node: any): string => {
   if (!node) return ""
 
   if (node.nodeType === "text") {
@@ -14,7 +14,7 @@ function extractTextFromRichText(node: any): string {
   return ""
 }
 
-export function calculateReadingTime(doc: EntryFields.RichText, locale: string): string {
+export const calculateReadingTime = (doc: EntryFields.RichText, locale: string): string => {
   if (!doc || !doc.content) return `0 ${locale}`
 
   const text = extractTextFromRichText(doc)

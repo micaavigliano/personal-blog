@@ -61,7 +61,7 @@ const Header = () => {
 
   useEffect(() => {
     let ignore = false
-    async function load() {
+    const load = async () => {
       if (!isPost || !slug || !locale) {
         setTranslations({})
         return
@@ -194,7 +194,7 @@ const Header = () => {
                   const buttonToFocus = document.getElementById("mobile-menu-button")
                   if (buttonToFocus instanceof HTMLElement) buttonToFocus.focus()
                 }}
-                className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                className="hover:bg-neutral-100 rounded-xl text-neutral-700 focus-enhanced p-3 min-w-11 min-h-11 flex items-center justify-center"
                 aria-label={t("nav.mobile.close")}
               >
                 <X className="h-6 w-6" aria-hidden="true" />

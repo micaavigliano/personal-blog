@@ -3,7 +3,7 @@ import { ArrowUp } from "lucide-react"
 import { useI18n } from "@/lib/I18nProvider"
 import { getTranslation, type TranslationKey } from "@/lib/translations"
 
-export function BackToTop() {
+export const BackToTop = () => {
   const { locale } = useI18n()
   const t = (key: TranslationKey) => getTranslation(locale, key)
   const [isVisible, setIsVisible] = useState(false)

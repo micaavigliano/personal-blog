@@ -714,6 +714,6 @@ export const experiences: Record<Locale, Experience[]> = {
   ],
 }
 
-export function getExperienceData(locale: Locale): Experience[] {
+export const getExperienceData = (locale: Locale): Experience[] => {
   return experiences[locale] || experiences.en
 }

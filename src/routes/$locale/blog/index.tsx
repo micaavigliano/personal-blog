@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { getAllPosts } from "@/lib/getPostBySlug"
-import Blog from '@/components/Blog'
+import { getAllPosts } from "@/lib/get-data-contentful"
+import { Blog } from '@/components/Blog'
 
 export const Route = createFileRoute('/$locale/blog/')({
   loader: async ({ params }) => {

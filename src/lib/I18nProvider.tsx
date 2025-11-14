@@ -8,17 +8,17 @@ type I18nContextValue = {
 
 const I18nContext = createContext<I18nContextValue | null>(null)
 
-export function I18nProvider({
+export const I18nProvider = ({
   children,
   locale,
 }: {
   children: ReactNode
   locale: Locale
-}) {
+}) => {
   return <I18nContext.Provider value={{ locale }}>{children}</I18nContext.Provider>
 }
 
-export function useI18n() {
+export const useI18n = () => {
   const ctx = useContext(I18nContext)
   if (!ctx) throw new Error('useI18n must be used within <I18nProvider>')
   return ctx

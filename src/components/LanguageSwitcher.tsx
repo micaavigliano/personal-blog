@@ -10,7 +10,7 @@ type Props = {
   translations: Partial<Record<Locale, string>>
 }
 
-export function LanguageSwitcher({ translations }: Props) {
+export const LanguageSwitcher = ({ translations }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)
   const [newLocaleName, setNewLocaleName] = useState("")
@@ -161,7 +161,7 @@ export function LanguageSwitcher({ translations }: Props) {
   }
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
         setFocusedIndex(-1)
@@ -194,7 +194,7 @@ export function LanguageSwitcher({ translations }: Props) {
           }
         }}
         onKeyDown={handleKeyDown}
-        className="flex items-center gap-2 text-peach-800 hover:text-peach-900 px-3 py-2 rounded-lg bg-peach-100 hover:bg-peach-200 border border-peach-300 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5 nav-focus min-w-[44px] min-h-[44px]"
+        className="flex items-center gap-2 text-peach-800 hover:text-peach-900 px-3 py-2 rounded-lg bg-peach-100 hover:bg-peach-200 border border-peach-300 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5 nav-focus min-w-11 min-h-11"
         aria-label={`${t('lang.switcher.current.lng')} ${localeNames[currentLocale]}. ${t('lang.switcher.change')}`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
@@ -241,7 +241,7 @@ export function LanguageSwitcher({ translations }: Props) {
               >
                 <span className="font-medium flex-1">{localeNames[loc]}</span>
                 <span className="text-xs text-peach-600 code-style">{loc}</span>
-                {isSelected && <Check className="w-4 h-4 text-peach-600 flex-shrink-0" aria-hidden="true" />}
+                {isSelected && <Check className="w-4 h-4 text-peach-600 shrink-0" aria-hidden="true" />}
               </button>
             )
           })}

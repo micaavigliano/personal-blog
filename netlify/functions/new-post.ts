@@ -1,6 +1,7 @@
 import type { Handler } from "@netlify/functions";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
+import { getLocalizedField, renderValueAsHtml } from "@/lib/compose-emails";
 
 const RESEND_API_KEY = process.env.VITE_RESEND_API!;
 const SUPABASE_URL = process.env.SUPABASE_URL!;
@@ -11,7 +12,7 @@ const db = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: fa
 type DB = typeof db;
 
 
-async function listSubs(client: DB) {
+const listSubs = async (client: DB) => {
   const { data, error } = await client
     .from("subscribers")
     .select("email,unsubscribe_token")
@@ -22,8 +23,7 @@ async function listSubs(client: DB) {
   return data ?? [];
 }
 
-// Minimal header normalization helper (case-insensitive + multiValueHeaders support)
-function normalizeHeaders(event: any): Record<string, string> {
+const normalizeHeaders = (event: any): Record<string, string> => {
   const out: Record<string, string> = {};
   if (event?.multiValueHeaders) {
     for (const k of Object.keys(event.multiValueHeaders)) {
@@ -38,6 +38,43 @@ function normalizeHeaders(event: any): Record<string, string> {
     }
   }
   return out;
+}
+
+const escapeHtml = (str: string) => {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+const resolveChosenLocale = (fields: Record<string, any>): string => {
+  if (!fields) return 'en'
+
+  const candidates = ['selectedLocale', 'sendLocale', 'locale', 'language']
+  for (const name of candidates) {
+    const v = fields[name]
+    if (!v) continue
+    if (typeof v === 'string') return v.slice(0, 2)
+    if (typeof v === 'object') {
+      const keys = Object.keys(v)
+      const shortVal = Object.values(v).find(val => typeof val === 'string' && ['en','es','it'].includes(val))
+      if (shortVal) return (shortVal as string).slice(0,2)
+      for (const k of keys) {
+        const short = k.slice(0,2)
+        if (['en','es','it'].includes(short)) return short
+      }
+    }
+  }
+
+  const titleField = fields.title
+  if (titleField && typeof titleField === 'object') {
+    const firstKey = Object.keys(titleField)[0]
+    if (firstKey) return firstKey.slice(0,2)
+  }
+
+  return 'en'
 }
 
 export const handler: Handler = async (event) => {
@@ -57,15 +94,12 @@ export const handler: Handler = async (event) => {
       return { statusCode: 500, body: "Server misconfigured: missing contentful webhook secret" };
     }
 
-    // NEW: read and check the notification headers Contentful can send
     const headers = normalizeHeaders(event as any);
     const notifyHeader = headers["x-notify"];
     const authHeader = headers["authentication"] || headers["authorization"];
 
-    // Require either X-Notify: subscribers OR Authentication/Authorization: subscribers
     if (notifyHeader !== "subscribers" && authHeader !== "subscribers") {
       console.warn("Webhook ignored: not a subscribers notification", { notifyHeader, authHeader });
-      // Return 204 so Contentful treats it as delivered but no action is taken.
       return { statusCode: 204, body: "" };
     }
 
@@ -85,12 +119,19 @@ export const handler: Handler = async (event) => {
 
     console.log(payload, 'testing in prod porque no tengo miedo')
 
-    const fields = payload.fields || {};
-    const title = fields.title;
-    const slug = fields.slug?.en ?? fields.slug ?? "";
-    const excerpt = fields.excerpt?.en ?? fields.excerpt ?? "";
+    const entry = payload.fields ? payload : payload.entry ?? payload
+    const fields = entry.fields ?? {}
 
-    const url = `https://micaavigliano.com/blog/${slug}`;
+    const chosenLocale = resolveChosenLocale(fields)
+
+    const title = getLocalizedField(fields, "title", chosenLocale) ?? "Untitled"
+    const slug = getLocalizedField(fields, "slug", chosenLocale) ?? ""
+    const excerptVal = getLocalizedField(fields, "excerpt", chosenLocale) ?? ""
+    const excerpt = typeof excerptVal === "string" || typeof excerptVal === "number" ? String(excerptVal) : "" // keep plain text
+    const descriptionValue = getLocalizedField(fields, "description", chosenLocale)
+    const descriptionHtml = renderValueAsHtml(descriptionValue)
+
+    const url = `https://micaavigliano.com/${chosenLocale}/blog/${slug}`;
     const unsubBase = "https://micaavigliano.com/.netlify/functions/unsubscribe";
 
     const resend = new Resend(RESEND_API_KEY);
@@ -105,31 +146,32 @@ export const handler: Handler = async (event) => {
     const failures: any[] = [];
 
     for (let i = 0; i < subs.length; i += batchSize) {
-      const chunk = subs.slice(i, i + batchSize);
+      const chunk = subs.slice(i, i + batchSize)
       const results = await Promise.allSettled(
         chunk.map(({ email, unsubscribe_token }: any) =>
           resend.emails.send({
-            from: "Mica <news@micaavigliano.com>",
+            from: `Mica <news@micaavigliano.com>`,
             to: email,
-            subject: `New post: ${title}`,
+            subject: `New post: ${String(title)}`,
             html: `
-              <p><strong>${title}</strong></p>
-              <p>${excerpt}</p>
+              <p><strong>${escapeHtml(String(title))}</strong></p>
+              <p>${escapeHtml(excerpt)}</p>
+              <div>${descriptionHtml}</div>
               <p><a href="${url}">Read the post</a></p>
               <hr />
               <p style="font-size:12px;color:#666">You can <a href="${unsubBase}?t=${unsubscribe_token}">unsubscribe</a> anytime.</p>
             `,
           })
         )
-      );
+      )
 
       results.forEach((r, idx) => {
         if (r.status === "fulfilled") {
-          totalSent += 1;
+          totalSent += 1
         } else {
-          failures.push({ item: chunk[idx], reason: r.reason });
+          failures.push({ item: chunk[idx], reason: r.reason })
         }
-      });
+      })
     }
 
     console.info(`Notified ${totalSent} subscribers, ${failures.length} failures`);

@@ -213,6 +213,7 @@ export const translations = {
     // Newsletter
     "newsletter.title": "Stay in the loop",
     "newsletter.button.text": "Subscribe",
+    "newsletter.locale.msg": "Select the language in which you’d like to receive new articles.",
     "newsletter.success.msg": "Welcome aboard!",
     "newsletter.error.msg": "Something went wrong. Please try again.",
     "newsletter.valid.email": "Please enter a valid email address",
@@ -442,6 +443,7 @@ export const translations = {
     // Newsletter
     "newsletter.title": "Mantente al tanto",
     "newsletter.button.text": "Suscribirse",
+    "newsletter.locale.msg": "Selecciona el idioma en el que te gustaría recibir los nuevos posts.",
     "newsletter.description": "Suscríbete a mi newsletter para recibir las últimas actualizaciones directamente en tu email!",
     "newsletter.success.msg": "¡Bienvenido al newsletter!",
     "newsletter.valid.email": "Por favor, ingresa un email válido",
@@ -670,6 +672,7 @@ export const translations = {
     // Newsletter
     "newsletter.title": "Rimani aggiornato",
     "newsletter.button.text": "Iscriviti",
+    "newsletter.locale.msg": "Seleziona la lingua in cui desideri ricevere i nuovi post.",
     "newsletter.success.msg": "Benvenuto alla newsletter!",
     "newsletter.error.msg": "Qualcosa è andato storto. Per favore riprova.",
     "newsletter.valid.email": "Per favore, inserisci un'email valida",
@@ -679,7 +682,7 @@ export const translations = {
     "newsletter.subscribing": "Iscrivendosi...",
     "newsletter.privacy": "Rispettiamo la tua privacy. Puoi disiscriverti in qualsiasi momento.",
 
-    //404 error
+    // 404 error
     "404.error.msg": "Pagina non trovata",
     "404.back.home": "Torna alla home",
   },

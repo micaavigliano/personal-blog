@@ -11,10 +11,10 @@ export const CF_TO_ROUTE: Record<string, RouteLocale> = {
   "it": "it",
 }
 
-export function toCfLocale(routeLocale: string): string {
+export const toCfLocale = (routeLocale: string): string => {
   return ROUTE_TO_CF[routeLocale as RouteLocale] ?? routeLocale
 }
 
-export function toRouteLocale(cfLocale: string): RouteLocale | string {
-  return CF_TO_ROUTE[cfLocale] ?? cfLocale.split("-")[0] // fallback
+export const toRouteLocale = (cfLocale: string): RouteLocale | string => {
+  return CF_TO_ROUTE[cfLocale] ?? cfLocale.split("-")[0]
 }

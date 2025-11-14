@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 
 type Locale = "en" | "es" | "it";
 
-export function PostSEOHelmet({
+export const PostSEOHelmet =({
   baseUrl,
   siteName,
   locale,
@@ -25,7 +25,7 @@ export function PostSEOHelmet({
     updatedAtISO?: string;
     imageUrl?: string;
   };
-}) {
+}) => {
   const path = `/${locale}/blog/${post.slug}`;
   const canonical = `${baseUrl}${path}`;
   const title = post.seoTitle || `${post.title} • ${siteName}`;

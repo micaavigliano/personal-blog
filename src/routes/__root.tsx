@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { defaultLocale, getLocaleFromPathname, type Locale } from '@/lib/i18n'
 import { I18nProvider } from '@/lib/I18nProvider'
-import LocaleHead from '@/components/LocaleHead'
+import { LocaleHead } from '@/components/LocaleHead'
 import Error from '@/components/Error'
 
 export const Route = createRootRoute({

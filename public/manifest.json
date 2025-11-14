@@ -14,7 +14,7 @@
     },
     {
       "src": "/og-image.png",
-      "type": "image/jpg",
+      "type": "image/png",
       "sizes": "512x512"
     }
   ]

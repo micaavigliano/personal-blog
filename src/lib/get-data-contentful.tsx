@@ -26,9 +26,9 @@ export type PostSummary = {
   keywords?: string[]
 }
 
-export async function getAllPosts(
+export const getAllPosts = async (
   locale: "en" | "es" | "it"
-): Promise<PostSummary[]> {
+): Promise<PostSummary[]> => {
   const res = await client.getEntries<BlogPostSkeleton>({
     content_type: "blogPost",
     locale: toCfLocale(locale),
@@ -50,7 +50,7 @@ export async function getAllPosts(
   }))
 }
 
-export async function getPostBySlug(slug: string, routeLocale: string) {
+export const getPostBySlug = async (slug: string, routeLocale: string) => {
   const res = await client.getEntries<BlogPostSkeleton>({
     content_type: "blogPost",
     ["fields.slug"]: slug,
@@ -75,7 +75,7 @@ export async function getPostBySlug(slug: string, routeLocale: string) {
   } satisfies PostView & { id: string }
 }
 
-export async function getEntryIdBySlug(slug: string, routeLocale: string) {
+export const getEntryIdBySlug = async (slug: string, routeLocale: string) => {
   const res = await client.getEntries({
     content_type: "blogPost",
     ...({ ["fields.slug"]: slug } as Record<"fields.slug", string>),
@@ -85,10 +85,10 @@ export async function getEntryIdBySlug(slug: string, routeLocale: string) {
   return res.items[0]?.sys.id as string | undefined
 }
 
-export async function getTranslationsMapForPost(
+export const getTranslationsMapForPost = async (
   slug: string | null | undefined,
   routeLocale: string
-): Promise<Record<string, string>> {
+): Promise<Record<string, string>> => {
   if (!slug) return {}
 
   const entryId = await getEntryIdBySlug(slug, routeLocale)

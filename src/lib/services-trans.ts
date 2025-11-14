@@ -165,7 +165,7 @@ export const servicesData: Record<"en" | "es" | "it", Service[]> = {
   ],
 }
 
-export function getServicesData(locale: string): Service[] {
+export const getServicesData = (locale: string): Service[] => {
   const validLocale = ["en", "es", "it"].includes(locale) ? (locale as "en" | "es" | "it") : "en"
   return servicesData[validLocale]
 }

@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { useI18n } from "@/lib/I18nProvider";
 import { locales } from "@/lib/i18n";
 
-export default function LocaleHead() {
+export const LocaleHead = () => {
   const { locale } = useI18n();
   const site = "https://micaavigliano.com";
   const title = {
